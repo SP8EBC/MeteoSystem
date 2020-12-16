@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pogoda.cc</string>
+    <string name="select_station">SELECT</string>
+    <string name="all_stations">All Stations</string>
+    <string name="fav_stations">Favourities</string>
+    <string name="station_summary">Current Values</string>
+    <string name="station_plots">Plots</string>
+    <string name="wind_speed">Wind Speed</string>
+    <string name="wind_gusts">Wind Gusts</string>
+    <string name="wind_direction">Wind Direction</string>
+    <string name="temperature">Temperature</string>
+    <string name="qnh">QNH Pressure</string>
+    <string name="humidity">Humidity</string>
+    <string name="auto_refresh">Values in this window are refreshed automatically each 90 seconds</string>
+    <string name="dash">-</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>
+    <string name="add">Add</string>
+    <string name="delete">Delete</string>
+    <string name="delete_fav">Delete from favourities stations list</string>
+    <string name="station_not_comm">Warning! This station doesn\'t send any data for longer than 4 hours</string>
+    <string name="station_disabled">Warning! This station has been temporarily disabled or it is not functional for long time</string>
+    <string name="archive_data">Archival Data</string>
+    <string name="export_from">Export From</string>
+    <string name="time_scale">Time Scale</string>
+    <string name="mean_value">Mean Value</string>
+    <string name="max_value">Maximum Value</string>
+    <string name="show_previous">Show previous</string>
+    <string name="hours">Hours</string>
+    <string name="days">Days</string>
+    <string name="hours_8">8 Hours</string>
+    <string name="hours_12">12 Hours</string>
+    <string name="hours_15">15 Hours</string>
+    <string name="hours_1">One Hour</string>
+    <string name="ok">OK</string>
+    <string name="select">Select</string>
+    <string name="apply">Apply</string>
+    <string name="cancel">Cancel</string>
+    <string name="wind_rose">Wind Rose</string>
+</resources>

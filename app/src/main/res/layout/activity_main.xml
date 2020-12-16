@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".activity.MainActivity">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutFav"
+                android:layout_width="177dp"
+                android:layout_height="182dp"
+                android:layout_marginStart="200dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="587dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageButton
+                    android:id="@+id/imageButtonCurrent"
+                    android:layout_width="176dp"
+                    android:layout_height="180dp"
+                    android:backgroundTint="#56039BE5"
+                    android:paddingLeft="100px"
+                    android:paddingTop="100px"
+                    android:paddingRight="100px"
+                    android:paddingBottom="100px"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_favorite_24" />
+
+                <TextView
+                    android:id="@+id/textViewCurrent"
+                    android:layout_width="62dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="54dp"
+                    android:layout_marginTop="143dp"
+                    android:layout_marginEnd="67dp"
+                    android:layout_marginBottom="18dp"
+                    android:text="@string/fav_stations"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageButtonCurrent"
+                    app:layout_constraintEnd_toEndOf="@+id/imageButtonCurrent"
+                    app:layout_constraintStart_toStartOf="@+id/imageButtonCurrent"
+                    app:layout_constraintTop_toTopOf="@+id/imageButtonCurrent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutAllStations"
+                android:layout_width="177dp"
+                android:layout_height="183dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="200dp"
+                android:layout_marginBottom="586dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageButton
+                    android:id="@+id/imageButtonAllStations"
+                    android:layout_width="175dp"
+                    android:layout_height="183dp"
+                    android:backgroundTint="#56039BE5"
+                    android:backgroundTintMode="src_in"
+                    android:paddingLeft="100px"
+                    android:paddingTop="100px"
+                    android:paddingRight="100px"
+                    android:paddingBottom="100px"
+                    android:scaleType="fitXY"
+                    android:scaleX="1"
+                    android:scaleY="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_menu_24" />
+
+                <TextView
+                    android:id="@+id/textViewAllStations"
+                    android:layout_width="113dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="21dp"
+                    android:layout_marginTop="116dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="18dp"
+                    android:text="@string/all_stations"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageButtonAllStations"
+                    app:layout_constraintEnd_toEndOf="@+id/imageButtonAllStations"
+                    app:layout_constraintHorizontal_bias="0.526"
+                    app:layout_constraintStart_toStartOf="@+id/imageButtonAllStations"
+                    app:layout_constraintTop_toTopOf="@+id/imageButtonAllStations"
+                    app:layout_constraintVertical_bias="1.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
