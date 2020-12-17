@@ -10,23 +10,19 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
-import com.github.mikephil.charting.utils.ViewPortHandler;
 
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.handler.WindPlotClickEvent;
@@ -46,6 +42,13 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
 
     private WindPlotClickEvent plotClickEvent;
 
+    private ArrayList<Entry> valuesWindSpeed;
+    private ArrayList<Entry> valuesWindGusts;
+
+    public ArrayList<Entry> getValuesWindSpeed() {
+        return valuesWindSpeed;
+    }
+
     private class ValueFormatter extends com.github.mikephil.charting.formatter.ValueFormatter {
 
         private final SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM HH:mm", Locale.ENGLISH);
@@ -64,13 +67,14 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
 
     public StationDetailsPlotsWind() {
         lastStationDataDao = new LastStationDataDao();
-        plotClickEvent = new WindPlotClickEvent();
+        plotClickEvent = new WindPlotClickEvent(this);
 
-        //station = stationSystemName;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        int lastDataIndex = 0;
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station_details_plots_wind);
 
@@ -124,34 +128,133 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
         YAxis rightAxis = chart.getAxisRight();
         rightAxis.setEnabled(false);
 
-        this.setData();
+        // download data from web service
+        this.downloadDataFromWebservice();
+
+        lastDataIndex = valuesWindSpeed.size() - 1;
+
+        // display only the last data (20% of newest data)
+        this.setData((long) (0.8 * (lastDataIndex)), lastDataIndex, false);
+
+        // set bar to maximum value
+        seekBarX.setProgress(100);
     }
 
-    private void setData() {
+    private void downloadDataFromWebservice() {
         ListOfStationData data = lastStationDataDao.getLastStationData(station.getSystemName());
 
-        ArrayList<Entry> values_wind_speed = new ArrayList<>();
+        valuesWindSpeed = new ArrayList<>();
+        valuesWindGusts = new ArrayList<>();
 
-        if (data instanceof ListOfStationData) {
+        if (data instanceof  ListOfStationData) {
             for (StationData d : data.listOfStationData) {
-                values_wind_speed.add(new Entry(d.epoch * 1000, d.windspeed));
+                valuesWindSpeed.add(new Entry(d.epoch * 1000, d.windspeed));
+                valuesWindGusts.add(new Entry(d.epoch * 1000, d.windgusts));
+            }
+        }
+
+    }
+
+    /**
+     *
+     * @param from
+     * @param to
+     * @param index_or_timestamp if set to false 'to' and 'from' are treated as an index, if they are set
+     *                           to true this method will use it as epoch timestamps (in seconds)
+     */
+    public void setData(long from, long to, boolean index_or_timestamp) {
+
+        // if only some part of input set needs to be displayed use this intermediate buffer
+        ArrayList<Entry> narrowed_set, narrowed_set_gusts;
+
+        // data set to be
+        LineDataSet set_windspeed, set_windgusts;
+
+
+        if (valuesWindSpeed.size() > 0) {
+
+            if (from != 0 || to != 0) {
+
+                // if 'from' and 'to' are the index values
+                if (!index_or_timestamp) {
+                    // make a sublist
+                    narrowed_set = new ArrayList<>(valuesWindSpeed.subList((int)from, (int)to));
+                    narrowed_set_gusts = new ArrayList<>(valuesWindGusts.subList((int)from, (int)to));
+
+                }
+                else {
+                    // get first and last entry from the set
+                    Entry first = valuesWindSpeed.get(0);
+                    Entry last = valuesWindSpeed.get(valuesWindSpeed.size() - 1 );
+
+                    // check if 'from' and 'to' timestamp epoch covers any data from the input set
+                    if (    (long)first.getX() > (to * 1000) ||
+                            (long)last.getX() < (from * 1000)) {
+
+                        // if there is no data to display exit from an function
+                        return;
+                    }
+                    else {
+                        narrowed_set = new ArrayList<>();
+                        narrowed_set_gusts = new ArrayList<>();
+
+                        // if not copy matching elements to narrowed set
+                        valuesWindSpeed.forEach((Entry e) -> {
+                            if (e.getX() > (from * 1000) &&
+                                e.getX() < (to * 1000)) {
+                                    narrowed_set.add(e);
+                            }
+                        });
+
+                        valuesWindGusts.forEach((Entry e) -> {
+                            if (e.getX() > (from * 1000) &&
+                                    e.getX() < (to * 1000)) {
+                                narrowed_set_gusts.add(e);
+                            }
+                        });
+
+
+                    }
+
+                }
+                // and generate the set from it
+                set_windspeed = new LineDataSet(narrowed_set, "Wind Speed");
+                set_windgusts = new LineDataSet(narrowed_set_gusts, "Wind Gusts");
+            }
+            else {
+                // use 'values_wind_speed' directly as a whole
+                set_windspeed = new LineDataSet(valuesWindSpeed, "Wind Speed");
+                set_windgusts = new LineDataSet(valuesWindGusts, "Wind Gusts");
             }
 
             // create a dataset and give it a type
-            LineDataSet set1 = new LineDataSet(values_wind_speed, "Wind Speed");
-            set1.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set1.setColor(ColorTemplate.getHoloBlue());
-            set1.setValueTextColor(ColorTemplate.getHoloBlue());
-            set1.setLineWidth(3.5f);
-            set1.setDrawCircles(true);
-            set1.setDrawValues(true);
-            set1.setFillAlpha(65);
-            set1.setFillColor(ColorTemplate.getHoloBlue());
-            set1.setHighLightColor(Color.rgb(244, 117, 117));
-            set1.setDrawCircleHole(false);
+            set_windspeed.setAxisDependency(YAxis.AxisDependency.LEFT);
+            set_windspeed.setColor(ColorTemplate.getHoloBlue());
+            set_windspeed.setValueTextColor(ColorTemplate.getHoloBlue());
+            set_windspeed.setLineWidth(3.5f);
+            set_windspeed.setDrawCircles(true);
+            set_windspeed.setDrawValues(true);
+            set_windspeed.setFillAlpha(65);
+            set_windspeed.setFillColor(ColorTemplate.getHoloBlue());
+            set_windspeed.setHighLightColor(Color.rgb(244, 117, 117));
+            set_windspeed.setDrawCircleHole(false);
+
+            set_windgusts.setAxisDependency(YAxis.AxisDependency.LEFT);
+            set_windgusts.setColor(ColorTemplate.rgb("#C70039"));
+            set_windgusts.setCircleColor(ColorTemplate.rgb("#C70039"));
+            set_windgusts.setValueTextColor(ColorTemplate.getHoloBlue());
+            set_windgusts.setLineWidth(3.5f);
+            set_windgusts.setDrawCircles(true);
+            set_windgusts.setDrawValues(true);
+            set_windgusts.setFillAlpha(65);
+            set_windgusts.setFillColor(ColorTemplate.rgb("#C70039"));
+            set_windgusts.setHighLightColor(ColorTemplate.rgb("#C70039"));
+            set_windgusts.setDrawCircleHole(false);
 
             // create a data object with the data sets
-            LineData line_data = new LineData(set1);
+            LineData line_data = new LineData();
+            line_data.addDataSet(set_windspeed);
+            line_data.addDataSet(set_windgusts);
             line_data.setValueTextColor(Color.WHITE);
             line_data.setValueTextSize(9f);
 
@@ -169,10 +272,32 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
         return true;
     }
 
+    /**
+     * Called when user changes the value of seek bar
+     * @param seekBar
+     * @param progress
+     * @param fromUser
+     */
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
+        // first and last index to display on plot
+        int first_index = 0, last_index = 0;
+
+        // display only 20% of the set at once
+        int window_size = (int) (valuesWindSpeed.size() * 0.2f);
+
         tvX.setText(String.valueOf(seekBarX.getProgress()));
+
+        last_index =  (int) ((seekBarX.getProgress() / 100.0f) * valuesWindSpeed.size());
+        first_index = last_index - window_size;
+
+        if (first_index < 0) {
+            first_index = 0;
+            last_index = window_size;
+        }
+
+        this.setData(first_index, last_index, false);
 
         //setData(seekBarX.getProgress(), 50);
 

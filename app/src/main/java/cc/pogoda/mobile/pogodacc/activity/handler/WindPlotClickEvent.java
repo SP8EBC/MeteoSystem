@@ -8,7 +8,16 @@ import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 
+import cc.pogoda.mobile.pogodacc.activity.StationDetailsPlotsWind;
+
 public class WindPlotClickEvent implements OnChartValueSelectedListener {
+
+    private StationDetailsPlotsWind parent;
+
+    public WindPlotClickEvent(StationDetailsPlotsWind parent) {
+
+        this.parent = parent;
+    }
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
