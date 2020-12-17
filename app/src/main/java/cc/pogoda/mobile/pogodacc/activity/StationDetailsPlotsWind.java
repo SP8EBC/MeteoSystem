@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -17,11 +18,16 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import java.lang.reflect.Array;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZoneId;
+import org.threeten.bp.ZoneOffset;
+import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.format.FormatStyle;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
 import cc.pogoda.mobile.pogodacc.R;
@@ -33,9 +39,11 @@ import cc.pogoda.mobile.pogodacc.type.web.StationData;
 
 public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
 
-    private LineChart chart;
-    private SeekBar seekBarX;
-    private TextView tvX;
+    private LineChart chart = null;
+    private SeekBar seekBarX = null;
+    private TextView textViewTimestamp = null;
+    private TextView textViewSpeed = null;
+    private TextView textViewGusts = null;
 
     private LastStationDataDao lastStationDataDao;
     private WeatherStation station;
@@ -51,16 +59,21 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
 
     private class ValueFormatter extends com.github.mikephil.charting.formatter.ValueFormatter {
 
-        private final SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM HH:mm", Locale.ENGLISH);
-
-
         @Override
         public String getFormattedValue(float value) {
-            Date date;
 
             long millis = (long) value;
-            date = new Date(millis);
-            return mFormat.format(date);
+
+            // the web service and the plot always stores the entries as UTC. So first convert epoch timestamp to the LocalDateTime
+            LocalDateTime utcDateTime = LocalDateTime.ofEpochSecond(millis / 1000, 0, ZoneOffset.UTC);
+
+            // and then shift to the user timezone for convinient display
+            ZonedDateTime localDateTime = utcDateTime.atZone(ZoneOffset.UTC).withZoneSameInstant(ZoneId.systemDefault());
+
+            // format only the time to keep X axis clean
+            String dt = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).format(localDateTime);
+
+            return dt;
         }
 
     }
@@ -80,13 +93,18 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
 
         station = (WeatherStation) getIntent().getSerializableExtra("station");
 
+        // download data from web service
+        this.downloadDataFromWebservice();
+
         Typeface tfLight = Typeface.MONOSPACE;
 
         setTitle("LineChartTime");
 
-        tvX = findViewById(R.id.tvXMax);
-        seekBarX = findViewById(R.id.seekBar1);
-        chart = findViewById(R.id.chart1);
+        textViewTimestamp = findViewById(R.id.textViewPlotsWindTimestamp);
+        textViewSpeed = findViewById(R.id.textViewPlotsWindMean);
+        textViewGusts = findViewById(R.id.textViewPlotsWindGusts);
+        seekBarX = findViewById(R.id.seekBarPlotsWind);
+        chart = findViewById(R.id.chartPlotsWind);
 
         // enable scaling and dragging
         chart.setDragEnabled(true);
@@ -121,15 +139,12 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
         leftAxis.setDrawGridLines(true);
         leftAxis.setGranularityEnabled(true);
         leftAxis.setAxisMinimum(0.0f);
-        leftAxis.setAxisMaximum(24.0f);
+        leftAxis.setAxisMaximum(this.findMaxValueForPlotScale());
         leftAxis.setYOffset(0.0f);
         leftAxis.setTextColor(Color.rgb(255, 192, 56));
 
         YAxis rightAxis = chart.getAxisRight();
         rightAxis.setEnabled(false);
-
-        // download data from web service
-        this.downloadDataFromWebservice();
 
         lastDataIndex = valuesWindSpeed.size() - 1;
 
@@ -140,6 +155,29 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
         seekBarX.setProgress(100);
     }
 
+    /**
+     * This method looks through 'valuesWindGusts' for the maximum value
+     * @return
+     */
+    protected float findMaxValueForPlotScale() {
+        float out = 0.0f;
+
+        for (Entry e : valuesWindGusts) {
+            if (e.getY() > out) {
+                out = e.getY();
+            }
+        }
+
+        out = (float) Math.ceil(out * 1.3f);
+
+        return out;
+    }
+
+    /**
+     * Downloads the data from the web service and stores it as entries ready to be displayed on the
+     * plot. Web Service gives the data with the epoch timestamp in second resolution, but the plot
+     * shows the data in millisecond resolution
+     */
     private void downloadDataFromWebservice() {
         ListOfStationData data = lastStationDataDao.getLastStationData(station.getSystemName());
 
@@ -153,6 +191,42 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
             }
         }
 
+    }
+
+    /**
+     * Updates labels placed at the top of the chart with values at the point selected by an user.
+     * @param date  Date & time string in local timezone
+     */
+    public void updateLabels(String date, Entry entry) {
+        float mean = 0.0f;
+        float gusts = 0.0f;
+
+        // get a timestamp from the entry
+        long timestamp = (long) entry.getX();
+
+        // look for the windspeed coresponding to that timestamp
+        for (Entry e : valuesWindSpeed) {
+            // if this is what we are looking for
+            if (e.getX() == entry.getX()) {
+                mean = e.getY();
+            }
+        }
+
+        for (Entry e : valuesWindGusts) {
+
+            if (e.getX() == entry.getX()) {
+                gusts = e.getY();
+            }
+        }
+
+        if (this.textViewGusts != null && this.textViewSpeed != null && this.textViewTimestamp != null) {
+            this.textViewTimestamp.setText(date);
+            this.textViewSpeed.setText(getString(R.string.mean_value_short) + String.format(" %.1f", mean));
+            this.textViewGusts.setText(getString(R.string.max_value_short) + String.format(" %.1f", gusts));
+        }
+        else {
+            return;
+        }
     }
 
     /**
@@ -260,7 +334,7 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
 
             // set data
             chart.setData(line_data);
-            chart.setDoubleTapToZoomEnabled(true);
+            chart.setDoubleTapToZoomEnabled(false);
             chart.setOnChartValueSelectedListener(plotClickEvent);
         }
 
@@ -287,8 +361,6 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
         // display only 20% of the set at once
         int window_size = (int) (valuesWindSpeed.size() * 0.2f);
 
-        tvX.setText(String.valueOf(seekBarX.getProgress()));
-
         last_index =  (int) ((seekBarX.getProgress() / 100.0f) * valuesWindSpeed.size());
         first_index = last_index - window_size;
 
@@ -298,8 +370,6 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
         }
 
         this.setData(first_index, last_index, false);
-
-        //setData(seekBarX.getProgress(), 50);
 
         // redraw
         chart.invalidate();

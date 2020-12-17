@@ -18,7 +18,7 @@
     <string name="date">Date</string>
     <string name="add">Add</string>
     <string name="delete">Delete</string>
-    <string name="delete_fav">Delete from favourities stations list</string>
+    <string name="delete_fav">Delete from favourities</string>
     <string name="station_not_comm">Warning! This station doesn\'t send any data for longer than 4 hours</string>
     <string name="station_disabled">Warning! This station has been temporarily disabled or it is not functional for long time</string>
     <string name="archive_data">Archival Data</string>
@@ -38,4 +38,7 @@
     <string name="apply">Apply</string>
     <string name="cancel">Cancel</string>
     <string name="wind_rose">Wind Rose</string>
+    <string name="mean_value_short">Avg:</string>
+    <string name="max_value_short">Max:</string>
+    <string name="add_fav">Add to favourities</string>
 </resources>

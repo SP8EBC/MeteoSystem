@@ -3,6 +3,7 @@ package cc.pogoda.mobile.pogodacc.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -31,6 +32,12 @@ public class StationDetailsActivity extends AppCompatActivity {
 
     public StationDetailsActivity() {
         stationName = null;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_station_details, menu);
+        return true;
     }
 
     @Override

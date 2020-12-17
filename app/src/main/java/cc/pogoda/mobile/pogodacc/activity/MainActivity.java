@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageButton;
 
+import com.jakewharton.threetenabp.AndroidThreeTen;
+
 import java.util.Locale;
 
 import cc.pogoda.mobile.pogodacc.R;
@@ -19,12 +21,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Locale locale = new Locale("pl");
-        Locale.setDefault(locale);
-        Resources resources = this.getResources();
-        Configuration config = resources.getConfiguration();
-        config.setLocale(locale);
-        resources.updateConfiguration(config, resources.getDisplayMetrics());
+        AndroidThreeTen.init(this);
+
+//        Locale locale = new Locale("pl");
+//        Locale.setDefault(locale);
+//        Resources resources = this.getResources();
+//        Configuration config = resources.getConfiguration();
+//        config.setLocale(locale);
+//        resources.updateConfiguration(config, resources.getDisplayMetrics());
 
         setContentView(R.layout.activity_main);
 

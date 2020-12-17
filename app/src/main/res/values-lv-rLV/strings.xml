@@ -38,4 +38,7 @@
     <string name="apply">-</string>
     <string name="cancel">-</string>
     <string name="wind_rose">-</string>
+    <string name="mean_value_short">-</string>
+    <string name="max_value_short">-</string>
+    <string name="add_fav">-</string>
 </resources>

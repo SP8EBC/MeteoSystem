@@ -8,15 +8,15 @@
         android:layout_height="match_parent">
 
         <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chart1"
+            android:id="@+id/chartPlotsWind"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="top|left" />
 
         <TextView
-            android:id="@+id/tvXMax"
-            android:layout_width="245dp"
-            android:layout_height="48dp"
+            android:id="@+id/textViewPlotsWindTimestamp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             android:layout_gravity="top|left"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="15dp"
@@ -25,10 +25,40 @@
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/textViewPlotsWindMean"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="left"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="15dp"
+            android:gravity="right"
+            android:text="Avg:"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/textViewPlotsWindGusts"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_gravity="left"
+            android:layout_marginTop="40dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="15dp"
+            android:gravity="right"
+            android:text="Max:"
+            android:textAlignment="textEnd"
+            android:textAllCaps="false"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="30sp" />
 
         <SeekBar
-            android:id="@+id/seekBar1"
+            android:id="@+id/seekBarPlotsWind"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
