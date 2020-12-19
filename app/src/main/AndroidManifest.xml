@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pogodacc">
-        <activity android:name=".activity.StationDetailsPlotsWind"></activity>
+        <activity android:name=".activity.StationDetailsWindRoseActivity"></activity>
+        <activity android:name=".activity.StationDetailsPlotsWind" />
         <activity android:name=".activity.StationDetailsSummaryActivity" />
         <activity android:name=".activity.StationDetailsActivity" />
         <activity android:name=".activity.AllStationsActivity" />

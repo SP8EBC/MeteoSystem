@@ -40,4 +40,8 @@
     <string name="mean_value_short">Avg:</string>
     <string name="max_value_short">Max:</string>
     <string name="add_fav">Add to favourites</string>
+    <string name="north" translatable="false">N</string>
+    <string name="south" translatable="false">S</string>
+    <string name="east" translatable="false">E</string>
+    <string name="west" translatable="false">W</string>
 </resources>

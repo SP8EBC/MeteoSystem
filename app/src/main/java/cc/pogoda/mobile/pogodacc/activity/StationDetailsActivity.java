@@ -13,6 +13,7 @@ import java.io.Serializable;
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActPlotsButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActSummaryButtonClickEvent;
+import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActWindRoseButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
 
 public class StationDetailsActivity extends AppCompatActivity {
@@ -26,9 +27,11 @@ public class StationDetailsActivity extends AppCompatActivity {
 
     ImageButton summaryButton = null;
     ImageButton plotsButton = null;
+    ImageButton windRoseButton = null;
 
     StationDetailsActSummaryButtonClickEvent summaryClickEvent = null;
     StationDetailsActPlotsButtonClickEvent plotsClickEvent = null;
+    StationDetailsActWindRoseButtonClickEvent windRoseClickEvent = null;
 
     public StationDetailsActivity() {
         stationName = null;
@@ -62,12 +65,16 @@ public class StationDetailsActivity extends AppCompatActivity {
 
             summaryClickEvent = new StationDetailsActSummaryButtonClickEvent(station, this);
             plotsClickEvent = new StationDetailsActPlotsButtonClickEvent(station, this);
+            windRoseClickEvent = new StationDetailsActWindRoseButtonClickEvent(station, this);
 
             summaryButton = findViewById(R.id.imageButtonCurrent);
             summaryButton.setOnClickListener(summaryClickEvent);
 
             plotsButton = findViewById(R.id.imageButtonPlots);
             plotsButton.setOnClickListener(plotsClickEvent);
+
+            windRoseButton = findViewById(R.id.imageButtonWindRose);
+            windRoseButton.setOnClickListener(windRoseClickEvent);
 
             stationName.setText(station.getDisplayedName());
             stationLocation.setText(station.getDisplayedLocation());
