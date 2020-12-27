@@ -20,12 +20,16 @@
 
             <ImageView
                 android:id="@+id/imageViewWindRose"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:contextClickable="true"
+                android:cropToPadding="true"
+                android:scaleType="centerInside"
                 app:layout_constraintBottom_toBottomOf="@id/guidelineRoseSDown"
-                app:layout_constraintEnd_toEndOf="@id/guidelineWindRoseVertical"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@id/guidelineWindRoseVertical"
+                app:layout_constraintEnd_toEndOf="@id/guidelineWindRoseVertivalRight"
+                app:layout_constraintStart_toStartOf="@id/guidelineWindRoseVerticalLeft"
+                app:layout_constraintTop_toTopOf="@id/guidelineRoseNUp"
                 app:srcCompat="@drawable/ic_brosen_windrose" />
 
             <TextView
@@ -46,29 +50,51 @@
                 android:text="@string/north"
                 android:textAlignment="center"
                 android:textSize="36sp"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="68dp" />
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guidelineWindRoseVertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.50" />
+                app:layout_constraintBottom_toBottomOf="@id/guidelineRoseNDown"
+                app:layout_constraintTop_toTopOf="@id/guidelineRoseNUp"
+                tools:layout_editor_absoluteX="0dp" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineRoseSUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.79" />
+                app:layout_constraintGuide_percent="0.88" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guidelineRoseSDown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.87" />
+                app:layout_constraintGuide_percent="1.0" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineRoseNUp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.01" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineRoseNDown"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.10" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineWindRoseVerticalLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.37" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guidelineWindRoseVertivalRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.61" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
