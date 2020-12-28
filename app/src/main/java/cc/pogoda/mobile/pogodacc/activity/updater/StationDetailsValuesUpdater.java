@@ -3,12 +3,13 @@ package cc.pogoda.mobile.pogodacc.activity.updater;
 import android.os.Handler;
 
 import cc.pogoda.mobile.pogodacc.dao.SummaryDao;
+import cc.pogoda.mobile.pogodacc.type.StationActivityElements;
 import cc.pogoda.mobile.pogodacc.type.StationSummaryActElements;
 import cc.pogoda.mobile.pogodacc.type.web.Summary;
 
-public class StationDetailsSummaryValUpdater implements Runnable {
+public class StationDetailsValuesUpdater implements Runnable {
 
-    StationSummaryActElements elements = null;
+    StationActivityElements elements = null;
 
     Handler handler = null;
 
@@ -18,7 +19,7 @@ public class StationDetailsSummaryValUpdater implements Runnable {
 
     String station_name;
 
-    public  StationDetailsSummaryValUpdater(StationSummaryActElements elems, Handler h, String s) {
+    public StationDetailsValuesUpdater(StationActivityElements elems, Handler h, String s) {
         elements = elems;
         handler = h;
         station_name = s;

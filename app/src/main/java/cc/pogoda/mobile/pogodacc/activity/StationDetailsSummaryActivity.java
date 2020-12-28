@@ -4,12 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import cc.pogoda.mobile.pogodacc.R;
-import cc.pogoda.mobile.pogodacc.activity.updater.StationDetailsSummaryValUpdater;
+import cc.pogoda.mobile.pogodacc.activity.updater.StationDetailsValuesUpdater;
 import cc.pogoda.mobile.pogodacc.dao.SummaryDao;
 import cc.pogoda.mobile.pogodacc.type.StationSummaryActElements;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
@@ -21,7 +18,7 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
 
     WeatherStation station = null;
 
-    StationDetailsSummaryValUpdater updater = null;
+    StationDetailsValuesUpdater updater = null;
 
     Handler handler = null;
 
@@ -52,7 +49,7 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
         elems.updateFromSummary(summary);
 
         handler = new Handler();
-        updater = new StationDetailsSummaryValUpdater(elems, handler, station.getSystemName());
+        updater = new StationDetailsValuesUpdater(elems, handler, station.getSystemName());
 
         if (handler != null && updater != null) {
             handler.post(updater);

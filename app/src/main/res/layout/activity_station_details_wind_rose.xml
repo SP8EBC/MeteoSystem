@@ -32,6 +32,74 @@
                 app:layout_constraintTop_toTopOf="@id/guidelineRoseNUp"
                 app:srcCompat="@drawable/ic_brosen_windrose" />
 
+            <ImageView
+                android:id="@+id/imageViewWindRoseArrow"
+                android:layout_width="205dp"
+                android:layout_height="206dp"
+                android:alpha="0.8"
+                android:rotation="-45"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineRoseSDown"
+                app:layout_constraintEnd_toEndOf="@id/guidelineWindRoseVertivalRight"
+                app:layout_constraintStart_toStartOf="@id/guidelineWindRoseVerticalLeft"
+                app:layout_constraintTop_toTopOf="@id/guidelineRoseNUp"
+                app:srcCompat="@drawable/ic_navigation" />
+
+            <TextView
+                android:id="@+id/textViewWindRoseWindSpeed"
+                android:layout_width="152dp"
+                android:layout_height="69dp"
+                android:text="Średnia"
+                android:textAlignment="center"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineRoseSDown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/guidelineRoseNUp"
+                app:layout_constraintVertical_bias="0.096" />
+
+            <TextView
+                android:id="@+id/textViewWindRoseWindDirection"
+                android:layout_width="152dp"
+                android:layout_height="69dp"
+                android:text="Kierunek"
+                android:textAlignment="center"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineRoseSDown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/guidelineRoseNUp"
+                app:layout_constraintVertical_bias="0.896" />
+
+            <TextView
+                android:id="@+id/textViewWindRoseTemperatura"
+                android:layout_width="152dp"
+                android:layout_height="69dp"
+                android:text="Temp"
+                android:textAlignment="center"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineRoseSDown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/guidelineRoseNUp"
+                app:layout_constraintVertical_bias="0.896" />
+
+            <TextView
+                android:id="@+id/textViewWindRoseWindGusts"
+                android:layout_width="152dp"
+                android:layout_height="70dp"
+                android:text="Poryw"
+                android:textAlignment="center"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toBottomOf="@id/guidelineRoseSDown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/guidelineRoseNUp"
+                app:layout_constraintVertical_bias="0.095" />
+
             <TextView
                 android:id="@+id/textViewSouth"
                 android:layout_width="match_parent"

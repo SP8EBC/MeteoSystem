@@ -24,7 +24,7 @@
     <string name="archive_data">Dane Archiwalne</string>
     <string name="export_from">Eksportuj od</string>
     <string name="time_scale">Skala czasu</string>
-    <string name="mean_value">Wartość średnia</string>
+    <string name="mean_value">Średnia</string>
     <string name="max_value">Wartość masymalna</string>
     <string name="show_previous">Pokaż ostatnie</string>
     <string name="hours">Godziny</string>
@@ -38,7 +38,13 @@
     <string name="apply">Zastosuj</string>
     <string name="cancel">Anuluj</string>
     <string name="wind_rose">Róża Wiatrów</string>
-    <string name="mean_value_short">Śr:</string>
-    <string name="max_value_short">Max:</string>
+    <string name="mean_value_short">Śr</string>
+    <string name="max_value_short">Max</string>
     <string name="add_fav">Ddoaj do ulubionych</string>
+    <string name="wind_gust_short">Poryw</string>
+    <string name="last_hour">Ostatnia Godzina</string>
+    <string name="wind_direction_short">Kierunek</string>
+    <string name="temperature_short">Tempr</string>
+    <string name="degress">Stopni</string>
+    <string name="max_1h_gust">Maks poryw ost godzina</string>
 </resources>

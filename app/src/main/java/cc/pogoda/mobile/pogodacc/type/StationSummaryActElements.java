@@ -1,10 +1,11 @@
 package cc.pogoda.mobile.pogodacc.type;
 
+import android.app.Activity;
 import android.widget.TextView;
 
 import cc.pogoda.mobile.pogodacc.type.web.Summary;
 
-public class StationSummaryActElements {
+public class StationSummaryActElements implements StationActivityElements {
 
     public TextView title = null;
     public TextView wind_speed_val = null;
@@ -73,6 +74,11 @@ public class StationSummaryActElements {
 
         if (humidity_val != null)
             humidity_val.setText(String.format("%d %", s.humidity));
+    }
+
+    @Override
+    public void setActivity(Activity act) {
+
     }
 
 }
