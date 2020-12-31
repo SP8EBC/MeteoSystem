@@ -47,5 +47,6 @@
     <string name="temperature_short">-</string>
     <string name="degress">-</string>
     <string name="max_1h_gust">-</string>
+    <string name="min_1h_avg">-</string>
 
 </resources>

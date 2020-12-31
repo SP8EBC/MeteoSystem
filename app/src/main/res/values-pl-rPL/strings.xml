@@ -46,5 +46,6 @@
     <string name="wind_direction_short">Kierunek</string>
     <string name="temperature_short">Tempr</string>
     <string name="degress">Stopni</string>
-    <string name="max_1h_gust">Maks poryw ost godzina</string>
+    <string name="max_1h_gust">Maks poryw w ost godzinie</string>
+    <string name="min_1h_avg">Min prędkość w ost godzinie</string>
 </resources>

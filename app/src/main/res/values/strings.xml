@@ -23,7 +23,7 @@
     <string name="archive_data">Archival Data</string>
     <string name="export_from">Export From</string>
     <string name="time_scale">Time Scale</string>
-    <string name="mean_value">Mean</string>
+    <string name="mean_value">Average</string>
     <string name="max_value">Maximum Value</string>
     <string name="show_previous">Show previous</string>
     <string name="hours">Hours</string>
@@ -50,5 +50,6 @@
     <string name="temperature_short">Tempr</string>
     <string name="degress">Degrees</string>
     <string name="degrees_sign" translatable="false">°</string>
-    <string name="max_1h_gust">Maximum gust last 1h</string>
+    <string name="max_1h_gust">Maximum gust in last 1h</string>
+    <string name="min_1h_avg">Minimum average in last 1h</string>
 </resources>

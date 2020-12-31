@@ -35,15 +35,19 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
 
         station = (WeatherStation) getIntent().getSerializableExtra("station");
 
+        // find all elements in the xml layout file and set the references in a holding object
         elements = new StationWindRoseActElements();
         elements.windArrow = findViewById(R.id.imageViewWindRoseArrow);
         elements.windSpeed = findViewById(R.id.textViewWindRoseWindSpeed);
         elements.windGusts = findViewById(R.id.textViewWindRoseWindGusts);
         elements.windDirection = findViewById(R.id.textViewWindRoseWindDirection);
         elements.temperature = findViewById(R.id.textViewWindRoseTemperatura);
+        elements.maxGust = findViewById(R.id.textViewWindRoseMaxHourGust);
+        elements.minAverage = findViewById(R.id.textViewWindRoseMinHourSpeed);
+        elements.pressure = findViewById(R.id.textViewWindRosePressure);
         elements.setActivity(this);
 
-        // create the hanlder which will update the screen in background
+        // create the handler which will update the screen in background
         handler = new Handler();
 
         SummaryDao summary_dao = new SummaryDao();
@@ -58,6 +62,7 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
         updater = new StationDetailsValuesUpdater(elements, handler, station.getSystemName());
 
         if (handler != null && updater != null) {
+            // start the handler to update the wind rose activity in background
             handler.post(updater);
         }
 
@@ -66,6 +71,7 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
 
+        // remove and stop background callback
         if (handler != null && updater != null) {
             handler.removeCallbacks(updater);
         }

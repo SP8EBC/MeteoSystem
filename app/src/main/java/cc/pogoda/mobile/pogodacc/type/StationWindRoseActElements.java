@@ -5,6 +5,8 @@ import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.type.web.Summary;
 
@@ -21,6 +23,14 @@ public class StationWindRoseActElements implements StationActivityElements {
     public TextView temperature;
 
     public TextView pressure;
+
+    public TextView maxGust;
+
+    /**
+     * This field is named 'minAverage' but in UX it is described as minimal wind speed which is
+     * not exactly precise.
+     */
+    public TextView minAverage;
 
     Activity activity;
 
@@ -58,6 +68,19 @@ public class StationWindRoseActElements implements StationActivityElements {
 
         if (temperature != null) {
             temperature.setText(activity.getResources().getString(R.string.temperature_short) +  '\n' + String.format("%.1f", s.avg_temperature) + "°C");
+
+        }
+
+        if (pressure != null) {
+            pressure.setText(activity.getResources().getString(R.string.qnh) + ": " + String.format("%d hPa", s.qnh));
+        }
+
+        if (maxGust != null) {
+            maxGust.setText(activity.getResources().getString(R.string.max_1h_gust) + ": " + s.hour_gusts + "m/s");
+        }
+
+        if (minAverage != null) {
+            minAverage.setText(activity.getResources().getString(R.string.min_1h_avg) + ": " + s.hour_min_average_speed + "m/s");
 
         }
     }
