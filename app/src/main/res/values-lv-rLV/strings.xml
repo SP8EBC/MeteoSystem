@@ -48,4 +48,8 @@
     <string name="degress">-</string>
     <string name="max_1h_gust">-</string>
     <string name="min_1h_avg">-</string>
+    <string name="no_data">-</string>
+    <string name="warning">-</string>
+    <string name="station_doesnt_transmit">-</string>
+    <string name="for_longer_than_2_hours">-</string>
 </resources>

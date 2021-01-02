@@ -19,7 +19,7 @@
     <string name="add">Add</string>
     <string name="delete">Delete</string>
     <string name="delete_fav">Delete from favourities</string>
-    <string name="station_not_comm">Warning! This station doesn\'t send any data for longer than 4 hours</string>
+    <string name="station_not_comm">Warning! This station doesn\'t send any data for longer than 2 hours</string>
     <string name="station_disabled">Warning! This station has been temporarily disabled or it is not functional for long time</string>
     <string name="archive_data">Archival Data</string>
     <string name="export_from">Export From</string>
@@ -46,6 +46,10 @@
     <string name="wind_direction_short">Direction</string>
     <string name="temperature_short">Tempr</string>
     <string name="degress">Degrees</string>
-    <string name="max_1h_gust">Maximum gust in last 1h</string>
-    <string name="min_1h_avg">Minimum average in last 1h</string>
+    <string name="max_1h_gust">Max gust in last hour</string>
+    <string name="min_1h_avg">Min average in last hour</string>
+    <string name="no_data">No data</string>
+    <string name="warning">Warning!</string>
+    <string name="station_doesnt_transmit">Station doesn\'t transmit data</string>
+    <string name="for_longer_than_2_hours">for longer than 2 hours</string>
 </resources>

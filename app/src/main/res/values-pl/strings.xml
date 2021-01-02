@@ -19,7 +19,7 @@
     <string name="add">Dodaj</string>
     <string name="delete">Usuń</string>
     <string name="delete_fav">Usuń z ulubionych</string>
-    <string name="station_not_comm">Uwaga! Ta stacja nie wysyła żadnych danych dłużej niż od 4 godzin</string>
+    <string name="station_not_comm">Uwaga! Ta stacja nie wysyła żadnych danych dłużej niż od 2 godzin</string>
     <string name="station_disabled">Uwaga! Stacja została tymczasowo wyłączona bądź nie pracuje od dłuższego czasu</string>
     <string name="archive_data">Dane Archiwalne</string>
     <string name="export_from">Eksportuj od</string>
@@ -48,4 +48,8 @@
     <string name="degress">Stopni</string>
     <string name="max_1h_gust">Maks poryw w ost godzinie</string>
     <string name="min_1h_avg">Min prędkość w ost godzinie</string>
+    <string name="no_data">Brak Danych</string>
+    <string name="warning">Uwaga!</string>
+    <string name="station_doesnt_transmit">Stacja nie wysyła danych</string>
+    <string name="for_longer_than_2_hours">dłużej niż dwie godziny</string>
 </resources>

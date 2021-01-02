@@ -2,12 +2,17 @@ package cc.pogoda.mobile.pogodacc.type;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.threeten.bp.Duration;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.ZonedDateTime;
 import org.w3c.dom.Text;
 
 import cc.pogoda.mobile.pogodacc.R;
+import cc.pogoda.mobile.pogodacc.type.web.QualityFactor;
 import cc.pogoda.mobile.pogodacc.type.web.Summary;
 
 public class StationWindRoseActElements implements StationActivityElements {
@@ -46,42 +51,107 @@ public class StationWindRoseActElements implements StationActivityElements {
     @Override
     public void updateFromSummary(Summary s) {
 
-        if (activity == null ) {
+        // data to be displayed
+        Summary data;
+
+        // set to true if no_data string shall be displayed instead of parameters
+        boolean no_data = false;
+
+        LocalDateTime last_station_data;
+
+        // set to true if the data is old (older than 2 hours)
+        boolean old_data = false;
+
+        if (activity == null) {
             return;
         }
 
-        if (windArrow != null) {
-            windArrow.setRotation(s.direction - 225.0f);
+        // check if any data has been passed to this method
+        if (s == null) {
+            data = new Summary();
+
+            // set to 180 to rotate the arrow towards the top of a screen
+            data.direction = 180;
+
+            // set the flag to true to show '---' or 'no data' instead of zeros
+            no_data = true;
+        }
+        else {
+            data = s;
+
+            // convert the integer with unix epoch timestamp to LocalDateTime in current system Time Zone
+            last_station_data = LocalDateTime.ofEpochSecond(data.last_timestamp, 0, ZonedDateTime.now().getOffset());
+
+            // current date and time (in current time zone set in system configuration)
+            LocalDateTime current = LocalDateTime.now();
+
+            // calculate the duration between
+            Duration duration = Duration.between(last_station_data, current);
+
+            // if station is not communicating for longer than 2 hours
+            if (duration.getSeconds() > 7200) {
+                old_data = true;
+            }
         }
 
-        if (windSpeed != null) {
-            windSpeed.setText(activity.getResources().getString(R.string.mean_value) +  '\n' + s.average_speed + "m/s");
+        // check if wind data is avaliable in the input data set
+        if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
+            windArrow.setRotation(data.direction - 225.0f);
+        }
+        else {
+            // if now wind data is avaliable in the input set move the arrow
+            // to point towards the N
+            windArrow.setRotation(180.0f - 225.0f);
         }
 
-        if (windGusts != null) {
-            windGusts.setText(activity.getResources().getString(R.string.wind_gust_short) +  '\n' + s.gusts + "m/s");
+        if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
+            windSpeed.setText(activity.getResources().getString(R.string.mean_value) +  '\n' + data.average_speed + "m/s");
+        }
+        else {
+            windSpeed.setText(activity.getResources().getString(R.string.mean_value) +  '\n' + "---");
         }
 
-        if (windDirection != null) {
-            windDirection.setText(activity.getResources().getString(R.string.wind_direction_short) +  '\n' + s.direction + activity.getResources().getString(R.string.degrees_sign));
+        if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
+            windGusts.setText(activity.getResources().getString(R.string.wind_gust_short) +  '\n' + data.gusts + "m/s");
+        }
+        else {
+            windGusts.setText(activity.getResources().getString(R.string.wind_gust_short) +  '\n' + "---");
+
         }
 
-        if (temperature != null) {
-            temperature.setText(activity.getResources().getString(R.string.temperature_short) +  '\n' + String.format("%.1f", s.avg_temperature) + "°C");
-
+        if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
+            windDirection.setText(activity.getResources().getString(R.string.wind_direction_short) +  '\n' + data.direction + activity.getResources().getString(R.string.degrees_sign));
+        }
+        else {
+            windDirection.setText(activity.getResources().getString(R.string.wind_direction_short) +  '\n' + "---");
         }
 
-        if (pressure != null) {
-            pressure.setText(activity.getResources().getString(R.string.qnh) + ": " + String.format("%d hPa", s.qnh));
+        // check if temperature is avaliable in input data set
+        if (!no_data && !data.temperature_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
+            temperature.setText(activity.getResources().getString(R.string.temperature_short) +  '\n' + String.format("%.1f", data.avg_temperature) + "°C");
+        }
+        else {
+            temperature.setText(activity.getResources().getString(R.string.temperature_short) +  '\n' + "---");
         }
 
-        if (maxGust != null) {
-            maxGust.setText(activity.getResources().getString(R.string.max_1h_gust) + ": " + s.hour_gusts + "m/s");
+        if (!no_data && !old_data) {
+            pressure.setText(activity.getResources().getString(R.string.qnh) + ": " + String.format("%d hPa", data.qnh));
+            maxGust.setText(activity.getResources().getString(R.string.max_1h_gust) + ": " + data.hour_gusts + "m/s");
+            minAverage.setText(activity.getResources().getString(R.string.min_1h_avg) + ": " + data.hour_min_average_speed + "m/s");
         }
-
-        if (minAverage != null) {
-            minAverage.setText(activity.getResources().getString(R.string.min_1h_avg) + ": " + s.hour_min_average_speed + "m/s");
-
+        else if (!no_data && old_data) {
+            maxGust.setText(activity.getResources().getString(R.string.warning));
+            maxGust.setTextColor(Color.RED);
+            minAverage.setText(activity.getResources().getString(R.string.station_doesnt_transmit));
+            pressure.setText(activity.getResources().getString(R.string.for_longer_than_2_hours));
+        }
+        else {
+            maxGust.setText(activity.getResources().getString(R.string.no_data));
+            maxGust.setTextColor(Color.RED);
+            minAverage.setText("");
+            minAverage.setTextColor(Color.RED);
+            pressure.setText("");
+            pressure.setTextColor(Color.RED);
         }
     }
 

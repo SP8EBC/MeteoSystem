@@ -1,8 +1,20 @@
 package cc.pogoda.mobile.pogodacc.type;
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.widget.TextView;
 
+import androidx.core.graphics.ColorUtils;
+
+import org.threeten.bp.Duration;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.ZoneOffset;
+import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.temporal.ChronoUnit;
+
+import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.type.web.Summary;
 
 public class StationSummaryActElements implements StationActivityElements {
@@ -14,6 +26,7 @@ public class StationSummaryActElements implements StationActivityElements {
     public TextView temperature_val = null;
     public TextView qnh_val = null;
     public TextView humidity_val = null;
+    public TextView message = null;
 
     private String convertDegreesToDir(int directionInDegrees) {
         String out = null;
@@ -57,6 +70,43 @@ public class StationSummaryActElements implements StationActivityElements {
     }
 
     public void updateFromSummary(Summary s) {
+
+        if (s == null) {
+            // print a message in case there is no data available
+            wind_speed_val.setText(R.string.no_data);
+            wind_gusts_val.setText(R.string.no_data);
+            wind_dir_val.setText(R.string.no_data);
+            temperature_val.setText(R.string.no_data);
+            qnh_val.setText(R.string.no_data);
+            humidity_val.setText(R.string.no_data);
+
+            message.setText(R.string.no_data);
+
+            return;
+        }
+
+        // convert the integer with unix epoch timestamp to LocalDateTime in current system Time Zone
+        LocalDateTime last_station_data = LocalDateTime.ofEpochSecond(s.last_timestamp, 0, ZonedDateTime.now().getOffset());
+
+        // current date and time (in current time zone set in system configuration)
+        LocalDateTime current = LocalDateTime.now();
+
+        long minutes_difference = last_station_data.until(current, ChronoUnit.MINUTES);
+
+        // calculate the duration between
+        Duration duration = Duration.between(last_station_data, current);
+
+        // check how old the last data from stations is
+        if (duration.getSeconds() < 7200) {
+            // if the last data is no older than 2 hours
+            message.setText(R.string.auto_refresh);
+            message.setTextColor(Color.BLACK);
+        }
+        else {
+            message.setText(R.string.station_not_comm);
+            message.setTextColor(Color.argb(0xFF, 0xFF, 0x0, 0x0));
+        }
+
         if (wind_speed_val != null)
             wind_speed_val.setText(String.format("%.1f m/s", s.average_speed));
 
@@ -73,7 +123,7 @@ public class StationSummaryActElements implements StationActivityElements {
             qnh_val.setText(String.format("%d hPa", s.qnh));
 
         if (humidity_val != null)
-            humidity_val.setText(String.format("%d %", s.humidity));
+            humidity_val.setText(String.format("%d %%", s.humidity));
     }
 
     @Override

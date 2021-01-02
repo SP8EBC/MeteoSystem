@@ -43,6 +43,8 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
         elems.wind_speed_val = findViewById(R.id.textViewWindSpeedValue);
         elems.temperature_val = findViewById(R.id.textViewTemperatureValue);
         elems.qnh_val = findViewById(R.id.textViewQnhVaue);
+        elems.humidity_val = findViewById(R.id.textViewHumidityValue);
+        elems.message = findViewById(R.id.textViewSummaryMessage);
 
         summary = summary_dao.getStationSummary(station.getSystemName());
 

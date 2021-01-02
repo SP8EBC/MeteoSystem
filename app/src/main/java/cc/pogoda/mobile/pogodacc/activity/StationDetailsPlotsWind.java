@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -25,10 +24,7 @@ import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.FormatStyle;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.handler.WindPlotClickEvent;

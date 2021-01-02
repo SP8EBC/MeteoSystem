@@ -2,6 +2,7 @@ package cc.pogoda.mobile.pogodacc.dao;
 
 import java.io.IOException;
 
+import cc.pogoda.mobile.pogodacc.type.web.QualityFactor;
 import cc.pogoda.mobile.pogodacc.type.web.Summary;
 import cc.pogoda.mobile.pogodacc.web.RestClientConfig;
 import cc.pogoda.mobile.pogodacc.web.SummaryConsumer;
@@ -46,6 +47,12 @@ public class SummaryDao {
 
             if (response != null) {
                 out = response.body();
+
+                if (out != null) {
+                    out.temperature_qf_native = QualityFactor.valueOf(out.temperature_qf);
+                    out.wind_qf_native = QualityFactor.valueOf(out.wind_qf);
+                    out.humidity_qf_native = QualityFactor.valueOf(out.humidity_qf);
+                }
             }
         } catch (InterruptedException e) {
             e.printStackTrace();

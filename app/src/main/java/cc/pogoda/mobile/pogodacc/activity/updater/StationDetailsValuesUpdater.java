@@ -7,6 +7,8 @@ import cc.pogoda.mobile.pogodacc.type.StationActivityElements;
 import cc.pogoda.mobile.pogodacc.type.StationSummaryActElements;
 import cc.pogoda.mobile.pogodacc.type.web.Summary;
 
+
+
 /**
  * Class used to update the content of Wind Rose Activity
  */
