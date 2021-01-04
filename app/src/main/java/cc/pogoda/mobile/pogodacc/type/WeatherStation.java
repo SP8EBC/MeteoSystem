@@ -60,6 +60,30 @@ public class WeatherStation implements Serializable {
         this.systemName = systemName;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public int getStationNameTextColor() {
+        return stationNameTextColor;
+    }
+
+    public void setStationNameTextColor(int stationNameTextColor) {
+        this.stationNameTextColor = stationNameTextColor;
+    }
+
+    public int getImageAlign() {
+        return imageAlign;
+    }
+
+    public void setImageAlign(int imageAlign) {
+        this.imageAlign = imageAlign;
+    }
+
     String systemName;
 
     String displayedName;
@@ -67,6 +91,12 @@ public class WeatherStation implements Serializable {
     String displayedLocation;
 
     String sponsorUrl;
+
+    String imageUrl;
+
+    int imageAlign;
+
+    int stationNameTextColor;
 
     float lat;
 

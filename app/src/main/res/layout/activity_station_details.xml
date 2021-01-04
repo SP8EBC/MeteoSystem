@@ -34,18 +34,19 @@
                         android:id="@+id/imageViewStationPng"
                         android:layout_width="408dp"
                         android:layout_height="232dp"
+                        android:scaleType="centerCrop"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="1.0"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0"
+                        app:layout_constraintVertical_bias="1.0"
                         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
                     <TextView
                         android:id="@+id/textViewStationName"
-                        android:layout_width="261dp"
-                        android:layout_height="57dp"
+                        android:layout_width="340dp"
+                        android:layout_height="58dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="197dp"
                         android:layout_marginEnd="205dp"
@@ -54,10 +55,10 @@
                         android:textSize="36sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/imageViewStationPng"
-                        app:layout_constraintHorizontal_bias="0.216"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/imageViewStationPng"
                         app:layout_constraintTop_toTopOf="@+id/imageViewStationPng"
-                        app:layout_constraintVertical_bias="1.0" />
+                        app:layout_constraintVertical_bias="0.958" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -101,7 +102,7 @@
                     android:layout_height="611dp">
 
                     <ImageButton
-                        android:id="@+id/imageButtonPlots"
+                        android:id="@+id/imageButtonPlotsWind"
                         android:layout_width="176dp"
                         android:layout_height="180dp"
                         android:backgroundTint="#56039BE5"
@@ -120,18 +121,18 @@
 
                     <TextView
                         android:id="@+id/textViewPlots"
-                        android:layout_width="62dp"
+                        android:layout_width="128dp"
                         android:layout_height="24dp"
                         android:layout_marginStart="55dp"
                         android:layout_marginTop="141dp"
                         android:layout_marginEnd="59dp"
                         android:layout_marginBottom="15dp"
-                        android:text="@string/station_plots"
+                        android:text="@string/wind_speed_plots"
                         android:textAlignment="center"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageButtonPlots"
-                        app:layout_constraintEnd_toEndOf="@+id/imageButtonPlots"
-                        app:layout_constraintStart_toStartOf="@+id/imageButtonPlots"
-                        app:layout_constraintTop_toTopOf="@+id/imageButtonPlots" />
+                        app:layout_constraintBottom_toBottomOf="@+id/imageButtonPlotsWind"
+                        app:layout_constraintEnd_toEndOf="@+id/imageButtonPlotsWind"
+                        app:layout_constraintStart_toStartOf="@+id/imageButtonPlotsWind"
+                        app:layout_constraintTop_toTopOf="@+id/imageButtonPlotsWind" />
 
                     <ImageButton
                         android:id="@+id/imageButtonCurrent"

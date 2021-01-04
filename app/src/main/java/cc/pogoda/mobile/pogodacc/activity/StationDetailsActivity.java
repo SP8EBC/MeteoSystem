@@ -2,13 +2,16 @@ package cc.pogoda.mobile.pogodacc.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.Serializable;
+import java.io.InputStream;
 
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActPlotsButtonClickEvent;
@@ -29,9 +32,40 @@ public class StationDetailsActivity extends AppCompatActivity {
     ImageButton plotsButton = null;
     ImageButton windRoseButton = null;
 
+    ImageView topBackground = null;
+
     StationDetailsActSummaryButtonClickEvent summaryClickEvent = null;
     StationDetailsActPlotsButtonClickEvent plotsClickEvent = null;
     StationDetailsActWindRoseButtonClickEvent windRoseClickEvent = null;
+
+    /**
+     * This class downloads the background JPG image from the internet and
+     */
+    private class DownloadImage implements Runnable {
+
+        ImageView iv;
+        String image_url;
+
+        Bitmap bitmap;
+
+        public DownloadImage(ImageView background, String url) {
+            iv = background;
+            image_url = url;
+        }
+
+        @Override
+        public void run() {
+            try {
+                InputStream in = new java.net.URL(image_url).openStream();
+                bitmap = BitmapFactory.decodeStream(in);
+
+                iv.setImageBitmap(bitmap);
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public StationDetailsActivity() {
         stationName = null;
@@ -61,6 +95,21 @@ public class StationDetailsActivity extends AppCompatActivity {
         stationLatLon = findViewById(R.id.textViewLatLon);
         stationSponsorUrl = findViewById(R.id.textViewSponsorUrl);
 
+//        public static final int BLACK = -16777216;
+//        public static final int BLUE = -16776961;
+//        public static final int CYAN = -16711681;
+//        public static final int DKGRAY = -12303292;
+//        public static final int GRAY = -7829368;
+//        public static final int GREEN = -16711936;
+//        public static final int LTGRAY = -3355444;
+//        public static final int MAGENTA = -65281;
+//        public static final int RED = -65536;
+//        public static final int TRANSPARENT = 0;
+//        public static final int WHITE = -1;
+//        public static final int YELLOW = -256;
+
+        stationName.setTextColor(station.getStationNameTextColor());
+
         if (station != null && stationName != null) {
 
             summaryClickEvent = new StationDetailsActSummaryButtonClickEvent(station, this);
@@ -70,11 +119,39 @@ public class StationDetailsActivity extends AppCompatActivity {
             summaryButton = findViewById(R.id.imageButtonCurrent);
             summaryButton.setOnClickListener(summaryClickEvent);
 
-            plotsButton = findViewById(R.id.imageButtonPlots);
+            plotsButton = findViewById(R.id.imageButtonPlotsWind);
             plotsButton.setOnClickListener(plotsClickEvent);
 
             windRoseButton = findViewById(R.id.imageButtonWindRose);
             windRoseButton.setOnClickListener(windRoseClickEvent);
+
+            topBackground = findViewById(R.id.imageViewStationPng);
+            switch (station.getImageAlign()) {
+                case 0:
+                    topBackground.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+                    break;
+                case 1:
+                    topBackground.setScaleType(ImageView.ScaleType.FIT_START);
+                    break;
+                case 2:
+                    topBackground.setScaleType(ImageView.ScaleType.FIT_END);
+                    break;
+                case 3:
+                    topBackground.setScaleType(ImageView.ScaleType.CENTER);
+                    break;
+                case 4:
+                    topBackground.setScaleType(ImageView.ScaleType.MATRIX);
+                    break;
+                case 5:
+                    topBackground.setScaleType(ImageView.ScaleType.FIT_XY);
+                    break;
+                case 6:
+                    topBackground.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                    break;
+                default:
+                    topBackground.setScaleType(ImageView.ScaleType.CENTER_CROP);
+            }
+
 
             stationName.setText(station.getDisplayedName());
             stationLocation.setText(station.getDisplayedLocation());
@@ -83,6 +160,11 @@ public class StationDetailsActivity extends AppCompatActivity {
             station_lon = station.getLon();
 
             stationSponsorUrl.setText(station.getSponsorUrl());
+
+            DownloadImage downloadImage = new DownloadImage(topBackground, station.getImageUrl());
+            Thread t = new Thread(downloadImage);
+            t.start();
+            //runOnUiThread(downloadImage);
 
             if (station_lat > 0.0f && station_lon > 0.0f) {
                 // europe

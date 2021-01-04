@@ -56,4 +56,17 @@
     <string name="warning">Warning!</string>
     <string name="station_doesnt_transmit">Station doesn\'t transmit data</string>
     <string name="for_longer_than_2_hours">for longer than 2 hours</string>
+    <string name="export_data">Export Data</string>
+    <string name="export_ln">Lenght in hours</string>
+    <string name="select_station_export">Select station to export</string>
+    <string name="start_data">Start date and time</string>
+    <string name="max_100_hours">Maximum 100 hours</string>
+    <string name="output_fn">Output file</string>
+    <string name="start_export">EXPORT</string>
+    <string name="output_export_format">Output file format</string>
+    <string name="last_data_timestamp">Time of last measurement</string>
+    <string name="wind_speed_plots">Wind Speed Plots</string>
+    <string name="wind_direction_plots">Wind Direction Plot</string>
+    <string name="temperature_plot">Temperature Plot</string>
+    <string name="humidity_plot">Humidity Plot</string>
 </resources>

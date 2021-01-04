@@ -1,6 +1,5 @@
 package cc.pogoda.mobile.pogodacc.dao;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -61,6 +60,9 @@ public class AllStationsDao {
                         elem.setLat(def.lat);
                         elem.setLon(def.lon);
                         elem.setSponsorUrl(def.sponsorUrl);
+                        elem.setImageUrl(def.backgroundJpg);
+                        elem.setStationNameTextColor(def.stationNameTextColour);
+                        elem.setImageAlign(def.backgroundJpgAlign);
 
                         out.add(elem);
                     }

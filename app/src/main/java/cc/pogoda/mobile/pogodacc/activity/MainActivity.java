@@ -23,12 +23,12 @@ public class MainActivity extends AppCompatActivity {
 
         AndroidThreeTen.init(this);
 
-//        Locale locale = new Locale("pl");
-//        Locale.setDefault(locale);
-//        Resources resources = this.getResources();
-//        Configuration config = resources.getConfiguration();
-//        config.setLocale(locale);
-//        resources.updateConfiguration(config, resources.getDisplayMetrics());
+        Locale locale = new Locale("pl");
+        Locale.setDefault(locale);
+        Resources resources = this.getResources();
+        Configuration config = resources.getConfiguration();
+        config.setLocale(locale);
+        resources.updateConfiguration(config, resources.getDisplayMetrics());
 
         setContentView(R.layout.activity_main);
 

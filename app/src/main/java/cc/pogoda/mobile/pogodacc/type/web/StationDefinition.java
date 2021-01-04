@@ -6,6 +6,8 @@ public class StationDefinition {
 
     public String name;
 
+    public int stationNameTextColour;
+
     public boolean enabled;
 
     public String callsign;
@@ -18,9 +20,11 @@ public class StationDefinition {
 
     public String sponsorUrl;
 
-    public String backgroundjpg;
+    public String backgroundJpg;
 
-    public String moreinfo;
+    public int backgroundJpgAlign;
+
+    public String moreInfo;
 
     public float lat;
 
