@@ -49,7 +49,7 @@ public class StationWindRoseActElements implements StationActivityElements {
     }
 
     @Override
-    public void updateFromSummary(Summary s) {
+    public void updateFromSummary(Summary s, AvailableParameters enabledForStation) {
 
         // data to be displayed
         Summary data;
@@ -75,8 +75,7 @@ public class StationWindRoseActElements implements StationActivityElements {
 
             // set the flag to true to show '---' or 'no data' instead of zeros
             no_data = true;
-        }
-        else {
+        } else {
             data = s;
 
             // convert the integer with unix epoch timestamp to LocalDateTime in current system Time Zone
@@ -97,55 +96,48 @@ public class StationWindRoseActElements implements StationActivityElements {
         // check if wind data is avaliable in the input data set
         if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
             windArrow.setRotation(data.direction - 225.0f);
-        }
-        else {
+        } else {
             // if now wind data is avaliable in the input set move the arrow
             // to point towards the N
             windArrow.setRotation(180.0f - 225.0f);
         }
 
         if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
-            windSpeed.setText(activity.getResources().getString(R.string.mean_value) +  '\n' + data.average_speed + "m/s");
-        }
-        else {
-            windSpeed.setText(activity.getResources().getString(R.string.mean_value) +  '\n' + "---");
+            windSpeed.setText(activity.getResources().getString(R.string.mean_value) + '\n' + data.average_speed + "m/s");
+        } else {
+            windSpeed.setText(activity.getResources().getString(R.string.mean_value) + '\n' + "---");
         }
 
         if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
-            windGusts.setText(activity.getResources().getString(R.string.wind_gust_short) +  '\n' + data.gusts + "m/s");
-        }
-        else {
-            windGusts.setText(activity.getResources().getString(R.string.wind_gust_short) +  '\n' + "---");
+            windGusts.setText(activity.getResources().getString(R.string.wind_gust_short) + '\n' + data.gusts + "m/s");
+        } else {
+            windGusts.setText(activity.getResources().getString(R.string.wind_gust_short) + '\n' + "---");
 
         }
 
         if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
-            windDirection.setText(activity.getResources().getString(R.string.wind_direction_short) +  '\n' + data.direction + activity.getResources().getString(R.string.degrees_sign));
-        }
-        else {
-            windDirection.setText(activity.getResources().getString(R.string.wind_direction_short) +  '\n' + "---");
+            windDirection.setText(activity.getResources().getString(R.string.wind_direction_short) + '\n' + data.direction + activity.getResources().getString(R.string.degrees_sign));
+        } else {
+            windDirection.setText(activity.getResources().getString(R.string.wind_direction_short) + '\n' + "---");
         }
 
         // check if temperature is avaliable in input data set
         if (!no_data && !data.temperature_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
-            temperature.setText(activity.getResources().getString(R.string.temperature_short) +  '\n' + String.format("%.1f", data.avg_temperature) + "°C");
-        }
-        else {
-            temperature.setText(activity.getResources().getString(R.string.temperature_short) +  '\n' + "---");
+            temperature.setText(activity.getResources().getString(R.string.temperature_short) + '\n' + String.format("%.1f", data.avg_temperature) + "°C");
+        } else {
+            temperature.setText(activity.getResources().getString(R.string.temperature_short) + '\n' + "---");
         }
 
         if (!no_data && !old_data) {
             pressure.setText(activity.getResources().getString(R.string.qnh) + ": " + String.format("%d hPa", data.qnh));
             maxGust.setText(activity.getResources().getString(R.string.max_1h_gust) + ": " + data.hour_gusts + "m/s");
             minAverage.setText(activity.getResources().getString(R.string.min_1h_avg) + ": " + data.hour_min_average_speed + "m/s");
-        }
-        else if (!no_data && old_data) {
+        } else if (!no_data && old_data) {
             maxGust.setText(activity.getResources().getString(R.string.warning));
             maxGust.setTextColor(Color.RED);
             minAverage.setText(activity.getResources().getString(R.string.station_doesnt_transmit));
             pressure.setText(activity.getResources().getString(R.string.for_longer_than_2_hours));
-        }
-        else {
+        } else {
             maxGust.setText(activity.getResources().getString(R.string.no_data));
             maxGust.setTextColor(Color.RED);
             minAverage.setText("");

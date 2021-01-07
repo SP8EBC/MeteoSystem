@@ -3,6 +3,7 @@ package cc.pogoda.mobile.pogodacc.dao;
 import java.util.LinkedList;
 import java.util.List;
 
+import cc.pogoda.mobile.pogodacc.type.AvailableParameters;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
 import cc.pogoda.mobile.pogodacc.type.web.ListOfAllStations;
 import cc.pogoda.mobile.pogodacc.type.web.StationDefinition;
@@ -63,6 +64,9 @@ public class AllStationsDao {
                         elem.setImageUrl(def.backgroundJpg);
                         elem.setStationNameTextColor(def.stationNameTextColour);
                         elem.setImageAlign(def.backgroundJpgAlign);
+
+                        AvailableParameters availableParameters = AvailableParameters.fromStation(def);
+                        elem.setAvailableParameters(availableParameters);
 
                         out.add(elem);
                     }

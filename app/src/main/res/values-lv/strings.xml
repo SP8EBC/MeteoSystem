@@ -65,5 +65,6 @@
     <string name="wind_direction_plots">-</string>
     <string name="temperature_plot">-</string>
     <string name="humidity_plot">-</string>
+    <string name="station_doesnt_measure">-</string>
 
 </resources>

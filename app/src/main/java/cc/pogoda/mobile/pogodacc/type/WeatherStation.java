@@ -84,6 +84,14 @@ public class WeatherStation implements Serializable {
         this.imageAlign = imageAlign;
     }
 
+    public AvailableParameters getAvailableParameters() {
+        return availableParameters;
+    }
+
+    public void setAvailableParameters(AvailableParameters availableParameters) {
+        this.availableParameters = availableParameters;
+    }
+
     String systemName;
 
     String displayedName;
@@ -101,6 +109,8 @@ public class WeatherStation implements Serializable {
     float lat;
 
     float lon;
+
+    AvailableParameters availableParameters;
 
 
 }

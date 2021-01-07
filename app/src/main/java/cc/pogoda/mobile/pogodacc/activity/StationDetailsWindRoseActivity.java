@@ -56,7 +56,7 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
         summary = summary_dao.getStationSummary(station.getSystemName());
 
         // update parameters (like turn the wind direction arrow)
-        elements.updateFromSummary(summary);
+        elements.updateFromSummary(summary, station.getAvailableParameters());
 
         handler = new Handler();
         updater = new StationDetailsValuesUpdater(elements, handler, station.getSystemName());

@@ -15,6 +15,7 @@ import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.temporal.ChronoUnit;
 
 import cc.pogoda.mobile.pogodacc.R;
+import cc.pogoda.mobile.pogodacc.type.web.QualityFactor;
 import cc.pogoda.mobile.pogodacc.type.web.Summary;
 
 public class StationSummaryActElements implements StationActivityElements {
@@ -69,7 +70,7 @@ public class StationSummaryActElements implements StationActivityElements {
         return out;
     }
 
-    public void updateFromSummary(Summary s) {
+    public void updateFromSummary(Summary s, AvailableParameters enabledForStation) {
 
         if (s == null) {
             // print a message in case there is no data available
@@ -107,23 +108,47 @@ public class StationSummaryActElements implements StationActivityElements {
             message.setTextColor(Color.argb(0xFF, 0xFF, 0x0, 0x0));
         }
 
-        if (wind_speed_val != null)
+        if (!s.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE) && enabledForStation.windSpeed) {
             wind_speed_val.setText(String.format("%.1f m/s", s.average_speed));
+        }
+        else {
+            wind_speed_val.setText("---");
+        }
 
-        if (wind_gusts_val != null)
+        if (!s.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE) && enabledForStation.windGusts) {
             wind_gusts_val.setText(String.format("%.1f m/s", s.gusts));
+        }
+        else {
+            wind_gusts_val.setText("---");
+        }
 
-        if (wind_dir_val != null)
+        if (!s.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE) && enabledForStation.windDirection) {
             wind_dir_val.setText(this.convertDegreesToDir(s.direction));
+        }
+        else  {
+            wind_dir_val.setText("---");
+        }
 
-        if (temperature_val != null)
+        if (!s.temperature_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
             temperature_val.setText(String.format("%.1f °C", s.avg_temperature));
+        }
+        else {
+            temperature_val.setText("---");
+        }
 
-        if (qnh_val != null)
+        if (!s.qnh_qf_native.equals(QualityFactor.NOT_AVALIABLE) && enabledForStation.qnh) {
             qnh_val.setText(String.format("%d hPa", s.qnh));
+        }
+        else {
+            qnh_val.setText("---");
+        }
 
-        if (humidity_val != null)
+        if (!s.humidity_qf_native.equals(QualityFactor.NOT_AVALIABLE) && enabledForStation.humidity) {
             humidity_val.setText(String.format("%d %%", s.humidity));
+        }
+        else {
+            humidity_val.setText("---");
+        }
     }
 
     @Override

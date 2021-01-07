@@ -69,4 +69,5 @@
     <string name="wind_direction_plots">Wind Direction Plot</string>
     <string name="temperature_plot">Temperature Plot</string>
     <string name="humidity_plot">Humidity Plot</string>
+    <string name="station_doesnt_measure">The station doesn\'t measure this parameter</string>
 </resources>

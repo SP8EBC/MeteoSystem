@@ -48,7 +48,7 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
 
         summary = summary_dao.getStationSummary(station.getSystemName());
 
-        elems.updateFromSummary(summary);
+        elems.updateFromSummary(summary, station.getAvailableParameters());
 
         handler = new Handler();
         updater = new StationDetailsValuesUpdater(elems, handler, station.getSystemName());

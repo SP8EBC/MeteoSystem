@@ -10,7 +10,7 @@ import cc.pogoda.mobile.pogodacc.type.web.Summary;
  */
 public interface StationActivityElements {
 
-    public void updateFromSummary(Summary s);
+    public void updateFromSummary(Summary s, AvailableParameters enabledForStation);
 
     public void setActivity(Activity act);
 }
