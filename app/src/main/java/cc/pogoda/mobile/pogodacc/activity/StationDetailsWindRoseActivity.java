@@ -59,7 +59,7 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
         elements.updateFromSummary(summary, station.getAvailableParameters());
 
         handler = new Handler();
-        updater = new StationDetailsValuesUpdater(elements, handler, station.getSystemName());
+        updater = new StationDetailsValuesUpdater(elements, handler, station.getSystemName(), station);
 
         if (handler != null && updater != null) {
             // start the handler to update the wind rose activity in background

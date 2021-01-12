@@ -46,12 +46,16 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
         elems.humidity_val = findViewById(R.id.textViewHumidityValue);
         elems.message = findViewById(R.id.textViewSummaryMessage);
 
+        // get the summary data for this station
         summary = summary_dao.getStationSummary(station.getSystemName());
 
         elems.updateFromSummary(summary, station.getAvailableParameters());
 
+        // create a handler to update station data in background
         handler = new Handler();
-        updater = new StationDetailsValuesUpdater(elems, handler, station.getSystemName());
+
+        // create a copy of updater class for this tation
+        updater = new StationDetailsValuesUpdater(elems, handler, station.getSystemName(), station);
 
         if (handler != null && updater != null) {
             handler.post(updater);

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageButton;
@@ -14,7 +13,9 @@ import android.widget.TextView;
 import java.io.InputStream;
 
 import cc.pogoda.mobile.pogodacc.R;
-import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActPlotsButtonClickEvent;
+import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActTemperaturePlotButtonClickEvent;
+import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActWindDirectionPlotsButtonClickEvent;
+import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActWindSpeedPlotsButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActSummaryButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActWindRoseButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
@@ -29,13 +30,30 @@ public class StationDetailsActivity extends AppCompatActivity {
     TextView stationSponsorUrl = null;
 
     ImageButton summaryButton = null;
-    ImageButton plotsButton = null;
+    ImageButton windSpeedPlotsButton = null;
+    ImageButton windDirectionPlotsButton = null;
+    ImageButton temperatureButton = null;
     ImageButton windRoseButton = null;
 
     ImageView topBackground = null;
 
+    /**
+     * Click event on Station Summary Button
+     */
     StationDetailsActSummaryButtonClickEvent summaryClickEvent = null;
-    StationDetailsActPlotsButtonClickEvent plotsClickEvent = null;
+
+    /**
+     * Click event on Wind Speed Button
+     */
+    StationDetailsActWindSpeedPlotsButtonClickEvent windSpeedPlotsClickEvent = null;
+
+    StationDetailsActWindDirectionPlotsButtonClickEvent windDirectionPlotsClickEvent = null;
+
+    StationDetailsActTemperaturePlotButtonClickEvent temperaturePlotButtonClickEvent = null;
+
+    /**
+     *
+     */
     StationDetailsActWindRoseButtonClickEvent windRoseClickEvent = null;
 
     /**
@@ -113,17 +131,25 @@ public class StationDetailsActivity extends AppCompatActivity {
         if (station != null && stationName != null) {
 
             summaryClickEvent = new StationDetailsActSummaryButtonClickEvent(station, this);
-            plotsClickEvent = new StationDetailsActPlotsButtonClickEvent(station, this);
+            windSpeedPlotsClickEvent = new StationDetailsActWindSpeedPlotsButtonClickEvent(station, this);
+            windDirectionPlotsClickEvent = new StationDetailsActWindDirectionPlotsButtonClickEvent(station, this);
+            temperaturePlotButtonClickEvent = new StationDetailsActTemperaturePlotButtonClickEvent(station, this);
             windRoseClickEvent = new StationDetailsActWindRoseButtonClickEvent(station, this);
 
             summaryButton = findViewById(R.id.imageButtonCurrent);
             summaryButton.setOnClickListener(summaryClickEvent);
 
-            plotsButton = findViewById(R.id.imageButtonPlotsWind);
-            plotsButton.setOnClickListener(plotsClickEvent);
+            windSpeedPlotsButton = findViewById(R.id.imageButtonPlotsWindSpeed);
+            windSpeedPlotsButton.setOnClickListener(windSpeedPlotsClickEvent);
+
+            windDirectionPlotsButton = findViewById(R.id.imageButtonPlotsWindDirection);
+            windDirectionPlotsButton.setOnClickListener(windDirectionPlotsClickEvent);
 
             windRoseButton = findViewById(R.id.imageButtonWindRose);
             windRoseButton.setOnClickListener(windRoseClickEvent);
+
+            temperatureButton = findViewById(R.id.imageButtonPlotsTemperature);
+            temperatureButton.setOnClickListener(temperaturePlotButtonClickEvent);
 
             topBackground = findViewById(R.id.imageViewStationPng);
             switch (station.getImageAlign()) {

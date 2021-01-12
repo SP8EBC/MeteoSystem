@@ -1,8 +1,10 @@
 package cc.pogoda.mobile.pogodacc.type;
 
+import java.io.Serializable;
+
 import cc.pogoda.mobile.pogodacc.type.web.StationDefinition;
 
-public class AvailableParameters {
+public class AvailableParameters implements Serializable {
 
     public boolean windSpeed;
 

@@ -5,12 +5,14 @@ import android.os.Handler;
 import cc.pogoda.mobile.pogodacc.dao.SummaryDao;
 import cc.pogoda.mobile.pogodacc.type.StationActivityElements;
 import cc.pogoda.mobile.pogodacc.type.StationSummaryActElements;
+import cc.pogoda.mobile.pogodacc.type.WeatherStation;
 import cc.pogoda.mobile.pogodacc.type.web.Summary;
 
 
 
 /**
- * Class used to update the content of Wind Rose Activity
+ * Class used to update the content of StationDetailsSummaryActivity and
+ * StationDetailsWindRoseActivity
  */
 public class StationDetailsValuesUpdater implements Runnable {
 
@@ -24,10 +26,13 @@ public class StationDetailsValuesUpdater implements Runnable {
 
     String station_name;
 
-    public StationDetailsValuesUpdater(StationActivityElements elems, Handler h, String s) {
+    WeatherStation station;
+
+    public StationDetailsValuesUpdater(StationActivityElements elems, Handler h, String station_name, WeatherStation station) {
         elements = elems;
         handler = h;
-        station_name = s;
+        this.station_name = station_name;
+        this.station = station;
 
         dao = new SummaryDao();
     }
@@ -44,7 +49,7 @@ public class StationDetailsValuesUpdater implements Runnable {
             station_summary = dao.getStationSummary(station_name);
 
             // null check is done inside this call
-            elements.updateFromSummary(station_summary);
+            elements.updateFromSummary(station_summary, station.getAvailableParameters());
 
             handler.postDelayed(this, 90000);
         }

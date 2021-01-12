@@ -11,16 +11,15 @@ import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.format.FormatStyle;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import cc.pogoda.mobile.pogodacc.activity.StationDetailsPlotsWind;
+import cc.pogoda.mobile.pogodacc.type.StationDetailsPlot;
 
-public class WindPlotClickEvent implements OnChartValueSelectedListener {
+public class PlotClickEvent implements OnChartValueSelectedListener {
 
-    private StationDetailsPlotsWind parent;
+    private StationDetailsPlot parent;
 
-    public WindPlotClickEvent(StationDetailsPlotsWind parent) {
+    public PlotClickEvent(StationDetailsPlot parent) {
 
         this.parent = parent;
     }

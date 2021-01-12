@@ -8,6 +8,9 @@ import cc.pogoda.mobile.pogodacc.web.RestClientConfig;
 import cc.pogoda.mobile.pogodacc.web.SummaryConsumer;
 import retrofit2.Response;
 
+/**
+ * This DAO downloads the measurements summary data for wx station given by its name
+ */
 public class SummaryDao {
 
     RestClientConfig restClient;
@@ -20,8 +23,10 @@ public class SummaryDao {
 
         @Override
         public void run() {
+            // create a new instance of factory class. This could be refactored to static invocation
             restClient = new RestClientConfig();
 
+            // create a new instance of Retrofit with OkHttp client with GSON parser
             SummaryConsumer consumer = restClient.getWeatherStationClient().create(SummaryConsumer.class);
 
             try {
@@ -43,15 +48,20 @@ public class SummaryDao {
         worker.start();
 
         try {
+            // wait for the web service response
             worker.join();
 
+            // check if web service returned anything
             if (response != null) {
+                // if yes get the response body
                 out = response.body();
 
                 if (out != null) {
+                    // convert all quality factors from string representation to native format
                     out.temperature_qf_native = QualityFactor.valueOf(out.temperature_qf);
                     out.wind_qf_native = QualityFactor.valueOf(out.wind_qf);
                     out.humidity_qf_native = QualityFactor.valueOf(out.humidity_qf);
+                    out.qnh_qf_native = QualityFactor.valueOf(out.qnh_qf);
                 }
             }
         } catch (InterruptedException e) {

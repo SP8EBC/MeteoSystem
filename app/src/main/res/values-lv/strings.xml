@@ -66,5 +66,6 @@
     <string name="temperature_plot">-</string>
     <string name="humidity_plot">-</string>
     <string name="station_doesnt_measure">-</string>
+    <string name="click_on_plot">-</string>
 
 </resources>

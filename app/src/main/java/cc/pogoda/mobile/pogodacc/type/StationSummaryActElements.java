@@ -135,7 +135,7 @@ public class StationSummaryActElements implements StationActivityElements {
         else {
             temperature_val.setText("---");
         }
-
+        // TODO
         if (!s.qnh_qf_native.equals(QualityFactor.NOT_AVALIABLE) && enabledForStation.qnh) {
             qnh_val.setText(String.format("%d hPa", s.qnh));
         }

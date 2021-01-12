@@ -5,10 +5,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import cc.pogoda.mobile.pogodacc.activity.StationDetailsPlotsWind;
+import cc.pogoda.mobile.pogodacc.activity.StationDetailsPlotsTemperature;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
 
-public class StationDetailsActPlotsButtonClickEvent implements View.OnClickListener {
+public class StationDetailsActTemperaturePlotButtonClickEvent implements View.OnClickListener {
 
     WeatherStation station;
 
@@ -16,17 +16,16 @@ public class StationDetailsActPlotsButtonClickEvent implements View.OnClickListe
 
     Intent intent;
 
-    public StationDetailsActPlotsButtonClickEvent(WeatherStation wx, AppCompatActivity parent) {
-        station = wx;
-
-        p = parent;
-    }
-
     @Override
     public void onClick(View view) {
-        intent = new Intent(p, StationDetailsPlotsWind.class);
+        intent = new Intent(p, StationDetailsPlotsTemperature.class);
         intent.putExtra("station", station);
 
         p.startActivity(intent);
+    }
+
+    public StationDetailsActTemperaturePlotButtonClickEvent(WeatherStation wx, AppCompatActivity parent) {
+        station = wx;
+        p = parent;
     }
 }

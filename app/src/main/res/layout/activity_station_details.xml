@@ -102,7 +102,7 @@
                     android:layout_height="611dp">
 
                     <ImageButton
-                        android:id="@+id/imageButtonPlotsWind"
+                        android:id="@+id/imageButtonWindRose"
                         android:layout_width="176dp"
                         android:layout_height="180dp"
                         android:backgroundTint="#56039BE5"
@@ -113,26 +113,25 @@
                         android:scaleType="fitXY"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.068"
+                        app:layout_constraintHorizontal_bias="0.931"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.475"
-                        app:srcCompat="@drawable/ic_baseline_equalizer_24" />
+                        app:layout_constraintVertical_bias="0.037"
+                        app:srcCompat="@drawable/ic_wind_rose_compass_svgrepo_com" />
 
                     <TextView
-                        android:id="@+id/textViewPlots"
-                        android:layout_width="128dp"
-                        android:layout_height="24dp"
-                        android:layout_marginStart="55dp"
-                        android:layout_marginTop="141dp"
-                        android:layout_marginEnd="59dp"
-                        android:layout_marginBottom="15dp"
-                        android:text="@string/wind_speed_plots"
-                        android:textAlignment="center"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageButtonPlotsWind"
-                        app:layout_constraintEnd_toEndOf="@+id/imageButtonPlotsWind"
-                        app:layout_constraintStart_toStartOf="@+id/imageButtonPlotsWind"
-                        app:layout_constraintTop_toTopOf="@+id/imageButtonPlotsWind" />
+                        android:id="@+id/textViewWindRose"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="57dp"
+                        android:layout_marginTop="142dp"
+                        android:layout_marginEnd="61dp"
+                        android:layout_marginBottom="19dp"
+                        android:text="@string/wind_rose"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageButtonWindRose"
+                        app:layout_constraintEnd_toEndOf="@+id/imageButtonWindRose"
+                        app:layout_constraintStart_toStartOf="@+id/imageButtonWindRose"
+                        app:layout_constraintTop_toTopOf="@+id/imageButtonWindRose" />
 
                     <ImageButton
                         android:id="@+id/imageButtonCurrent"
@@ -152,24 +151,6 @@
                         app:layout_constraintVertical_bias="0.037"
                         app:srcCompat="@drawable/ic_baseline_timer_24" />
 
-                    <ImageButton
-                        android:id="@+id/imageButtonWindRose"
-                        android:layout_width="176dp"
-                        android:layout_height="180dp"
-                        android:backgroundTint="#56039BE5"
-                        android:paddingLeft="100px"
-                        android:paddingTop="100px"
-                        android:paddingRight="100px"
-                        android:paddingBottom="100px"
-                        android:scaleType="fitXY"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.931"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.037"
-                        app:srcCompat="@drawable/ic_wind_rose_compass_svgrepo_com" />
-
                     <TextView
                         android:id="@+id/textViewCurrent"
                         android:layout_width="131dp"
@@ -185,19 +166,138 @@
                         app:layout_constraintStart_toStartOf="@+id/imageButtonCurrent"
                         app:layout_constraintTop_toTopOf="@+id/imageButtonCurrent" />
 
+                    <ImageButton
+                        android:id="@+id/imageButtonPlotsTemperature"
+                        android:layout_width="176dp"
+                        android:layout_height="180dp"
+                        android:backgroundTint="#56039BE5"
+                        android:paddingLeft="100px"
+                        android:paddingTop="100px"
+                        android:paddingRight="100px"
+                        android:paddingBottom="100px"
+                        android:scaleType="fitXY"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.068"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.475"
+                        app:srcCompat="@drawable/ic_baseline_equalizer_24" />
+
                     <TextView
-                        android:id="@+id/textViewWindRose"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="57dp"
-                        android:layout_marginTop="142dp"
-                        android:layout_marginEnd="61dp"
-                        android:layout_marginBottom="19dp"
-                        android:text="@string/wind_rose"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageButtonWindRose"
-                        app:layout_constraintEnd_toEndOf="@+id/imageButtonWindRose"
-                        app:layout_constraintStart_toStartOf="@+id/imageButtonWindRose"
-                        app:layout_constraintTop_toTopOf="@+id/imageButtonWindRose" />
+                        android:id="@+id/textViewPlotsTemperature"
+                        android:layout_width="128dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="55dp"
+                        android:layout_marginTop="141dp"
+                        android:layout_marginEnd="59dp"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/temperature_plot"
+                        android:textAlignment="center"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageButtonPlotsTemperature"
+                        app:layout_constraintEnd_toEndOf="@+id/imageButtonPlotsTemperature"
+                        app:layout_constraintStart_toStartOf="@+id/imageButtonPlotsTemperature"
+                        app:layout_constraintTop_toTopOf="@+id/imageButtonPlotsTemperature" />
+
+                    <ImageButton
+                        android:id="@+id/imageButtonPlotsHumidity"
+                        android:layout_width="176dp"
+                        android:layout_height="180dp"
+                        android:backgroundTint="#56039BE5"
+                        android:paddingLeft="100px"
+                        android:paddingTop="100px"
+                        android:paddingRight="100px"
+                        android:paddingBottom="100px"
+                        android:scaleType="fitXY"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.931"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.475"
+                        app:srcCompat="@drawable/ic_baseline_equalizer_24" />
+
+                    <TextView
+                        android:id="@+id/textViewPlotsHumidity"
+                        android:layout_width="128dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="55dp"
+                        android:layout_marginTop="141dp"
+                        android:layout_marginEnd="59dp"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/humidity_plot"
+                        android:textAlignment="center"
+                        app:layout_constraintBottom_toBottomOf="@id/imageButtonPlotsHumidity"
+                        app:layout_constraintEnd_toEndOf="@id/imageButtonPlotsHumidity"
+                        app:layout_constraintStart_toStartOf="@id/imageButtonPlotsHumidity"
+                        app:layout_constraintTop_toTopOf="@id/imageButtonPlotsHumidity" />
+
+
+                    <ImageButton
+                        android:id="@+id/imageButtonPlotsWindSpeed"
+                        android:layout_width="176dp"
+                        android:layout_height="180dp"
+                        android:backgroundTint="#56039BE5"
+                        android:paddingLeft="100px"
+                        android:paddingTop="100px"
+                        android:paddingRight="100px"
+                        android:paddingBottom="100px"
+                        android:scaleType="fitXY"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.068"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.915"
+                        app:srcCompat="@drawable/ic_baseline_equalizer_24" />
+
+                    <TextView
+                        android:id="@+id/textViewPlotsWindSpeed"
+                        android:layout_width="128dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="55dp"
+                        android:layout_marginTop="141dp"
+                        android:layout_marginEnd="59dp"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/wind_speed_plots"
+                        android:textAlignment="center"
+                        app:layout_constraintBottom_toBottomOf="@id/imageButtonPlotsWindSpeed"
+                        app:layout_constraintEnd_toEndOf="@id/imageButtonPlotsWindSpeed"
+                        app:layout_constraintStart_toStartOf="@id/imageButtonPlotsWindSpeed"
+                        app:layout_constraintTop_toTopOf="@id/imageButtonPlotsWindSpeed" />
+
+                    <ImageButton
+                        android:id="@+id/imageButtonPlotsWindDirection"
+                        android:layout_width="176dp"
+                        android:layout_height="180dp"
+                        android:backgroundTint="#56039BE5"
+                        android:paddingLeft="100px"
+                        android:paddingTop="100px"
+                        android:paddingRight="100px"
+                        android:paddingBottom="100px"
+                        android:scaleType="fitXY"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.931"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.915"
+                        app:srcCompat="@drawable/ic_baseline_equalizer_24" />
+
+                    <TextView
+                        android:id="@+id/textViewPlotsWindDirection"
+                        android:layout_width="128dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="55dp"
+                        android:layout_marginTop="141dp"
+                        android:layout_marginEnd="59dp"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/wind_direction_plots"
+                        android:textAlignment="center"
+                        app:layout_constraintBottom_toBottomOf="@id/imageButtonPlotsWindDirection"
+                        app:layout_constraintEnd_toEndOf="@id/imageButtonPlotsWindDirection"
+                        app:layout_constraintStart_toStartOf="@id/imageButtonPlotsWindDirection"
+                        app:layout_constraintTop_toTopOf="@id/imageButtonPlotsWindDirection" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
