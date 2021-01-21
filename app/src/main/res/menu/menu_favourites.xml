@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="@string/sort_alphabetical" />
+    <item android:title="@string/sort_in_adding_order" />
+    <item android:title="@string/clear_from_non_existent" />
+</menu>

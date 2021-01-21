@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.widget.ImageButton;
@@ -14,8 +15,15 @@ import java.util.Locale;
 
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.handler.MainActImageButtonAllStationsClickEvent;
+import cc.pogoda.mobile.pogodacc.activity.handler.MainActImageButtonFavouritesClickEvent;
+import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
+import cc.pogoda.mobile.pogodacc.type.Favourites;
 
 public class MainActivity extends AppCompatActivity {
+
+    public MainActivity() {
+        AppConfiguration.favourites = new Favourites();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
         ImageButton imageButtonAllStations = (ImageButton)findViewById(R.id.imageButtonAllStations);
         if (imageButtonAllStations != null)
             imageButtonAllStations.setOnClickListener(new MainActImageButtonAllStationsClickEvent(this));
+
+        ImageButton imageButtonFavourites = (ImageButton)findViewById(R.id.imageButtonFavourites);
+        if (imageButtonFavourites != null) {
+            imageButtonFavourites.setOnClickListener(new MainActImageButtonFavouritesClickEvent(this));
+        }
 
 
     }

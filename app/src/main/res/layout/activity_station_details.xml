@@ -134,7 +134,7 @@
                         app:layout_constraintTop_toTopOf="@+id/imageButtonWindRose" />
 
                     <ImageButton
-                        android:id="@+id/imageButtonCurrent"
+                        android:id="@+id/imageButtonFavourites"
                         android:layout_width="176dp"
                         android:layout_height="180dp"
                         android:backgroundTint="#56039BE5"
@@ -161,10 +161,10 @@
                         android:layout_marginBottom="18dp"
                         android:text="@string/station_summary"
                         android:textAlignment="center"
-                        app:layout_constraintBottom_toBottomOf="@+id/imageButtonCurrent"
-                        app:layout_constraintEnd_toEndOf="@+id/imageButtonCurrent"
-                        app:layout_constraintStart_toStartOf="@+id/imageButtonCurrent"
-                        app:layout_constraintTop_toTopOf="@+id/imageButtonCurrent" />
+                        app:layout_constraintBottom_toBottomOf="@+id/imageButtonFavourites"
+                        app:layout_constraintEnd_toEndOf="@+id/imageButtonFavourites"
+                        app:layout_constraintStart_toStartOf="@+id/imageButtonFavourites"
+                        app:layout_constraintTop_toTopOf="@+id/imageButtonFavourites" />
 
                     <ImageButton
                         android:id="@+id/imageButtonPlotsTemperature"

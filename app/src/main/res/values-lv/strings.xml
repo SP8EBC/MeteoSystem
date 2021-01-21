@@ -67,5 +67,8 @@
     <string name="humidity_plot">-</string>
     <string name="station_doesnt_measure">-</string>
     <string name="click_on_plot">-</string>
+    <string name="sort_alphabetical">-</string>
+    <string name="sort_in_adding_order">-</string>
+    <string name="clear_from_non_existent">-</string>
 
 </resources>

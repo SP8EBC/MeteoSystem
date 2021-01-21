@@ -136,7 +136,7 @@ public class StationDetailsActivity extends AppCompatActivity {
             temperaturePlotButtonClickEvent = new StationDetailsActTemperaturePlotButtonClickEvent(station, this);
             windRoseClickEvent = new StationDetailsActWindRoseButtonClickEvent(station, this);
 
-            summaryButton = findViewById(R.id.imageButtonCurrent);
+            summaryButton = findViewById(R.id.imageButtonFavourites);
             summaryButton.setOnClickListener(summaryClickEvent);
 
             windSpeedPlotsButton = findViewById(R.id.imageButtonPlotsWindSpeed);

@@ -67,4 +67,7 @@
     <string name="humidity_plot">Wilgotność</string>
     <string name="station_doesnt_measure">Stacja nie mierzy tego parametru</string>
     <string name="click_on_plot">Kliknij na punkt na wykresie</string>
+    <string name="sort_alphabetical">Sortuj alfabetycznie</string>
+    <string name="sort_in_adding_order">Sortuj wg kolejności dodania</string>
+    <string name="clear_from_non_existent">Usuń nieistniejące stacje</string>
 </resources>

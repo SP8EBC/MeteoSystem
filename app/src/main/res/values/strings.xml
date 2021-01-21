@@ -73,4 +73,7 @@
     <string name="meters_per_second" translatable="false">m/s</string>
     <string name="knots" translatable="false">kts</string>
     <string name="click_on_plot">Click on point on the plot</string>
+    <string name="sort_alphabetical">Sort in alphabetical order</string>
+    <string name="sort_in_adding_order">Sort in adding order</string>
+    <string name="clear_from_non_existent">Clear removed stations</string>
 </resources>
