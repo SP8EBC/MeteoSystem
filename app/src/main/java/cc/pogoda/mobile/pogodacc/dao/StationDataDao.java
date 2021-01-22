@@ -35,10 +35,27 @@ public class StationDataDao {
 
     public ListOfStationData getLastStationData(String station, long timestampFrom, long timestampTo) {
 
+        ListOfStationData out = null;
+
         this.from = timestampFrom;
         this.to = timestampTo;
+        this.station = station;
 
-        return null;
+        Worker worker = new Worker();
+
+        Thread thread = new Thread(worker);
+
+        try {
+            thread.start();
+            thread.join();
+
+            out = response.body();
+        }
+        catch (InterruptedException ex) {
+
+        }
+
+        return out;
 
     }
 }

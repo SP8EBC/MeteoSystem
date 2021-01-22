@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZoneOffset;
@@ -27,8 +28,8 @@ import java.util.ArrayList;
 
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.handler.PlotClickEvent;
-import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
 import cc.pogoda.mobile.pogodacc.dao.LastStationDataDao;
+import cc.pogoda.mobile.pogodacc.dao.StationDataDao;
 import cc.pogoda.mobile.pogodacc.type.StationDetailsPlot;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
 import cc.pogoda.mobile.pogodacc.type.web.ListOfStationData;
@@ -42,7 +43,8 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
     private TextView textViewSpeed = null;
     private TextView textViewGusts = null;
 
-    private LastStationDataDao lastStationDataDao;
+    private final LastStationDataDao lastStationDataDao;
+    private final StationDataDao stationDataDao;
     private WeatherStation station;
 
     private PlotClickEvent plotClickEvent;
@@ -51,7 +53,12 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
 
     private int dataLn = -2;
 
-    private class ValueFormatter extends com.github.mikephil.charting.formatter.ValueFormatter {
+    private static final int twelve_hours = 3600 * 12;
+    private static final int twenty_four_hours = 3600 * 24;
+    private static final int three_days = 3600 * 24 * 3;
+
+
+    private static class ValueFormatter extends com.github.mikephil.charting.formatter.ValueFormatter {
 
         @Override
         public String getFormattedValue(float value) {
@@ -64,10 +71,10 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
             // and then shift to the user timezone for convinient display
             ZonedDateTime localDateTime = utcDateTime.atZone(ZoneOffset.UTC).withZoneSameInstant(ZoneId.systemDefault());
 
-            // format only the time to keep X axis clean
-            String dt = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).format(localDateTime);
+            /* format only the time to keep X axis clean */
+            return DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).format(localDateTime);
 
-            return dt;
+            //return dt;
         }
 
     }
@@ -75,7 +82,7 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
         // first and last index to display on plot
-        int first_index = 0, last_index = 0;
+        int first_index, last_index = 0;
 
         // display only 20% of the set at once
         int window_size = (int) (valuesWindDirection.size() * 0.2f);
@@ -114,7 +121,7 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
 
         super.onCreate(savedInstanceState);
 
-        // get data lenght for this plot
+        // get data length for this plot
         dataLn = (int)getIntent().getExtras().get("data_ln");
 
         setContentView(R.layout.activity_station_details_plots);
@@ -304,11 +311,35 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
      * shows the data in millisecond resolution
      */
     private void downloadDataFromWebservice() {
-        ListOfStationData data = lastStationDataDao.getLastStationData(station.getSystemName());
+
+        ListOfStationData data = null;
+
+        // utc time
+        ZonedDateTime utcTime = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC"));
+
+        // utc timestamp
+        long utcTimestamp = utcTime.toEpochSecond();
+
+        if (this.dataLn < 0 || this.dataLn > 2) {
+            // last 2000 points of data, regardless the timescale
+            data = lastStationDataDao.getLastStationData(station.getSystemName());
+        }
+        else if (dataLn == 0) {
+            // 12 hours
+            data = stationDataDao.getLastStationData(station.getSystemName(), utcTimestamp - twelve_hours, utcTimestamp);
+        }
+        else if (dataLn == 1) {
+            // 24 hours
+            data = stationDataDao.getLastStationData(station.getSystemName(), utcTimestamp - twenty_four_hours, utcTimestamp);
+        }
+        else if (dataLn == 2) {
+            // 3 days
+            data = stationDataDao.getLastStationData(station.getSystemName(), utcTimestamp - three_days, utcTimestamp);
+        }
 
         valuesWindDirection = new ArrayList<>();
 
-        if (data instanceof  ListOfStationData) {
+        if (data != null) {
             for (StationData d : data.listOfStationData) {
                 valuesWindDirection.add(new Entry(d.epoch * 1000, d.winddir));
             }
@@ -318,6 +349,7 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
 
     public StationDetailsPlotsDirection() {
         lastStationDataDao = new LastStationDataDao();
+        stationDataDao = new StationDataDao();
         plotClickEvent = new PlotClickEvent(this);
 
     }

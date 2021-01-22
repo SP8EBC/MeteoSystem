@@ -30,6 +30,7 @@ import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.handler.PlotClickEvent;
 import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
 import cc.pogoda.mobile.pogodacc.dao.LastStationDataDao;
+import cc.pogoda.mobile.pogodacc.dao.StationDataDao;
 import cc.pogoda.mobile.pogodacc.type.StationDetailsPlot;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
 import cc.pogoda.mobile.pogodacc.type.web.ListOfStationData;
@@ -43,13 +44,20 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
     private TextView textViewSpeed = null;
     private TextView textViewGusts = null;
 
-    private LastStationDataDao lastStationDataDao;
+    private final LastStationDataDao lastStationDataDao;
+    private final StationDataDao stationDataDao;
     private WeatherStation station;
 
     private PlotClickEvent plotClickEvent;
 
     private ArrayList<Entry> valuesWindSpeed;
     private ArrayList<Entry> valuesWindGusts;
+
+    private int dataLn = -2;
+
+    private static final int twelve_hours = 3600 * 12;
+    private static final int twenty_four_hours = 3600 * 24;
+    private static final int three_days = 3600 * 24 * 3;
 
     public ArrayList<Entry> getValuesWindSpeed() {
         return valuesWindSpeed;
@@ -78,6 +86,7 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
 
     public StationDetailsPlotsWind() {
         lastStationDataDao = new LastStationDataDao();
+        stationDataDao = new StationDataDao();
         plotClickEvent = new PlotClickEvent(this);
 
     }
@@ -88,6 +97,9 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_station_details_plots);
+
+        // get data length for this plot
+        dataLn = (int)getIntent().getExtras().get("data_ln");
 
         station = (WeatherStation) getIntent().getSerializableExtra("station");
 
@@ -177,7 +189,30 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
      * shows the data in millisecond resolution
      */
     private void downloadDataFromWebservice() {
-        ListOfStationData data = lastStationDataDao.getLastStationData(station.getSystemName());
+        ListOfStationData data = null;
+
+        // utc time
+        ZonedDateTime utcTime = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC"));
+
+        // utc timestamp
+        long utcTimestamp = utcTime.toEpochSecond();
+
+        if (this.dataLn < 0 || this.dataLn > 2) {
+            // last 2000 points of data, regardless the timescale
+            data = lastStationDataDao.getLastStationData(station.getSystemName());
+        }
+        else if (dataLn == 0) {
+            // 12 hours
+            data = stationDataDao.getLastStationData(station.getSystemName(), utcTimestamp - twelve_hours, utcTimestamp);
+        }
+        else if (dataLn == 1) {
+            // 24 hours
+            data = stationDataDao.getLastStationData(station.getSystemName(), utcTimestamp - twenty_four_hours, utcTimestamp);
+        }
+        else if (dataLn == 2) {
+            // 3 days
+            data = stationDataDao.getLastStationData(station.getSystemName(), utcTimestamp - three_days, utcTimestamp);
+        }
 
         valuesWindSpeed = new ArrayList<>();
         valuesWindGusts = new ArrayList<>();

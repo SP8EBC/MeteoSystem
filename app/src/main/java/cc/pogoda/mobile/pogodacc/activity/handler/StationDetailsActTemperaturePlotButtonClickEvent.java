@@ -20,6 +20,7 @@ public class StationDetailsActTemperaturePlotButtonClickEvent implements View.On
     public void onClick(View view) {
         intent = new Intent(p, StationDetailsPlotsTemperature.class);
         intent.putExtra("station", station);
+        intent.putExtra("data_ln", (int)p.getIntent().getExtras().get("data_ln"));
 
         p.startActivity(intent);
     }

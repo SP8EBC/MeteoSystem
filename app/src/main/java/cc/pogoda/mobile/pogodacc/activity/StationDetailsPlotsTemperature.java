@@ -32,6 +32,7 @@ import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.handler.PlotClickEvent;
 import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
 import cc.pogoda.mobile.pogodacc.dao.LastStationDataDao;
+import cc.pogoda.mobile.pogodacc.dao.StationDataDao;
 import cc.pogoda.mobile.pogodacc.type.StationDetailsPlot;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
 import cc.pogoda.mobile.pogodacc.type.web.ListOfStationData;
@@ -48,9 +49,16 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
 
     private ArrayList<Entry> valuesTemperature;
 
-    private LastStationDataDao lastStationDataDao;
+    private final LastStationDataDao lastStationDataDao;
+    private final StationDataDao stationDataDao;
 
     PlotClickEvent clickEvent;
+
+    private int dataLn = -2;
+
+    private static final int twelve_hours = 3600 * 12;
+    private static final int twenty_four_hours = 3600 * 24;
+    private static final int three_days = 3600 * 24 * 3;
 
     private class ValueFormatter extends com.github.mikephil.charting.formatter.ValueFormatter {
 
@@ -76,10 +84,34 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
     public StationDetailsPlotsTemperature() {
         valuesTemperature = new ArrayList<Entry>();
         lastStationDataDao = new LastStationDataDao();
+        stationDataDao = new StationDataDao();
     }
 
     private void downloadDataFromWebservice() {
-        ListOfStationData data = lastStationDataDao.getLastStationData(station.getSystemName());
+        ListOfStationData data = null;
+
+        // utc time
+        ZonedDateTime utcTime = ZonedDateTime.now().withZoneSameInstant(ZoneId.of("UTC"));
+
+        // utc timestamp
+        long utcTimestamp = utcTime.toEpochSecond();
+
+        if (this.dataLn < 0 || this.dataLn > 2) {
+            // last 2000 points of data, regardless the timescale
+            data = lastStationDataDao.getLastStationData(station.getSystemName());
+        }
+        else if (dataLn == 0) {
+            // 12 hours
+            data = stationDataDao.getLastStationData(station.getSystemName(), utcTimestamp - twelve_hours, utcTimestamp);
+        }
+        else if (dataLn == 1) {
+            // 24 hours
+            data = stationDataDao.getLastStationData(station.getSystemName(), utcTimestamp - twenty_four_hours, utcTimestamp);
+        }
+        else if (dataLn == 2) {
+            // 3 days
+            data = stationDataDao.getLastStationData(station.getSystemName(), utcTimestamp - three_days, utcTimestamp);
+        }
 
         if (data instanceof  ListOfStationData) {
             for (StationData d : data.listOfStationData) {
@@ -216,6 +248,9 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
 
         // this activity layout is common for all plots
         setContentView(R.layout.activity_station_details_plots);
+
+        // get data length for this plot
+        dataLn = (int)getIntent().getExtras().get("data_ln");
 
         station = (WeatherStation) getIntent().getSerializableExtra("station");
 
