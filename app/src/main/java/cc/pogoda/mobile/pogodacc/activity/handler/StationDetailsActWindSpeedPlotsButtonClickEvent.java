@@ -24,9 +24,14 @@ public class StationDetailsActWindSpeedPlotsButtonClickEvent implements View.OnC
 
     @Override
     public void onClick(View view) {
+        int dataLn = (int)p.getIntent().getExtras().get("data_ln");
+
         intent = new Intent(p, StationDetailsPlotsWind.class);
         intent.putExtra("station", station);
-        intent.putExtra("data_ln", (int)1); // set 24 hours by default
+        if (dataLn < 0)
+            intent.putExtra("data_ln", (int)1); // set 24 hours by default
+        else
+            intent.putExtra("data_ln", dataLn);
 
 
         p.startActivity(intent);
