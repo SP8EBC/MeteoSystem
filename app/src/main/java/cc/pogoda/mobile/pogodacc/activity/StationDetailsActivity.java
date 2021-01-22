@@ -1,13 +1,25 @@
 package cc.pogoda.mobile.pogodacc.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.database.DataSetObserver;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.icu.text.LocaleDisplayNames;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import java.io.InputStream;
@@ -57,6 +69,16 @@ public class StationDetailsActivity extends AppCompatActivity {
     StationDetailsActWindRoseButtonClickEvent windRoseClickEvent = null;
 
     /**
+     *
+     */
+    int plotDataLn = -1;
+
+    /*
+     *  the value selected by a user in plot lenght dialog before clicking OK
+     */
+    int selectedLn = 0;
+
+    /**
      * This class downloads the background JPG image from the internet and
      */
     private class DownloadImage implements Runnable {
@@ -96,6 +118,23 @@ public class StationDetailsActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //return super.onOptionsItemSelected(item);
+
+        switch (item.getItemId()) {
+            case R.id.menuItemStationDetailsAddFavourites:
+                break;
+            case R.id.menuItemStationDetailsDeleteFavourites:
+                break;
+            case R.id.menuItemStationDetailsPlotsLn:
+                setPlotsLn();
+                break;
+        }
+
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         float station_lat = 0.0f;   // szerokość    W - E
         float station_lon = 0.0f;   // długość      S - N
@@ -129,6 +168,9 @@ public class StationDetailsActivity extends AppCompatActivity {
         stationName.setTextColor(station.getStationNameTextColor());
 
         if (station != null && stationName != null) {
+
+            // set the default value od data lenght
+            this.getIntent().putExtra("data_ln", plotDataLn);
 
             summaryClickEvent = new StationDetailsActSummaryButtonClickEvent(station, this);
             windSpeedPlotsClickEvent = new StationDetailsActWindSpeedPlotsButtonClickEvent(station, this);
@@ -228,5 +270,28 @@ public class StationDetailsActivity extends AppCompatActivity {
 
 
         }
+    }
+
+    private void setPlotsLn() {
+
+        // an array of strings with radio button options
+        CharSequence[] vales = new CharSequence[3];
+
+        // fill the array from resources
+        vales[0] = getResources().getString(R.string.hours_12).toString();
+        vales[1] = getResources().getString(R.string.hours_24).toString();
+        vales[2] = getResources().getString(R.string.days_3).toString();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.plot_data_lenght);
+        builder.setSingleChoiceItems(vales, plotDataLn, (DialogInterface var1, int var2) -> { selectedLn = var2; } );
+        builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
+            plotDataLn = selectedLn;
+            this.getIntent().putExtra("data_ln", plotDataLn);
+            var1.dismiss();
+        });
+        builder.create();
+        builder.show();
+
     }
 }

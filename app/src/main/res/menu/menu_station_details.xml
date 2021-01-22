@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="@string/add_fav" />
-    <item android:title="@string/delete_fav" />
+    <item
+        android:id="@+id/menuItemStationDetailsAddFavourites"
+        android:title="@string/add_fav" />
+    <item
+        android:id="@+id/menuItemStationDetailsDeleteFavourites"
+        android:title="@string/delete_fav" />
+    <item
+        android:id="@+id/menuItemStationDetailsPlotsLn"
+        android:title="@string/plot_data_lenght" />
 </menu>

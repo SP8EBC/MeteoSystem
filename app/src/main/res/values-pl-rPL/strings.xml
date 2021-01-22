@@ -29,10 +29,9 @@
     <string name="show_previous">Pokaż ostatnie</string>
     <string name="hours">Godziny</string>
     <string name="days">Dni</string>
-    <string name="hours_8">8 Godzin</string>
     <string name="hours_12">12 Godzin</string>
-    <string name="hours_15">15 Godzin</string>
-    <string name="hours_1">Jedna Godzina</string>
+    <string name="hours_24">24 Godziny</string>
+    <string name="maximum">Maximum</string>
     <string name="ok">OK</string>
     <string name="select">Wybierz</string>
     <string name="apply">Zastosuj</string>
@@ -70,4 +69,6 @@
     <string name="sort_alphabetical">Sortuj alfabetycznie</string>
     <string name="sort_in_adding_order">Sortuj wg kolejności dodania</string>
     <string name="clear_from_non_existent">Usuń nieistniejące stacje</string>
+    <string name="days_3">Trzy dni</string>
+    <string name="plot_data_lenght">Długość danych na wykresach</string>
 </resources>

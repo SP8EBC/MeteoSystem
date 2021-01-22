@@ -26,6 +26,8 @@ public class StationDetailsActWindSpeedPlotsButtonClickEvent implements View.OnC
     public void onClick(View view) {
         intent = new Intent(p, StationDetailsPlotsWind.class);
         intent.putExtra("station", station);
+        intent.putExtra("data_ln", (int)p.getIntent().getExtras().get("data_ln"));
+
 
         p.startActivity(intent);
     }

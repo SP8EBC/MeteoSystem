@@ -26,6 +26,7 @@ public class StationDetailsActWindRoseButtonClickEvent implements View.OnClickLi
     public void onClick(View view) {
         intent = new Intent(p, StationDetailsWindRoseActivity.class);
         intent.putExtra("station", station);
+        intent.putExtra("data_ln", (int)p.getIntent().getExtras().get("data_ln"));
 
         p.startActivity(intent);
     }

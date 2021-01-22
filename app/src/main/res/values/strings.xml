@@ -28,10 +28,9 @@
     <string name="show_previous">Show previous</string>
     <string name="hours">Hours</string>
     <string name="days">Days</string>
-    <string name="hours_8">8 Hours</string>
     <string name="hours_12">12 Hours</string>
-    <string name="hours_15">15 Hours</string>
-    <string name="hours_1">One Hour</string>
+    <string name="hours_24">24 Hours</string>
+    <string name="maximum">Maximum</string>
     <string name="ok">OK</string>
     <string name="select">Select</string>
     <string name="apply">Apply</string>
@@ -76,4 +75,6 @@
     <string name="sort_alphabetical">Sort in alphabetical order</string>
     <string name="sort_in_adding_order">Sort in adding order</string>
     <string name="clear_from_non_existent">Clear removed stations</string>
+    <string name="days_3">Three days</string>
+    <string name="plot_data_lenght">Plots data lenght</string>
 </resources>

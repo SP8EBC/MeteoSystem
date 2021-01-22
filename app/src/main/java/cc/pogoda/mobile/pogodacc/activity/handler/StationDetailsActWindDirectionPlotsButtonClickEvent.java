@@ -22,6 +22,7 @@ public class StationDetailsActWindDirectionPlotsButtonClickEvent implements View
     public void onClick(View view) {
         intent = new Intent(p, StationDetailsPlotsDirection.class);
         intent.putExtra("station", station);
+        intent.putExtra("data_ln", (int)p.getIntent().getExtras().get("data_ln"));
 
         p.startActivity(intent);
     }

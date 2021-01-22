@@ -49,6 +49,8 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
 
     private ArrayList<Entry> valuesWindDirection;
 
+    private int dataLn = -2;
+
     private class ValueFormatter extends com.github.mikephil.charting.formatter.ValueFormatter {
 
         @Override
@@ -111,6 +113,9 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        // get data lenght for this plot
+        dataLn = (int)getIntent().getExtras().get("data_ln");
 
         setContentView(R.layout.activity_station_details_plots);
 
