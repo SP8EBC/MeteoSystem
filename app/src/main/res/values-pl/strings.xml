@@ -71,4 +71,6 @@
     <string name="clear_from_non_existent">Usuń nieistniejące stacje</string>
     <string name="days_3">Trzy dni</string>
     <string name="plot_data_lenght">Długość danych na wykresach</string>
+    <string name="pressure">Ciśnienie</string>
+    <string name="wind">Wiatr</string>
 </resources>

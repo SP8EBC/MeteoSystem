@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/navigation_wind">
+
+    <fragment
+        android:id="@+id/navigation_wind"
+        android:name="cc.pogoda.mobile.pogodacc.activity.trend.wind.WindTrendFragment"
+        android:label="@string/wind"
+        tools:layout="@layout/fragment_wind" />
+
+    <fragment
+        android:id="@+id/navigation_temperature"
+        android:name="cc.pogoda.mobile.pogodacc.activity.trend.temperature.TemperatureTrendFragment"
+        android:label="@string/temperature"
+        tools:layout="@layout/fragment_temperature" />
+
+    <fragment
+        android:id="@+id/navigation_pressure"
+        android:name="cc.pogoda.mobile.pogodacc.activity.trend.pressure.PressureTrendFragment"
+        android:label="@string/pressure"
+        tools:layout="@layout/fragment_pressure" />
+</navigation>

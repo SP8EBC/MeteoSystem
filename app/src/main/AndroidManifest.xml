@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Pogodacc">
-        <activity android:name=".activity.StationDetailsWindRoseActivity"></activity>
+        <activity
+            android:name=".activity.TrendActivity"
+            android:label="@string/title_activity_trend"></activity>
+        <activity android:name=".activity.StationDetailsWindRoseActivity" />
         <activity android:name=".activity.StationDetailsPlotsWind" />
         <activity android:name=".activity.StationDetailsPlotsDirection" />
         <activity android:name=".activity.StationDetailsPlotsTemperature" />

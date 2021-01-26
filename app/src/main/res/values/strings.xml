@@ -77,4 +77,7 @@
     <string name="clear_from_non_existent">Clear removed stations</string>
     <string name="days_3">Three days</string>
     <string name="plot_data_lenght">Plots data lenght</string>
+    <string name="title_activity_trend" translatable="false">Trend</string>
+    <string name="pressure">Pressure</string>
+    <string name="wind">Wind</string>
 </resources>

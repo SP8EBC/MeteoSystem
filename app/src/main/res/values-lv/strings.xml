@@ -71,5 +71,7 @@
     <string name="clear_from_non_existent">-</string>
     <string name="days_3">-</string>
     <string name="plot_data_lenght">-</string>
+    <string name="pressure">-</string>
+    <string name="wind">-</string>
 
 </resources>
