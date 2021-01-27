@@ -17,7 +17,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="1360dp"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -99,12 +99,13 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayoutStationButtons"
                     android:layout_width="match_parent"
-                    android:layout_height="611dp">
+                    android:layout_height="1022dp">
 
                     <ImageButton
                         android:id="@+id/imageButtonWindRose"
                         android:layout_width="176dp"
                         android:layout_height="180dp"
+                        android:layout_marginTop="10dp"
                         android:backgroundTint="#56039BE5"
                         android:paddingLeft="100px"
                         android:paddingTop="100px"
@@ -116,7 +117,7 @@
                         app:layout_constraintHorizontal_bias="0.931"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.037"
+                        app:layout_constraintVertical_bias="0.007"
                         app:srcCompat="@drawable/ic_wind_rose_compass_svgrepo_com" />
 
                     <TextView
@@ -137,6 +138,8 @@
                         android:id="@+id/imageButtonFavourites"
                         android:layout_width="176dp"
                         android:layout_height="180dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
                         android:backgroundTint="#56039BE5"
                         android:paddingLeft="100px"
                         android:paddingTop="100px"
@@ -145,10 +148,10 @@
                         android:scaleType="fitXY"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.068"
+                        app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.037"
+                        app:layout_constraintVertical_bias="0.007"
                         app:srcCompat="@drawable/ic_baseline_timer_24" />
 
                     <TextView
@@ -167,9 +170,11 @@
                         app:layout_constraintTop_toTopOf="@+id/imageButtonFavourites" />
 
                     <ImageButton
-                        android:id="@+id/imageButtonPlotsTemperature"
+                        android:id="@+id/imageButtonTrend"
                         android:layout_width="176dp"
                         android:layout_height="180dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
                         android:backgroundTint="#56039BE5"
                         android:paddingLeft="100px"
                         android:paddingTop="100px"
@@ -178,10 +183,44 @@
                         android:scaleType="fitXY"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.068"
+                        app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.475"
+                        app:layout_constraintTop_toBottomOf="@+id/imageButtonFavourites"
+                        app:layout_constraintVertical_bias="0.003"
+                        app:srcCompat="@drawable/ic_baseline_trending_up_24" />
+
+                    <TextView
+                        android:id="@+id/textViewTrend"
+                        android:layout_width="128dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="55dp"
+                        android:layout_marginTop="141dp"
+                        android:layout_marginEnd="59dp"
+                        android:layout_marginBottom="15dp"
+                        android:text="@string/title_activity_trend"
+                        android:textAlignment="center"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageButtonTrend"
+                        app:layout_constraintEnd_toEndOf="@+id/imageButtonTrend"
+                        app:layout_constraintStart_toStartOf="@+id/imageButtonTrend"
+                        app:layout_constraintTop_toTopOf="@+id/imageButtonTrend" />
+
+                    <ImageButton
+                        android:id="@+id/imageButtonPlotsTemperature"
+                        android:layout_width="176dp"
+                        android:layout_height="180dp"
+                        android:layout_marginTop="10dp"
+                        android:backgroundTint="#56039BE5"
+                        android:paddingLeft="100px"
+                        android:paddingTop="100px"
+                        android:paddingRight="100px"
+                        android:paddingBottom="100px"
+                        android:scaleType="fitXY"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.931"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageButtonWindRose"
+                        app:layout_constraintVertical_bias="0.004"
                         app:srcCompat="@drawable/ic_baseline_equalizer_24" />
 
                     <TextView
@@ -203,6 +242,7 @@
                         android:id="@+id/imageButtonPlotsHumidity"
                         android:layout_width="176dp"
                         android:layout_height="180dp"
+                        android:layout_marginTop="10dp"
                         android:backgroundTint="#56039BE5"
                         android:paddingLeft="100px"
                         android:paddingTop="100px"
@@ -213,8 +253,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.931"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.475"
+                        app:layout_constraintTop_toBottomOf="@+id/imageButtonPlotsTemperature"
+                        app:layout_constraintVertical_bias="0.002"
                         app:srcCompat="@drawable/ic_baseline_equalizer_24" />
 
                     <TextView
@@ -235,20 +275,22 @@
 
                     <ImageButton
                         android:id="@+id/imageButtonPlotsWindSpeed"
-                        android:layout_width="176dp"
+                        android:layout_width="379dp"
                         android:layout_height="180dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
                         android:backgroundTint="#56039BE5"
                         android:paddingLeft="100px"
                         android:paddingTop="100px"
                         android:paddingRight="100px"
                         android:paddingBottom="100px"
-                        android:scaleType="fitXY"
+                        android:scaleType="fitCenter"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.068"
+                        app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.915"
+                        app:layout_constraintTop_toBottomOf="@+id/imageButtonPlotsWindDirection"
+                        app:layout_constraintVertical_bias="0.003"
                         app:srcCompat="@drawable/ic_baseline_equalizer_24" />
 
                     <TextView
@@ -270,6 +312,8 @@
                         android:id="@+id/imageButtonPlotsWindDirection"
                         android:layout_width="176dp"
                         android:layout_height="180dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="10dp"
                         android:backgroundTint="#56039BE5"
                         android:paddingLeft="100px"
                         android:paddingTop="100px"
@@ -278,10 +322,10 @@
                         android:scaleType="fitXY"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.931"
+                        app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.915"
+                        app:layout_constraintTop_toBottomOf="@+id/imageButtonTrend"
+                        app:layout_constraintVertical_bias="0.002"
                         app:srcCompat="@drawable/ic_baseline_equalizer_24" />
 
                     <TextView
