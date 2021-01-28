@@ -1,13 +1,17 @@
 package cc.pogoda.mobile.pogodacc.type.web;
 
 public class TrendData {
-    public float currentValue;
 
-    public float twoHoursValue;
+    public float current_value;
 
-    public float fourHoursValue;
+    public float two_hours_value;
 
-    public float sixHoursValue;
+    public float four_hours_value;
 
-    public float eightHoursValue;
+    public float six_hours_value;
+
+    public float eight_hours_value;
+
+
 }
+

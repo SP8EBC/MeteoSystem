@@ -4,6 +4,7 @@ public enum QualityFactor {
     UNSET,
     FULL,
     DEGRADED,
-    NOT_AVALIABLE;
+    NOT_AVALIABLE,
+    NO_DATA;
 
 }

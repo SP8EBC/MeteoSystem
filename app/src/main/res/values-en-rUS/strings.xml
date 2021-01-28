@@ -73,4 +73,9 @@
     <string name="plot_data_lenght">Plots data lenght</string>
     <string name="pressure">Pressure</string>
     <string name="wind">Wind</string>
+    <string name="current_value">Current Value</string>
+    <string name="h2_value">Two hours ago</string>
+    <string name="h4_value">Four hours ago</string>
+    <string name="h6_value">Six hours ago</string>
+    <string name="h8_value">Eight hours ago</string>
 </resources>

@@ -73,4 +73,9 @@
     <string name="plot_data_lenght">Długość danych na wykresach</string>
     <string name="pressure">Ciśnienie</string>
     <string name="wind">Wiatr</string>
+    <string name="current_value">Aktualna Wartość</string>
+    <string name="h2_value">Dwie godziny temu</string>
+    <string name="h4_value">Cztery godziny temu</string>
+    <string name="h6_value">Sześć godzin temu</string>
+    <string name="h8_value">Osiem godzin temu</string>
 </resources>

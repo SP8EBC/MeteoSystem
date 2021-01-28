@@ -1,31 +1,35 @@
 package cc.pogoda.mobile.pogodacc.type.web;
 
 public class Trend {
-    public long currentTimestampUtc;
 
-    public String currentTemperatureQf;
+    public long last_timestamp;
 
-    public String currentQnhQf;
+    public String current_temperature_qf;
 
-    public String currentHumidityQf;
+    public String current_qnh_qf;
 
-    public String currentWindQf;
+    public String current_humidity_qf;
 
-    public TrendData temperatureTrend;
+    public String current_wind_qf;
 
-    public TrendData humidityTrend;
+    public TrendData temperature_trend;
 
-    public TrendData pressureTrend;
+    public TrendData humidity_trend;
 
-    public TrendData averageWindspeedTrend;
+    public TrendData pressure_trend;
 
-    public TrendData maximumWindpseedTrend;
+    public TrendData average_wind_speed_trend;
+
+    public TrendData maximum_wind_speed_trend;
+
+    public TrendData wind_direction_trend;
 
     public Trend() {
-        temperatureTrend = new TrendData();
-        humidityTrend = new TrendData();
-        pressureTrend = new TrendData();
-        averageWindspeedTrend = new TrendData();
-        maximumWindpseedTrend = new TrendData();
+        temperature_trend = new TrendData();
+        humidity_trend = new TrendData();
+        pressure_trend = new TrendData();
+        average_wind_speed_trend = new TrendData();
+        maximum_wind_speed_trend = new TrendData();
+        wind_direction_trend = new TrendData();
     }
 }

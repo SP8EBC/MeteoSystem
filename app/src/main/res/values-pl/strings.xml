@@ -39,7 +39,7 @@
     <string name="wind_rose">Róża Wiatrów</string>
     <string name="mean_value_short">Śr</string>
     <string name="max_value_short">Max</string>
-    <string name="add_fav">Ddoaj do ulubionych</string>
+    <string name="add_fav">Dodaj do ulubionych</string>
     <string name="wind_gust_short">Poryw</string>
     <string name="last_hour">Ostatnia Godzina</string>
     <string name="wind_direction_short">Kierunek</string>
@@ -73,4 +73,9 @@
     <string name="plot_data_lenght">Długość danych na wykresach</string>
     <string name="pressure">Ciśnienie</string>
     <string name="wind">Wiatr</string>
+    <string name="current_value">Aktualna wartość</string>
+    <string name="h2_value">Dwie godziny temu</string>
+    <string name="h4_value">Cztery godziny temu</string>
+    <string name="h6_value">Sześć godzin temu</string>
+    <string name="h8_value">Osiem godzin temu</string>
 </resources>

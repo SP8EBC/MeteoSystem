@@ -73,5 +73,10 @@
     <string name="plot_data_lenght">-</string>
     <string name="pressure">-</string>
     <string name="wind">-</string>
+    <string name="current_value">-</string>
+    <string name="h2_value">-</string>
+    <string name="h4_value">-</string>
+    <string name="h6_value">-</string>
+    <string name="h8_value">-</string>
 
 </resources>

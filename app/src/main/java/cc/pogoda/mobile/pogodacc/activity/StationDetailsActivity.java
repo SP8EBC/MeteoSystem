@@ -26,6 +26,7 @@ import java.io.InputStream;
 
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActTemperaturePlotButtonClickEvent;
+import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActTrendButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActWindDirectionPlotsButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActWindSpeedPlotsButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActSummaryButtonClickEvent;
@@ -46,6 +47,7 @@ public class StationDetailsActivity extends AppCompatActivity {
     ImageButton windDirectionPlotsButton = null;
     ImageButton temperatureButton = null;
     ImageButton windRoseButton = null;
+    ImageButton trendButton = null;
 
     ImageView topBackground = null;
 
@@ -62,6 +64,8 @@ public class StationDetailsActivity extends AppCompatActivity {
     StationDetailsActWindDirectionPlotsButtonClickEvent windDirectionPlotsClickEvent = null;
 
     StationDetailsActTemperaturePlotButtonClickEvent temperaturePlotButtonClickEvent = null;
+
+    StationDetailsActTrendButtonClickEvent trendButtonClickEvent = null;
 
     /**
      *
@@ -177,6 +181,7 @@ public class StationDetailsActivity extends AppCompatActivity {
             windDirectionPlotsClickEvent = new StationDetailsActWindDirectionPlotsButtonClickEvent(station, this);
             temperaturePlotButtonClickEvent = new StationDetailsActTemperaturePlotButtonClickEvent(station, this);
             windRoseClickEvent = new StationDetailsActWindRoseButtonClickEvent(station, this);
+            trendButtonClickEvent = new StationDetailsActTrendButtonClickEvent(station, this);
 
             summaryButton = findViewById(R.id.imageButtonFavourites);
             summaryButton.setOnClickListener(summaryClickEvent);
@@ -192,6 +197,9 @@ public class StationDetailsActivity extends AppCompatActivity {
 
             temperatureButton = findViewById(R.id.imageButtonPlotsTemperature);
             temperatureButton.setOnClickListener(temperaturePlotButtonClickEvent);
+
+            trendButton = findViewById(R.id.imageButtonTrend);
+            trendButton.setOnClickListener(trendButtonClickEvent);
 
             topBackground = findViewById(R.id.imageViewStationPng);
             switch (station.getImageAlign()) {
