@@ -18,18 +18,62 @@ public class PressureTrendFragment extends Fragment {
 
     private PressureTrendViewModel pressureTrendViewModel;
 
+    TextView stationName = null;
+    TextView lastDataTimestamp = null;
+    TextView currentValue = null;
+    TextView twoHours = null;
+    TextView fourHours = null;
+    TextView sixHours = null;
+    TextView eightHours = null;
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         pressureTrendViewModel =
                 new ViewModelProvider(this).get(PressureTrendViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_pressure, container, false);
-        //final TextView textView = root.findViewById(R.id.text_notifications);
-        pressureTrendViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
+        
 
-            }
+        // inflate the main layout of the fragment
+        View root = inflater.inflate(R.layout.fragment_pressure, container, false);
+
+        // load all elements from the layout
+        stationName = root.findViewById(R.id.textViewPressureTrendStationName);
+        lastDataTimestamp = root.findViewById(R.id.textViewPressureTrendLastTimestampValue);
+        currentValue = root.findViewById(R.id.textViewPressureTrendCurrentValue);
+        twoHours = root.findViewById(R.id.textViewPressureTrendTwoHoursValue);
+        fourHours = root.findViewById(R.id.textViewPressureTrendTwoHoursValue);
+        sixHours = root.findViewById(R.id.textViewPressureTrendSixHoursValue);
+        eightHours =  root.findViewById(R.id.textViewPressureTrendEightHoursVal);
+
+        pressureTrendViewModel.getStationName().observe(getViewLifecycleOwner(), s -> {
+            stationName.setText(s);
         });
+
+        pressureTrendViewModel.getLastMeasuremenetTime().observe(getViewLifecycleOwner(), s -> {
+            lastDataTimestamp.setText(s);
+        });
+
+        pressureTrendViewModel.getCurrentValue().observe(getViewLifecycleOwner(), s -> {
+            currentValue.setText(s);
+        });
+
+        pressureTrendViewModel.getTwoHoursValue().observe(getViewLifecycleOwner(), s -> {
+            twoHours.setText(s);
+        });
+
+        pressureTrendViewModel.getFourHoursValue().observe(getViewLifecycleOwner(), s -> {
+            fourHours.setText(s);
+        });
+
+        pressureTrendViewModel.getSixHoursValue().observe(getViewLifecycleOwner(), s -> {
+            sixHours.setText(s);
+        });
+
+        pressureTrendViewModel.getEightHoursValue().observe(getViewLifecycleOwner(), s -> {
+            eightHours.setText(s);
+        });
+
+        pressureTrendViewModel.updateData();
+
         return root;
     }
 }
