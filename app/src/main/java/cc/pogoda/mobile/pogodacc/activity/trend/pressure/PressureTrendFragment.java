@@ -26,6 +26,8 @@ public class PressureTrendFragment extends Fragment {
     TextView sixHours = null;
     TextView eightHours = null;
 
+    String station = "";
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         pressureTrendViewModel =
@@ -34,6 +36,12 @@ public class PressureTrendFragment extends Fragment {
 
         // inflate the main layout of the fragment
         View root = inflater.inflate(R.layout.fragment_pressure, container, false);
+
+        Bundle arg = this.getArguments();
+
+        if (arg != null) {
+            station = arg.getString("station");
+        }
 
         // load all elements from the layout
         stationName = root.findViewById(R.id.textViewPressureTrendStationName);
@@ -72,7 +80,7 @@ public class PressureTrendFragment extends Fragment {
             eightHours.setText(s);
         });
 
-        pressureTrendViewModel.updateData();
+        //pressureTrendViewModel.updateData();
 
         return root;
     }

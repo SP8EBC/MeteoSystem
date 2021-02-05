@@ -20,6 +20,9 @@ public class WindTrendFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        String station = "";
+
         windTrendViewModel =
                 new ViewModelProvider(this).get(WindTrendViewModel.class);
         View root = inflater.inflate(R.layout.fragment_wind, container, false);
@@ -30,6 +33,12 @@ public class WindTrendFragment extends Fragment {
                 textView.setText(s);
             }
         });
+        Bundle arg = this.getArguments();
+
+        if (arg != null) {
+            station = arg.getString("station");
+        }
+
         return root;
     }
 }
