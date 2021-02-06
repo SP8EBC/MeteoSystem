@@ -108,17 +108,18 @@ public class WindTrendViewModel extends ViewModel {
 
     }
 
-    public void updateData() {
+    public boolean updateData() {
         Trend trend = trendDao.getStationTrend(station);
 
-        // format the time and date according to current locale
-        String dt = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT).format(LocalDateTime.ofEpochSecond(trend.last_timestamp, 0, ZoneOffset.UTC).atOffset(ZoneOffset.UTC).atZoneSameInstant(ZoneOffset.systemDefault()));
-
         if (trend != null) {
+
+            // format the time and date according to current locale
+            String dt = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT).format(LocalDateTime.ofEpochSecond(trend.last_timestamp, 0, ZoneOffset.UTC).atOffset(ZoneOffset.UTC).atZoneSameInstant(ZoneOffset.systemDefault()));
+
             lastMeasuremenetTime.postValue(dt);
             displayedStationName.postValue(trend.displayed_name);
 
-            if (!trend.current_wind_qf.equals("NOT_AVALIABLE")) {
+            if (!trend.current_wind_qf.equals("NOT_AVALIABLE") && !trend.current_wind_qf.equals("NO_DATA")) {
                 if (AppConfiguration.replaceMsWithKnots) {
                     // if knots
                     currentMeanValue.postValue(String.format("%.0f kts", trend.average_wind_speed_trend.current_value));
@@ -159,6 +160,21 @@ public class WindTrendViewModel extends ViewModel {
                 sixHoursGustValue.postValue("--");
                 eightHoursGustValue.postValue("--");
             }
+            return true;
+        }
+        else {
+            currentMeanValue.postValue("--");
+            twoHoursMeanValue.postValue("--");
+            fourHoursMeanValue.postValue("--");
+            sixHoursMeanValue.postValue("--");
+            eightHoursMeanValue.postValue("--");
+
+            currentGustValue.postValue("--");
+            twoHoursGustValue.postValue("--");
+            fourHoursGustValue.postValue("--");
+            sixHoursGustValue.postValue("--");
+            eightHoursGustValue.postValue("--");
+            return false;
         }
     }
 

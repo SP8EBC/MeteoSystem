@@ -78,4 +78,5 @@
     <string name="h4_value">Cztery godziny temu</string>
     <string name="h6_value">Sześć godzin temu</string>
     <string name="h8_value">Osiem godzin temu</string>
+    <string name="no_comm_with_backend">Brak komunikacji z serwerem</string>
 </resources>

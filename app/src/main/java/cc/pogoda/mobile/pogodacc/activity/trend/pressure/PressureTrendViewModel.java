@@ -40,7 +40,7 @@ public class PressureTrendViewModel extends ViewModel {
         trendDao = new TrendDao();
     }
 
-    public void updateData() {
+    public boolean updateData() {
         Trend trend = trendDao.getStationTrend(station);
 
         if (trend != null) {
@@ -50,7 +50,7 @@ public class PressureTrendViewModel extends ViewModel {
             lastMeasuremenetTime.postValue(dt);
             stationName.postValue(trend.displayed_name);
 
-            if (!trend.current_qnh_qf.equals("NOT_AVALIABLE")) {
+            if (!trend.current_qnh_qf.equals("NOT_AVALIABLE") && !trend.current_qnh_qf.equals("NO_DATA")) {
                 currentValue.postValue(String.format("%.1f hPa", trend.pressure_trend.current_value));
                 twoHoursValue.postValue(String.format("%.1f hPa", trend.pressure_trend.two_hours_value));
                 fourHoursValue.postValue(String.format("%.1f hPa", trend.pressure_trend.four_hours_value));
@@ -64,9 +64,15 @@ public class PressureTrendViewModel extends ViewModel {
                 sixHoursValue.postValue("-- hPa");
                 eightHoursValue.postValue("-- hPa");
             }
+            return true;
         }
         else {
-
+            currentValue.postValue("-- hPa");
+            twoHoursValue.postValue("-- hPa");
+            fourHoursValue.postValue("-- hPa");
+            sixHoursValue.postValue("-- hPa");
+            eightHoursValue.postValue("-- hPa");
+            return false;
         }
     }
 

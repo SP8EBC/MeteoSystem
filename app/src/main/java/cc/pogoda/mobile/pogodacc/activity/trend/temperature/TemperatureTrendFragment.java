@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.pogodacc.activity.trend.temperature;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -122,7 +124,15 @@ public class TemperatureTrendFragment extends Fragment {
             textViewTemperatureTrendEightHoursHVal.setText(s);
         });
 
-        temperatureTrendViewModel.getData();
+        if(!temperatureTrendViewModel.getData()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(container.getContext());
+            builder.setMessage(R.string.no_comm_with_backend);
+            builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
+                var1.dismiss();
+            });
+            builder.create();
+            builder.show();
+        }
 
         return root;
     }

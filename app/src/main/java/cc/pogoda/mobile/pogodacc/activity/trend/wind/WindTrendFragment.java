@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.pogodacc.activity.trend.wind;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -114,7 +116,15 @@ public class WindTrendFragment extends Fragment {
             textViewWindTrendEightHoursGustsVal.setText(s);
         });
 
-        windTrendViewModel.updateData();
+        if (!windTrendViewModel.updateData()) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(container.getContext());
+            builder.setMessage(R.string.no_comm_with_backend);
+            builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
+                var1.dismiss();
+            });
+            builder.create();
+            builder.show();
+        }
 
         return root;
     }

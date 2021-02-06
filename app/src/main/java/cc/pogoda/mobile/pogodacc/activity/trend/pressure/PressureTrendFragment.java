@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.pogodacc.activity.trend.pressure;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -79,7 +81,15 @@ public class PressureTrendFragment extends Fragment {
         });
 
         try {
-            pressureTrendViewModel.updateData();
+            if (!pressureTrendViewModel.updateData()) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(container.getContext());
+                builder.setMessage(R.string.no_comm_with_backend);
+                builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
+                    var1.dismiss();
+                });
+                builder.create();
+                builder.show();
+            }
         }
         catch (Exception e) {
             ;

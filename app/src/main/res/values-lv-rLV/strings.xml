@@ -78,4 +78,5 @@
     <string name="h4_value">-</string>
     <string name="h6_value">-</string>
     <string name="h8_value">-</string>
+    <string name="no_comm_with_backend">-</string>
 </resources>

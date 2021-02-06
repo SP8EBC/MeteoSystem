@@ -105,7 +105,7 @@ public class TemperatureTrendViewModel extends ViewModel {
         eightHoursHumidityValue = new MutableLiveData<String>();
     }
 
-    public void getData() {
+    public boolean getData() {
         Trend trend = trendDao.getStationTrend(this.station);
 
         if (trend != null) {
@@ -115,13 +115,9 @@ public class TemperatureTrendViewModel extends ViewModel {
             lastMeasuremenetTime.postValue(dt);
             displayedStationName.postValue(trend.displayed_name);
 
-            currentTemperatureValue.postValue(String.format("%.1f °C", trend.temperature_trend.current_value));
-            twoHoursTemperatureValue.postValue(String.format("%.1f °C", trend.temperature_trend.two_hours_value));
-            fourHoursTemperatureValue.postValue(String.format("%.1f °C", trend.temperature_trend.four_hours_value));
-            sixHoursTemperatureValue.postValue(String.format("%.1f °C", trend.temperature_trend.six_hours_value));
-            eightHoursTemperatureValue.postValue(String.format("%.1f °C", trend.temperature_trend.eight_hours_value));
+            if (!trend.current_humidity_qf.equals("NOT_AVALIABLE") && !trend.current_humidity_qf.equals("NO_DATA")) {
 
-            if (!trend.current_humidity_qf.equals("NOT_AVALIABLE")) {
+
                 currentHumidityValue.postValue(String.format("%.1f %%", trend.humidity_trend.current_value));
                 twoHoursHumidityValue.postValue(String.format("%.1f %%", trend.humidity_trend.two_hours_value));
                 fourHoursHumidityValue.postValue(String.format("%.1f %%", trend.humidity_trend.four_hours_value));
@@ -129,15 +125,45 @@ public class TemperatureTrendViewModel extends ViewModel {
                 eightHoursHumidityValue.postValue(String.format("%.1f %%", trend.humidity_trend.eight_hours_value));
             }
             else {
-                currentHumidityValue.postValue(String.format("-- %%"));
-                twoHoursHumidityValue.postValue(String.format("-- %%"));
-                fourHoursHumidityValue.postValue(String.format("-- %%"));
-                sixHoursHumidityValue.postValue(String.format("-- %%"));
-                eightHoursHumidityValue.postValue(String.format("-- %%"));
+
+
+                currentHumidityValue.postValue("-- %");
+                twoHoursHumidityValue.postValue("-- %");
+                fourHoursHumidityValue.postValue("-- %");
+                sixHoursHumidityValue.postValue("-- %");
+                eightHoursHumidityValue.postValue("-- %");
+
             }
+
+            if (!trend.current_temperature_qf.equals("NOT_AVALIABLE") && !trend.current_temperature_qf.equals("NO_DATA")) {
+                currentTemperatureValue.postValue(String.format("%.1f °C", trend.temperature_trend.current_value));
+                twoHoursTemperatureValue.postValue(String.format("%.1f °C", trend.temperature_trend.two_hours_value));
+                fourHoursTemperatureValue.postValue(String.format("%.1f °C", trend.temperature_trend.four_hours_value));
+                sixHoursTemperatureValue.postValue(String.format("%.1f °C", trend.temperature_trend.six_hours_value));
+                eightHoursTemperatureValue.postValue(String.format("%.1f °C", trend.temperature_trend.eight_hours_value));
+            }
+            else {
+                currentTemperatureValue.postValue("-- °C");
+                twoHoursTemperatureValue.postValue("-- °C");
+                fourHoursTemperatureValue.postValue("-- °C");
+                sixHoursTemperatureValue.postValue("-- °C");
+                eightHoursTemperatureValue.postValue("-- °C");
+            }
+            return true;
         }
         else {
-            ;
+            currentTemperatureValue.postValue("-- °C");
+            twoHoursTemperatureValue.postValue("-- °C");
+            fourHoursTemperatureValue.postValue("-- °C");
+            sixHoursTemperatureValue.postValue("-- °C");
+            eightHoursTemperatureValue.postValue("-- °C");
+
+            currentHumidityValue.postValue("-- %");
+            twoHoursHumidityValue.postValue("-- %");
+            fourHoursHumidityValue.postValue("-- %");
+            sixHoursHumidityValue.postValue("-- %");
+            eightHoursHumidityValue.postValue("-- %");
+            return false;
         }
     }
 
