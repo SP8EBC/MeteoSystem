@@ -7,16 +7,250 @@
     tools:context=".activity.trend.temperature.TemperatureTrendFragment">
 
     <TextView
-        android:id="@+id/text_dashboard"
-        android:layout_width="match_parent"
+        android:id="@+id/textViewTemperatureTrendStationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginTop="16dp"
+        android:text="TextView"
+        android:textSize="38sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendLastTimestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
+        android:text="@string/last_data_timestamp"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendStationName" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendLastTimestampValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="sans-serif-black"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendLastTimestamp" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendCurrent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
+        android:text="@string/current_value"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendLastTimestampValue" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendCurrentTValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-black"
+        android:text="TextView"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewTemperatureTrendCurrentHValue"
+        app:layout_constraintStart_toEndOf="@+id/textViewTemperatureTrendTLabel"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendCurrent" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendCurrentHValue"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="sans-serif-black"
+        android:text="TextView"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewTemperatureTrendHLabel"
+        app:layout_constraintStart_toEndOf="@+id/textViewTemperatureTrendCurrentTValue"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendCurrent" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendTwoHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
+        android:text="@string/h2_value"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendCurrentTValue" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendTwoHoursTValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-black"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewTemperatureTrendTwoHoursHValue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendTwoHours" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendTwoHoursHValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-black"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewTemperatureTrendTwoHoursTValue"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendTwoHours" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendFourHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
+        android:text="@string/h4_value"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendTwoHoursTValue" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendFourHoursTValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-black"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewTemperatureTrendFourHoursHValue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendFourHours" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendFourHoursHValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-black"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewTemperatureTrendFourHoursTValue"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendFourHours" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendSixHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
+        android:text="@string/h6_value"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendFourHoursTValue" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendSixHoursTValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-black"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewTemperatureTrendSixHoursHValue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendSixHours" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendSixHoursHValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-black"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewTemperatureTrendSixHoursTValue"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendSixHours" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendEightHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
+        android:text="@string/h8_value"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendSixHoursTValue" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendTrendEightHoursTVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-black"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewTemperatureTrendEightHoursHVal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendEightHours" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendEightHoursHVal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:fontFamily="sans-serif-black"
+        android:text="TextView"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textViewTemperatureTrendTrendEightHoursTVal"
+        app:layout_constraintTop_toBottomOf="@id/textViewTemperatureTrendEightHours" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendTLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
+        android:text="@string/temperature"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTemperatureTrendCurrent" />
+
+    <TextView
+        android:id="@+id/textViewTemperatureTrendHLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
+        android:text="@string/humidity"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTemperatureTrendCurrent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

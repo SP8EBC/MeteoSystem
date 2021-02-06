@@ -6,6 +6,8 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
+    apply plugin: "androidx.navigation.safeargs"
+
     defaultConfig {
         applicationId "cc.pogoda.mobile.pogodacc"
         minSdkVersion 24

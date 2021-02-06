@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
         android:text="@string/last_data_timestamp"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,11 +33,14 @@
         android:id="@+id/textViewPressureTrendLastTimestampValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="140dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
         android:fontFamily="sans-serif-black"
         android:text="TextView"
+        android:textAlignment="center"
         android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewPressureTrendLastTimestamp" />
 
@@ -46,6 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
         android:text="@string/current_value"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -69,6 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginTop="32dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
         android:text="@string/h2_value"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewPressureTrendCurrentValue" />
@@ -90,6 +96,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
         android:text="@string/h4_value"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewPressureTrendTwoHoursValue" />
@@ -111,6 +118,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="17dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
         android:text="@string/h6_value"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewPressureTrendFourHoursValue" />
@@ -132,6 +140,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
         android:text="@string/h8_value"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewPressureTrendSixHoursValue" />

@@ -5,6 +5,10 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_wind">
 
+    <action
+        android:id="@+id/action_global_mobile_navigation"
+        app:destination="@id/navigation_wind" />
+
     <fragment
         android:id="@+id/navigation_wind"
         android:name="cc.pogoda.mobile.pogodacc.activity.trend.wind.WindTrendFragment"
@@ -13,6 +17,13 @@
         <argument
             android:name="station"
             app:argType="string" />
+        <action
+            android:id="@+id/action_navigation_wind_to_navigation_temperature"
+            app:destination="@id/navigation_temperature">
+            <argument
+                android:name="station"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
@@ -23,6 +34,13 @@
         <argument
             android:name="station"
             app:argType="string" />
+        <action
+            android:id="@+id/action_navigation_temperature_to_navigation_pressure"
+            app:destination="@id/navigation_pressure">
+            <argument
+                android:name="station"
+                app:argType="string" />
+        </action>
     </fragment>
 
     <fragment
@@ -32,6 +50,14 @@
         tools:layout="@layout/fragment_pressure" >
         <argument
             android:name="station"
-            app:argType="string" />
+            app:argType="string">
+        </argument>
+        <action
+            android:id="@+id/action_navigation_pressure_to_navigation_wind"
+            app:destination="@id/navigation_wind">
+            <argument
+                android:name="station"
+                app:argType="string" />
+        </action>
     </fragment>
 </navigation>

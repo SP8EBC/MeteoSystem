@@ -16,7 +16,6 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
-import org.threeten.bp.Instant;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZoneOffset;
@@ -340,7 +339,7 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
         valuesWindDirection = new ArrayList<>();
 
         if (data != null) {
-            for (StationData d : data.listOfStationData) {
+            for (StationData d : data.list_of_station_data) {
                 valuesWindDirection.add(new Entry(d.epoch * 1000, d.winddir));
             }
         }

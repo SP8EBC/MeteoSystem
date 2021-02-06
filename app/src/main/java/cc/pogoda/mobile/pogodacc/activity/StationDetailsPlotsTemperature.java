@@ -14,9 +14,6 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IFillFormatter;
-import com.github.mikephil.charting.interfaces.dataprovider.LineDataProvider;
-import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import org.threeten.bp.LocalDateTime;
@@ -30,7 +27,6 @@ import java.util.ArrayList;
 
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.handler.PlotClickEvent;
-import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
 import cc.pogoda.mobile.pogodacc.dao.LastStationDataDao;
 import cc.pogoda.mobile.pogodacc.dao.StationDataDao;
 import cc.pogoda.mobile.pogodacc.type.StationDetailsPlot;
@@ -114,7 +110,7 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
         }
 
         if (data instanceof  ListOfStationData) {
-            for (StationData d : data.listOfStationData) {
+            for (StationData d : data.list_of_station_data) {
                 valuesTemperature.add(new Entry(d.epoch * 1000, d.temperature));
             }
         }

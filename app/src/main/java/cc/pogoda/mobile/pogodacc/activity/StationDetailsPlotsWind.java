@@ -218,7 +218,7 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
         valuesWindGusts = new ArrayList<>();
 
         if (data instanceof  ListOfStationData) {
-            for (StationData d : data.listOfStationData) {
+            for (StationData d : data.list_of_station_data) {
                 valuesWindSpeed.add(new Entry(d.epoch * 1000, d.windspeed));
                 valuesWindGusts.add(new Entry(d.epoch * 1000, d.windgusts));
             }

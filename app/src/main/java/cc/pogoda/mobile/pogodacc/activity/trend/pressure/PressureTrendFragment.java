@@ -13,6 +13,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import cc.pogoda.mobile.pogodacc.R;
+import cc.pogoda.mobile.pogodacc.activity.TrendActivity;
 
 public class PressureTrendFragment extends Fragment {
 
@@ -32,23 +33,20 @@ public class PressureTrendFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         pressureTrendViewModel =
                 new ViewModelProvider(this).get(PressureTrendViewModel.class);
-        
+
+        pressureTrendViewModel.setStation(TrendActivity.getStation());
 
         // inflate the main layout of the fragment
         View root = inflater.inflate(R.layout.fragment_pressure, container, false);
 
-        Bundle arg = this.getArguments();
-
-        if (arg != null) {
-            station = arg.getString("station");
-        }
+        station = TrendActivity.getStation();
 
         // load all elements from the layout
         stationName = root.findViewById(R.id.textViewPressureTrendStationName);
         lastDataTimestamp = root.findViewById(R.id.textViewPressureTrendLastTimestampValue);
         currentValue = root.findViewById(R.id.textViewPressureTrendCurrentValue);
         twoHours = root.findViewById(R.id.textViewPressureTrendTwoHoursValue);
-        fourHours = root.findViewById(R.id.textViewPressureTrendTwoHoursValue);
+        fourHours = root.findViewById(R.id.textViewPressureTrendFourHoursValue);
         sixHours = root.findViewById(R.id.textViewPressureTrendSixHoursValue);
         eightHours =  root.findViewById(R.id.textViewPressureTrendEightHoursVal);
 
@@ -80,7 +78,12 @@ public class PressureTrendFragment extends Fragment {
             eightHours.setText(s);
         });
 
-        //pressureTrendViewModel.updateData();
+        try {
+            pressureTrendViewModel.updateData();
+        }
+        catch (Exception e) {
+            ;
+        }
 
         return root;
     }
