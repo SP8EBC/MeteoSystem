@@ -65,7 +65,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/constraintLayoutStationInfo"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp">
+                    android:layout_height="60dp">
 
                     <TextView
                         android:id="@+id/textViewSponsorUrl"
@@ -73,6 +73,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:autoLink="web"
+                        android:fontFamily="@font/alegreya_sans_sc_medium"
                         android:text="TextView"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -82,6 +83,7 @@
                         android:id="@+id/textViewLocalization"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/alegreya_sans_sc_medium"
                         android:text="TextView"
                         android:textSize="18sp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -92,8 +94,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:textAlignment="viewEnd"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent" />
+
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -105,7 +109,8 @@
                         android:id="@+id/imageButtonWindRose"
                         android:layout_width="176dp"
                         android:layout_height="180dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="16dp"
                         android:backgroundTint="#56039BE5"
                         android:paddingLeft="100px"
                         android:paddingTop="100px"
@@ -115,7 +120,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.931"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageButtonFavourites"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.007"
                         app:srcCompat="@drawable/ic_wind_rose_compass_svgrepo_com" />
@@ -139,7 +144,7 @@
                         android:layout_width="176dp"
                         android:layout_height="180dp"
                         android:layout_marginStart="16dp"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="4dp"
                         android:backgroundTint="#56039BE5"
                         android:paddingLeft="100px"
                         android:paddingTop="100px"
@@ -147,7 +152,7 @@
                         android:paddingBottom="100px"
                         android:scaleType="fitXY"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/imageButtonWindRose"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -182,7 +187,7 @@
                         android:paddingBottom="100px"
                         android:scaleType="fitXY"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/imageButtonPlotsTemperature"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/imageButtonFavourites"
@@ -209,6 +214,7 @@
                         android:layout_width="176dp"
                         android:layout_height="180dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="16dp"
                         android:backgroundTint="#56039BE5"
                         android:paddingLeft="100px"
                         android:paddingTop="100px"
@@ -218,7 +224,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.931"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageButtonTrend"
                         app:layout_constraintTop_toBottomOf="@+id/imageButtonWindRose"
                         app:layout_constraintVertical_bias="0.004"
                         app:srcCompat="@drawable/ic_baseline_equalizer_24" />
@@ -243,6 +249,7 @@
                         android:layout_width="176dp"
                         android:layout_height="180dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="16dp"
                         android:backgroundTint="#56039BE5"
                         android:paddingLeft="100px"
                         android:paddingTop="100px"
@@ -252,7 +259,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.931"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageButtonPlotsWindDirection"
                         app:layout_constraintTop_toBottomOf="@+id/imageButtonPlotsTemperature"
                         app:layout_constraintVertical_bias="0.002"
                         app:srcCompat="@drawable/ic_baseline_equalizer_24" />
@@ -275,10 +282,11 @@
 
                     <ImageButton
                         android:id="@+id/imageButtonPlotsWindSpeed"
-                        android:layout_width="379dp"
+                        android:layout_width="0dp"
                         android:layout_height="180dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="10dp"
+                        android:layout_marginEnd="16dp"
                         android:backgroundTint="#56039BE5"
                         android:paddingLeft="100px"
                         android:paddingTop="100px"
@@ -321,7 +329,7 @@
                         android:paddingBottom="100px"
                         android:scaleType="fitXY"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/imageButtonPlotsHumidity"
                         app:layout_constraintHorizontal_bias="0"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/imageButtonTrend"
@@ -342,6 +350,19 @@
                         app:layout_constraintEnd_toEndOf="@id/imageButtonPlotsWindDirection"
                         app:layout_constraintStart_toStartOf="@id/imageButtonPlotsWindDirection"
                         app:layout_constraintTop_toTopOf="@id/imageButtonPlotsWindDirection" />
+
+                    <TextView
+                        android:id="@+id/textViewMoreInfo"
+                        android:layout_width="0dp"
+                        android:layout_height="202dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
+                        android:text="TextView"
+                        android:textSize="24sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageButtonPlotsWindSpeed" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>

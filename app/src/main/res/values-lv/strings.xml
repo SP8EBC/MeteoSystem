@@ -79,5 +79,12 @@
     <string name="h6_value">-</string>
     <string name="h8_value">-</string>
     <string name="no_comm_with_backend">-</string>
+    <string name="no_stations_in_fav_1">-</string>
+    <string name="no_stations_in_fav_2">-</string>
+    <string name="fav_added_success">-</string>
+    <string name="fav_deleted_success">-</string>
+    <string name="settings">-</string>
+    <string name="test_warning">-</string>
+    <string name="credits_1">-</string>
 
 </resources>

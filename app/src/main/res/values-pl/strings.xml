@@ -79,4 +79,11 @@
     <string name="h6_value">Sześć godzin temu</string>
     <string name="h8_value">Osiem godzin temu</string>
     <string name="no_comm_with_backend">Brak komunikacji z serwerem</string>
+    <string name="no_stations_in_fav_1">Brak stacji na Twojej liście ulubionych</string>
+    <string name="no_stations_in_fav_2">Proszę użyć menu w oknie szczegułów stacji aby coś tu dodać</string>
+    <string name="fav_added_success">Stacja została dodana do ulubionych</string>
+    <string name="fav_deleted_success">Stacja została usunięta z ulubionych</string>
+    <string name="settings">Ustawienia</string>
+    <string name="test_warning">Uwaga! To jest wersja testowa aplikacji!</string>
+    <string name="credits_1">Stworzone przez:</string>
 </resources>

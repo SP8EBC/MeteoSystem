@@ -1,6 +1,10 @@
 package cc.pogoda.mobile.pogodacc.type;
 
+import androidx.annotation.Nullable;
+
 import java.io.Serializable;
+
+import cc.pogoda.mobile.pogodacc.activity.trend.pressure.PressureTrendFragment;
 
 public class WeatherStation implements Serializable {
 
@@ -92,6 +96,30 @@ public class WeatherStation implements Serializable {
         this.availableParameters = availableParameters;
     }
 
+    public void setMoreInfo(String moreInfo) {
+        this.moreInfo = moreInfo;
+    }
+
+    public String getMoreInfo() {
+        return moreInfo;
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        boolean out = false;
+
+        if (obj instanceof WeatherStation) {
+            if (((WeatherStation) obj).systemName.equals(this.systemName)) {
+                out = true;
+            }
+        }
+        else {
+            ;
+        }
+
+        return out;
+    }
+
     String systemName;
 
     String displayedName;
@@ -111,6 +139,8 @@ public class WeatherStation implements Serializable {
     float lon;
 
     AvailableParameters availableParameters;
+
+    String moreInfo;
 
 
 }

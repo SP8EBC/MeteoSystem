@@ -31,6 +31,7 @@ import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActWindDirection
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActWindSpeedPlotsButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActSummaryButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActWindRoseButtonClickEvent;
+import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
 
 public class StationDetailsActivity extends AppCompatActivity {
@@ -41,6 +42,7 @@ public class StationDetailsActivity extends AppCompatActivity {
     TextView stationLocation = null;
     TextView stationLatLon = null;
     TextView stationSponsorUrl = null;
+    TextView stationMoreInfo = null;
 
     ImageButton summaryButton = null;
     ImageButton windSpeedPlotsButton = null;
@@ -127,8 +129,38 @@ public class StationDetailsActivity extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case R.id.menuItemStationDetailsAddFavourites:
+                if (station != null) {
+                    boolean result = false;
+
+                    result = AppConfiguration.favourites.addFav(station);
+
+                    if (result) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setMessage(R.string.fav_added_success);
+                        builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
+                            var1.dismiss();
+                        });
+                        builder.create();
+                        builder.show();
+                    }
+                }
                 break;
             case R.id.menuItemStationDetailsDeleteFavourites:
+                if (station != null) {
+                    boolean result = false;
+
+                    result = AppConfiguration.favourites.removeFav(station);
+
+                    if (result) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                        builder.setMessage(R.string.fav_deleted_success);
+                        builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
+                            var1.dismiss();
+                        });
+                        builder.create();
+                        builder.show();
+                    }
+                }
                 break;
             case R.id.menuItemStationDetailsPlotsLn:
                 setPlotsLn();
@@ -155,6 +187,7 @@ public class StationDetailsActivity extends AppCompatActivity {
         stationLocation = findViewById(R.id.textViewLocalization);
         stationLatLon = findViewById(R.id.textViewLatLon);
         stationSponsorUrl = findViewById(R.id.textViewSponsorUrl);
+        stationMoreInfo = findViewById(R.id.textViewMoreInfo);
 
 //        public static final int BLACK = -16777216;
 //        public static final int BLUE = -16776961;
@@ -236,6 +269,8 @@ public class StationDetailsActivity extends AppCompatActivity {
             station_lon = station.getLon();
 
             stationSponsorUrl.setText(station.getSponsorUrl());
+            stationMoreInfo.setText(station.getMoreInfo());
+
 
             DownloadImage downloadImage = new DownloadImage(topBackground, station.getImageUrl());
             Thread t = new Thread(downloadImage);

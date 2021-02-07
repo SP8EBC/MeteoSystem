@@ -21,6 +21,7 @@
         <activity android:name=".activity.StationDetailsSummaryActivity" />
         <activity android:name=".activity.StationDetailsActivity" />
         <activity android:name=".activity.AllStationsActivity" />
+        <activity android:name=".activity.FavouritesActivity"/>
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -30,7 +30,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
                 <ImageButton
                     android:id="@+id/imageButtonFavourites"
@@ -75,7 +76,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0">
 
                 <ImageButton
                     android:id="@+id/imageButtonAllStations"
@@ -113,6 +115,173 @@
                     app:layout_constraintTop_toTopOf="@+id/imageButtonAllStations"
                     app:layout_constraintVertical_bias="1.0" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutExport"
+                android:layout_width="177dp"
+                android:layout_height="183dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="200dp"
+                android:layout_marginBottom="586dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutAllStations">
+
+                <ImageButton
+                    android:id="@+id/imageButtonExport"
+                    android:layout_width="175dp"
+                    android:layout_height="183dp"
+                    android:backgroundTint="#56039BE5"
+                    android:backgroundTintMode="src_in"
+                    android:paddingLeft="100px"
+                    android:paddingTop="100px"
+                    android:paddingRight="100px"
+                    android:paddingBottom="100px"
+                    android:scaleType="fitXY"
+                    android:scaleX="1"
+                    android:scaleY="1"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_save_alt_24" />
+
+                <TextView
+                    android:id="@+id/textViewExport"
+                    android:layout_width="113dp"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="21dp"
+                    android:layout_marginTop="116dp"
+                    android:layout_marginEnd="22dp"
+                    android:layout_marginBottom="18dp"
+                    android:text="@string/export_data"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageButtonExport"
+                    app:layout_constraintEnd_toEndOf="@+id/imageButtonExport"
+                    app:layout_constraintHorizontal_bias="0.526"
+                    app:layout_constraintStart_toStartOf="@+id/imageButtonExport"
+                    app:layout_constraintTop_toTopOf="@+id/imageButtonExport"
+                    app:layout_constraintVertical_bias="1.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayoutSettings"
+                android:layout_width="177dp"
+                android:layout_height="182dp"
+                android:layout_marginStart="200dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="587dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutFav">
+
+                <ImageButton
+                    android:id="@+id/imageButtonSettings"
+                    android:layout_width="176dp"
+                    android:layout_height="180dp"
+                    android:backgroundTint="#56039BE5"
+                    android:paddingLeft="100px"
+                    android:paddingTop="100px"
+                    android:paddingRight="100px"
+                    android:paddingBottom="100px"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_settings_24" />
+
+                <TextView
+                    android:id="@+id/textViewSettings"
+                    android:layout_width="62dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="54dp"
+                    android:layout_marginTop="143dp"
+                    android:layout_marginEnd="67dp"
+                    android:layout_marginBottom="18dp"
+                    android:text="@string/settings"
+                    android:textAlignment="center"
+                    app:layout_constraintBottom_toBottomOf="@+id/imageButtonSettings"
+                    app:layout_constraintEnd_toEndOf="@+id/imageButtonSettings"
+                    app:layout_constraintStart_toStartOf="@+id/imageButtonSettings"
+                    app:layout_constraintTop_toTopOf="@+id/imageButtonSettings" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textViewTestWarning"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/alegreya_sans_sc_medium"
+                android:text="@string/test_warning"
+                android:textAlignment="center"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutExport" />
+
+            <TextView
+                android:id="@+id/textViewCredits1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:fontFamily="@font/alegreya_sans_sc_medium"
+                android:text="@string/credits_1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewTestWarning" />
+
+            <TextView
+                android:id="@+id/textViewCredits2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="2dp"
+                android:fontFamily="@font/alegreya_sans_sc_medium"
+                android:text="@string/credits_2"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/textViewCredits3"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCredits1" />
+
+            <TextView
+                android:id="@+id/textViewCredits3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alegreya_sans_sc_medium"
+                android:text="@string/credits_3"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@+id/textViewCredits4"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCredits2" />
+
+            <TextView
+                android:id="@+id/textViewCredits4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alegreya_sans_sc_medium"
+                android:text="@string/credits_4"
+                app:layout_constraintBottom_toTopOf="@+id/textViewCredits5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCredits3" />
+
+            <TextView
+                android:id="@+id/textViewCredits5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alegreya_sans_sc_medium"
+                android:text="@string/credits_5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewCredits4" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>

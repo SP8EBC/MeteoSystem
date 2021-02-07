@@ -64,6 +64,7 @@ public class AllStationsDao {
                         elem.setImageUrl(def.backgroundJpg);
                         elem.setStationNameTextColor(def.stationNameTextColour);
                         elem.setImageAlign(def.backgroundJpgAlign);
+                        elem.setMoreInfo(def.moreInfo);
 
                         AvailableParameters availableParameters = AvailableParameters.fromStation(def);
                         elem.setAvailableParameters(availableParameters);
