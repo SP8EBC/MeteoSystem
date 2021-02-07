@@ -53,23 +53,25 @@ public class AllStationsDao {
                     out = new LinkedList<WeatherStation>();
 
                     for (StationDefinition def : intermediate.stations) {
-                        WeatherStation elem = new WeatherStation();
+                        if (def.enabled) {
+                            WeatherStation elem = new WeatherStation();
 
-                        elem.setSystemName(def.name);
-                        elem.setDisplayedLocation(def.displayedLocation);
-                        elem.setDisplayedName(def.displayedName);
-                        elem.setLat(def.lat);
-                        elem.setLon(def.lon);
-                        elem.setSponsorUrl(def.sponsorUrl);
-                        elem.setImageUrl(def.backgroundJpg);
-                        elem.setStationNameTextColor(def.stationNameTextColour);
-                        elem.setImageAlign(def.backgroundJpgAlign);
-                        elem.setMoreInfo(def.moreInfo);
+                            elem.setSystemName(def.name);
+                            elem.setDisplayedLocation(def.displayedLocation);
+                            elem.setDisplayedName(def.displayedName);
+                            elem.setLat(def.lat);
+                            elem.setLon(def.lon);
+                            elem.setSponsorUrl(def.sponsorUrl);
+                            elem.setImageUrl(def.backgroundJpg);
+                            elem.setStationNameTextColor(def.stationNameTextColour);
+                            elem.setImageAlign(def.backgroundJpgAlign);
+                            elem.setMoreInfo(def.moreInfo);
 
-                        AvailableParameters availableParameters = AvailableParameters.fromStation(def);
-                        elem.setAvailableParameters(availableParameters);
+                            AvailableParameters availableParameters = AvailableParameters.fromStation(def);
+                            elem.setAvailableParameters(availableParameters);
 
-                        out.add(elem);
+                            out.add(elem);
+                        }
                     }
                 }
 
