@@ -86,4 +86,19 @@
     <string name="settings">Settings</string>
     <string name="test_warning">Warning! This is a test version of the application!</string>
     <string name="credits_1">Devleoped by:</string>
+    <string name="camera">Online Camera</string>
+    <string name="forecast">Weather forecast</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="language">Laguage</string>
+    <string name="unit_of_measure">Unit of measure</string>
+    <string name="wind_unit_of_measure">Windspeed unit</string>
+    <string name="filter">Filter</string>
+    <string name="search">Search by name</string>
+    <string name="sort">Sort</string>
+    <string name="sort_by_name">Sort by name</string>
+    <string name="sort_in_add_order">Sort by add to list order</string>
+    <string name="translation_authors">Translation made by</string>
+    <string name="ice_temperature">Ice temperature</string>
+    <string name="reference_runner_temperature">Reference runner temperature</string>
 </resources>

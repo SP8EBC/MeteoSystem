@@ -86,4 +86,19 @@
     <string name="settings">Ustawienia</string>
     <string name="test_warning">Uwaga! To jest wersja testowa aplikacji!</string>
     <string name="credits_1">Stworzone przez:</string>
+    <string name="camera">Kamera online</string>
+    <string name="forecast">Prognoza pogody</string>
+    <string name="from">Od</string>
+    <string name="to">Do</string>
+    <string name="language">Język</string>
+    <string name="unit_of_measure">Jednostka miary</string>
+    <string name="wind_unit_of_measure">Jednostka prędkości wiatru</string>
+    <string name="filter">Filtruj</string>
+    <string name="search">Wyszukaj po nazwie</string>
+    <string name="sort">Sortuj</string>
+    <string name="sort_by_name">Sortuj po nazwie</string>
+    <string name="sort_in_add_order">Sortuj w kolejności dodania</string>
+    <string name="translation_authors">Autorzy tłumaczeń</string>
+    <string name="ice_temperature">Temperatura lodu</string>
+    <string name="reference_runner_temperature">Temperatura płozy kontrolnej</string>
 </resources>

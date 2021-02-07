@@ -97,4 +97,19 @@
     <string name="credits_3" translatable="false">Bielsko - Biała 2020, 2021</string>
     <string name="credits_4" translatable="false">sp8ebc@gmail.com</string>
     <string name="credits_5" translatable="false">tel: +48 660 43 44 46</string>
+    <string name="camera">Online Camera</string>
+    <string name="forecast">Weather forecast</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="language">Language</string>
+    <string name="unit_of_measure">Unit of measure</string>
+    <string name="wind_unit_of_measure">Windspeed unit</string>
+    <string name="filter">Filter</string>
+    <string name="search">Search by name</string>
+    <string name="sort">Sort</string>
+    <string name="sort_by_name">Sort by name</string>
+    <string name="sort_in_add_order">Sort by add to list order</string>
+    <string name="translation_authors">Translations made by</string>
+    <string name="ice_temperature">Ice temperature</string>
+    <string name="reference_runner_temperature">Reference runner temperature</string>
 </resources>
