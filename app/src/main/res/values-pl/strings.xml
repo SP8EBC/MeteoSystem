@@ -101,4 +101,10 @@
     <string name="translation_authors">Autorzy tłumaczeń</string>
     <string name="ice_temperature">Temperatura lodu</string>
     <string name="reference_runner_temperature">Temperatura płozy kontrolnej</string>
+    <string name="records">Rekordy</string>
+    <string name="last_30_days">Przez ostatnie 30 dni</string>
+    <string name="this_year">Od początku roku</string>
+    <string name="ever">Od instalacji stacji</string>
+    <string name="data_sources">Źródła danych</string>
+    <string name="callsign">Znak wywoławczy w APRS</string>
 </resources>

@@ -101,5 +101,11 @@
     <string name="translation_authors">-</string>
     <string name="ice_temperature">-</string>
     <string name="reference_runner_temperature">-</string>
+    <string name="records">-</string>
+    <string name="last_30_days">-</string>
+    <string name="this_year">-</string>
+    <string name="ever">-</string>
+    <string name="data_sources">-</string>
+    <string name="callsign">-</string>
 
 </resources>

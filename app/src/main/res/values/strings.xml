@@ -112,4 +112,11 @@
     <string name="translation_authors">Translations made by</string>
     <string name="ice_temperature">Ice temperature</string>
     <string name="reference_runner_temperature">Reference runner temperature</string>
+    <string name="records">Record values</string>
+    <string name="last_30_days">In last 30 days</string>
+    <string name="this_year">In this year</string>
+    <string name="ever">Since the station installation</string>
+    <string name="data_sources">Data sources</string>
+    <string name="callsign">APRS callsign</string>
+    <string name="holfuy_id" translatable="false">Holfuy ID</string>
 </resources>
