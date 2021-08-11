@@ -1,8 +1,5 @@
 package cc.pogoda.mobile.pogodacc.file;
 
-import android.renderscript.ScriptGroup;
-
-import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -86,7 +83,7 @@ public class FavouritiesFile {
 
             // checks if file exists and delete it if yes
             if (output.exists()) {
-                FileUtils.deleteQuietly(output);
+                output.delete();
                 output.createNewFile();
             }
 

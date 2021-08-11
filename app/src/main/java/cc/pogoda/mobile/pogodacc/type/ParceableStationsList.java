@@ -65,14 +65,14 @@ public class ParceableStationsList implements Parcelable {
 
                 parcel.writeString(s.getMoreInfo());
 
-                parcel.writeBoolean(s.getAvailableParameters().humidity);
-                parcel.writeBoolean(s.getAvailableParameters().qnh);
-                parcel.writeBoolean(s.getAvailableParameters().windDirection);
-                parcel.writeBoolean(s.getAvailableParameters().windGusts);
-                parcel.writeBoolean(s.getAvailableParameters().windSpeed);
-                parcel.writeBoolean(s.getAvailableParameters().rain);
-                parcel.writeBoolean(s.getAvailableParameters().waterTemperature);
-                parcel.writeBoolean(s.getAvailableParameters().airTemperature);
+                parcel.writeInt(s.getAvailableParameters().humidity ? 1 : 0);
+                parcel.writeInt(s.getAvailableParameters().qnh ? 1 : 0);
+                parcel.writeInt(s.getAvailableParameters().windDirection ? 1 : 0);
+                parcel.writeInt(s.getAvailableParameters().windGusts ? 1 : 0);
+                parcel.writeInt(s.getAvailableParameters().windSpeed ? 1 : 0);
+                parcel.writeInt(s.getAvailableParameters().rain ? 1 : 0);
+                parcel.writeInt(s.getAvailableParameters().waterTemperature ? 1 : 0);
+                parcel.writeInt(s.getAvailableParameters().airTemperature ? 1 : 0);
 
             }
         }
@@ -101,14 +101,14 @@ public class ParceableStationsList implements Parcelable {
 
             AvailableParameters params = new AvailableParameters();
 
-            params.humidity = in.readBoolean();
-            params.qnh = in.readBoolean();
-            params.windDirection = in.readBoolean();
-            params.windGusts = in.readBoolean();
-            params.windSpeed = in.readBoolean();
-            params.rain = in.readBoolean();
-            params.waterTemperature = in.readBoolean();
-            params.airTemperature = in.readBoolean();
+            params.humidity = (in.readInt() > 0) ? true : false;
+            params.qnh = (in.readInt() > 0) ? true : false;
+            params.windDirection = (in.readInt() > 0) ? true : false;
+            params.windGusts = (in.readInt() > 0) ? true : false;
+            params.windSpeed = (in.readInt() > 0) ? true : false;
+            params.rain = (in.readInt() > 0) ? true : false;
+            params.waterTemperature = (in.readInt() > 0) ? true : false;
+            params.airTemperature = (in.readInt() > 0) ? true : false;
 
             wx.setAvailableParameters(params);
 
