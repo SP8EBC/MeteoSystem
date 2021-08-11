@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.adapter.WeatherStationRecyclerViewAdapter;
 import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
-import cc.pogoda.mobile.pogodacc.dao.AllStationsDao;
 
 public class FavouritesActivity extends AppCompatActivity {
 
@@ -29,7 +28,7 @@ public class FavouritesActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if (AppConfiguration.favourites == null || AppConfiguration.favourites.favourites.size() == 0) {
+        if (AppConfiguration.favourites == null || AppConfiguration.favourites.getFavourites().size() == 0) {
             setContentView(R.layout.activity_favourites_empty);
         }
         else {
@@ -40,7 +39,7 @@ public class FavouritesActivity extends AppCompatActivity {
             if (recyclerViewFavourites != null) {
                 WeatherStationRecyclerViewAdapter adapter = null;
 
-                adapter = new WeatherStationRecyclerViewAdapter(AppConfiguration.favourites.favourites, this);
+                adapter = new WeatherStationRecyclerViewAdapter(AppConfiguration.favourites.getFavourites(), this);
 
                 recyclerViewFavourites.setAdapter(adapter);
 

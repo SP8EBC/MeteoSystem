@@ -1,25 +1,38 @@
 package cc.pogoda.mobile.pogodacc.type;
 
+import android.content.Context;
+
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
 import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
+import cc.pogoda.mobile.pogodacc.file.FileNames;
 
 public class Favourites {
 
-    public Favourites() {
+    private List<WeatherStation> favourites;
+
+    private FileNames fileNames;
+
+    public Favourites(FileNames fns) {
+
         favourites = new LinkedList<WeatherStation>();
+
+        fileNames = fns;
     }
 
-    public List<WeatherStation> favourites;
+    private void storeOnDisk() {
+
+    }
 
     public boolean addFav(WeatherStation s) {
         boolean out = false;
 
-        if (AppConfiguration.favourites != null && AppConfiguration.favourites.favourites != null) {
+        if (AppConfiguration.favourites != null && AppConfiguration.favourites.getFavourites() != null) {
 
-            if (!AppConfiguration.favourites.favourites.contains(s)) {
-                AppConfiguration.favourites.favourites.add(s);
+            if (!AppConfiguration.favourites.getFavourites().contains(s)) {
+                AppConfiguration.favourites.getFavourites().add(s);
                 out = true;
             }
             else {
@@ -33,10 +46,14 @@ public class Favourites {
     public boolean removeFav(WeatherStation s) {
         boolean out = false;
 
-        if (AppConfiguration.favourites != null && AppConfiguration.favourites.favourites != null) {
-            out = AppConfiguration.favourites.favourites.remove(s);
+        if (AppConfiguration.favourites != null && AppConfiguration.favourites.getFavourites() != null) {
+            out = AppConfiguration.favourites.getFavourites().remove(s);
         }
 
         return out;
+    }
+
+    public List<WeatherStation> getFavourites() {
+        return favourites;
     }
 }

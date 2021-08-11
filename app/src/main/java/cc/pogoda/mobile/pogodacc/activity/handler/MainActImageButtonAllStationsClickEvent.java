@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import cc.pogoda.mobile.pogodacc.activity.AllStationsActivity;
+import cc.pogoda.mobile.pogodacc.type.ParceableStationsList;
 
 public class MainActImageButtonAllStationsClickEvent implements View.OnClickListener {
 
@@ -13,10 +14,11 @@ public class MainActImageButtonAllStationsClickEvent implements View.OnClickList
 
     Intent intent;
 
-    public MainActImageButtonAllStationsClickEvent(AppCompatActivity parent) {
+    public MainActImageButtonAllStationsClickEvent(AppCompatActivity parent, ParceableStationsList allStations) {
         this.parent = parent;
 
         intent = new Intent(this.parent, AllStationsActivity.class);
+        intent.putExtra("all_stations", allStations);
 
 
     }

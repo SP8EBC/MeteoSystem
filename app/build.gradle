@@ -54,5 +54,7 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.9.1'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+
 
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import cc.pogoda.mobile.pogodacc.activity.FavouritesActivity;
+import cc.pogoda.mobile.pogodacc.type.ParceableStationsList;
 
 public class MainActImageButtonFavouritesClickEvent implements View.OnClickListener{
 
@@ -13,7 +14,7 @@ public class MainActImageButtonFavouritesClickEvent implements View.OnClickListe
 
     Intent intent;
 
-    public MainActImageButtonFavouritesClickEvent(AppCompatActivity parent) {
+    public MainActImageButtonFavouritesClickEvent(AppCompatActivity parent, ParceableStationsList favs) {
         this.parent = parent;
 
         intent = new Intent(this.parent, FavouritesActivity.class);
