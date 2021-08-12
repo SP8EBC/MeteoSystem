@@ -1,7 +1,5 @@
 package cc.pogoda.mobile.pogodacc.file;
 
-import com.google.gson.JsonParser;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,11 +38,26 @@ public class FavouritiesFile {
             char buffer[] = new char[(int) file.length()];
 
             try {
+                // read the content of file
                 streamReader.read(buffer);
 
                 streamReader.close();
 
-                JSONObject root = new JSONObject(new String(buffer));
+                // parse JSON to array
+                JSONArray root = new JSONArray(new String(buffer));
+
+                if (root != null) {
+                    for (int i = 0 ; i < root.length(); i++) {
+
+                        // create new weather station data object
+                        WeatherStation station = new WeatherStation();
+
+                        // get onlu 'systemName' as the rest will be copied from current 'allStationsList'
+                        station.setSystemName(root.getJSONObject(i).getString("systemName"));
+
+                        out.add(station);
+                    }
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
@@ -100,9 +113,6 @@ public class FavouritiesFile {
             }
 
             FileOutputStream outputStream = new FileOutputStream(output);
-//            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
-//
-//            outputStreamWriter.write();
 
             // write JSON content to file on disk
             outputStream.write(jsonData.getBytes());

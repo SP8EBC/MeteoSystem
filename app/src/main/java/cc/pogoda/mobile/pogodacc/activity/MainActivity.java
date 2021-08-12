@@ -15,6 +15,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private Context baseContext;
 
     private FileNames fileNames;
+
+    private FavouritiesFile favouritiesFile;
 
     private List<WeatherStation> listOfAllStations;
 
@@ -54,25 +58,46 @@ public class MainActivity extends AppCompatActivity {
 
         // check if this is a first call after application start
         if (favs == null) {
-            favs = new FavouritiesFile(fileNames).loadFavourites();
+            favs = favouritiesFile.loadFavourites();
         }
 
-        // update values for the fav list with listOfAllStations
-        for (WeatherStation f : favs) {
+        // if favs is still null it means that favourites file doesn't even exists
+        // so and user hasn't added any station to it yet
+        if (favs == null) {
+            favs = new ArrayList<>();
+        }
+        else {
+            // update values for the fav list with listOfAllStations
+            //for (WeatherStation f : favs) {
+            for (int i = 0; i < favs.size(); i++) {
 
-            // find an index of updated station
-            int idx = listOfAllStations.indexOf(f);
+                //
+                WeatherStation fromFavs = favs.get(i);
 
-            // get the station
-            WeatherStation fromAllStations = listOfAllStations.get(idx);
+                // find an index of updated station
+                int idx = listOfAllStations.indexOf(fromFavs);
 
-            // update all parameters
-            f.setAvailableParameters(fromAllStations.getAvailableParameters());
-            f.setMoreInfo(fromAllStations.getMoreInfo());
-            f.setImageAlign(fromAllStations.getImageAlign());
-            f.setImageUrl(fromAllStations.getImageUrl());
-            f.setSponsorUrl(fromAllStations.getSponsorUrl());
-            f.setMoreInfo(fromAllStations.getMoreInfo());
+                // get the station
+                WeatherStation fromAllStations = listOfAllStations.get(idx);
+
+                // update all parameters
+                fromFavs.setAvailableParameters(fromAllStations.getAvailableParameters());
+                fromFavs.setMoreInfo(fromAllStations.getMoreInfo());
+                fromFavs.setImageAlign(fromAllStations.getImageAlign());
+                fromFavs.setImageUrl(fromAllStations.getImageUrl());
+                fromFavs.setSponsorUrl(fromAllStations.getSponsorUrl());
+                fromFavs.setMoreInfo(fromAllStations.getMoreInfo());
+                fromFavs.setLon(fromAllStations.getLon());
+                fromFavs.setLat(fromAllStations.getLat());
+                fromFavs.setDisplayedName(fromAllStations.getDisplayedName());
+                fromFavs.setDisplayedLocation(fromAllStations.getDisplayedLocation());
+
+                // there is no need to delete and put object on the list once again
+                // as a list does not make a copy of the object. It (ArrayList) keeps
+                // only a reference to an object
+
+
+            }
         }
 
         parceableListOfFavStations = ParceableStationsList.createFromStdList(favs);
@@ -123,6 +148,8 @@ public class MainActivity extends AppCompatActivity {
 
         fileNames = new FileNames(baseContext);
 
+        favouritiesFile = new FavouritiesFile(fileNames);
+
         // download all stations from API
         listOfAllStations = new AllStationsDao().getAllStations();
 
@@ -152,13 +179,28 @@ public class MainActivity extends AppCompatActivity {
         switch (serviceEvent.getEventReason()) {
 
             case ADD:
+                // check of list consist this station
+                if (favs.contains(serviceEvent.getStation())) {
+                    return;
+                }
+
+                // add favourites to list
                 favs.add(serviceEvent.getStation());
+
+                try {
+                    // save the list into JSON file
+                    favouritiesFile.persistFavourities(favs);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 break;
             case DELETE:
                 favs.remove(serviceEvent.getStation());
                 break;
         }
 
+        // recreate parceable object and pass it everywhere
         recreateListOfFavs();
         //Toast.makeText(this, intentServiceResult.getResultValue(), Toast.LENGTH_SHORT).show();
     }

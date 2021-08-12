@@ -135,9 +135,8 @@ public class StationDetailsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.menuItemStationDetailsAddFavourites:
                 if (station != null) {
-                    boolean result = false;
+                    boolean result = true;
 
-                    //result = AppConfiguration.favourites.addFav(station);
                     EventBus.getDefault().post(new WeatherStationListEvent(station, WeatherStationListEvent.EventReason.ADD));
 
                     if (result) {
@@ -153,7 +152,7 @@ public class StationDetailsActivity extends AppCompatActivity {
                 break;
             case R.id.menuItemStationDetailsDeleteFavourites:
                 if (station != null) {
-                    boolean result = false;
+                    boolean result = true;
 
                     //result = AppConfiguration.favourites.removeFav(station);
                     EventBus.getDefault().post(new WeatherStationListEvent(station, WeatherStationListEvent.EventReason.DELETE));
