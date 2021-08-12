@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.pogodacc.file;
 
+import com.google.gson.JsonParser;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,7 +12,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -37,6 +38,17 @@ public class FavouritiesFile {
 
             // create a place fo JSON content
             char buffer[] = new char[(int) file.length()];
+
+            try {
+                streamReader.read(buffer);
+
+                streamReader.close();
+
+                JSONObject root = new JSONObject(new String(buffer));
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+            }
 
         } catch (FileNotFoundException e) {
             return null;

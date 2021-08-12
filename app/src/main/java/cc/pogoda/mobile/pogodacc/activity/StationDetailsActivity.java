@@ -22,6 +22,8 @@ import android.widget.ListAdapter;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.InputStream;
 
 import cc.pogoda.mobile.pogodacc.R;
@@ -33,6 +35,7 @@ import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActSummaryButton
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActWindRoseButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
+import cc.pogoda.mobile.pogodacc.type.WeatherStationListEvent;
 
 public class StationDetailsActivity extends AppCompatActivity {
 
@@ -117,6 +120,8 @@ public class StationDetailsActivity extends AppCompatActivity {
         stationName = null;
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_station_details, menu);
@@ -132,7 +137,8 @@ public class StationDetailsActivity extends AppCompatActivity {
                 if (station != null) {
                     boolean result = false;
 
-                    result = AppConfiguration.favourites.addFav(station);
+                    //result = AppConfiguration.favourites.addFav(station);
+                    EventBus.getDefault().post(new WeatherStationListEvent(station, WeatherStationListEvent.EventReason.ADD));
 
                     if (result) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -149,7 +155,8 @@ public class StationDetailsActivity extends AppCompatActivity {
                 if (station != null) {
                     boolean result = false;
 
-                    result = AppConfiguration.favourites.removeFav(station);
+                    //result = AppConfiguration.favourites.removeFav(station);
+                    EventBus.getDefault().post(new WeatherStationListEvent(station, WeatherStationListEvent.EventReason.DELETE));
 
                     if (result) {
                         AlertDialog.Builder builder = new AlertDialog.Builder(this);

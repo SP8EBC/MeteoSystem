@@ -18,6 +18,7 @@ public class MainActImageButtonFavouritesClickEvent implements View.OnClickListe
         this.parent = parent;
 
         intent = new Intent(this.parent, FavouritesActivity.class);
+        intent.putExtra("favs", favs);
     }
 
     @Override
