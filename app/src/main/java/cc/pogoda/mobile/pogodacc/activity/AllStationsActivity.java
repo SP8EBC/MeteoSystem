@@ -37,7 +37,7 @@ public class AllStationsActivity extends AppCompatActivity {
 
         WeatherStationRecyclerViewAdapter adapter = null;
 
-        adapter = new WeatherStationRecyclerViewAdapter(allStationsList.getList(), this);
+        adapter = new WeatherStationRecyclerViewAdapter(allStationsList.getList(), this, null);
 
         recyclerViewAllStations.setAdapter(adapter);
 

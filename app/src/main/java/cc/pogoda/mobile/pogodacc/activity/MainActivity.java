@@ -22,6 +22,7 @@ import java.util.Locale;
 
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.handler.MainActImageButtonAllStationsClickEvent;
+import cc.pogoda.mobile.pogodacc.activity.handler.MainActImageButtonExportClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.MainActImageButtonFavouritesClickEvent;
 import cc.pogoda.mobile.pogodacc.dao.AllStationsDao;
 import cc.pogoda.mobile.pogodacc.file.FavouritiesFile;
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
     private MainActImageButtonFavouritesClickEvent mainActImageButtonFavouritesClickEvent = null;
 
     private ImageButton imageButtonFavourites;
+
+    private ImageButton exportButton;
 
     public MainActivity() {
 
@@ -161,6 +164,12 @@ public class MainActivity extends AppCompatActivity {
             imageButtonAllStations.setOnClickListener(new MainActImageButtonAllStationsClickEvent(this, parceableListOfAllStations));
 
         imageButtonFavourites = (ImageButton)findViewById(R.id.imageButtonFavourites);
+
+        // set an action for clicking on export data button
+        exportButton = (ImageButton)findViewById(R.id.imageButtonExport);
+        if (exportButton != null) {
+            exportButton.setOnClickListener(new MainActImageButtonExportClickEvent(this));
+        }
 
         // recreate list of favorites
         recreateListOfFavs();

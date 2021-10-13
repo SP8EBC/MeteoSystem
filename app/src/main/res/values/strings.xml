@@ -70,7 +70,7 @@
     <string name="humidity_plot">Humidity Plot</string>
     <string name="station_doesnt_measure">The station doesn\'t measure this parameter</string>
     <string name="meters_per_second" translatable="false">m/s</string>
-    <string name="knots" translatable="false">kts</string>
+    <string name="knots" translatable="false">kn</string>
     <string name="click_on_plot">Click on point on the plot</string>
     <string name="sort_alphabetical">Sort in alphabetical order</string>
     <string name="sort_in_adding_order">Sort in adding order</string>
@@ -119,4 +119,12 @@
     <string name="data_sources">Data sources</string>
     <string name="callsign">APRS callsign</string>
     <string name="holfuy_id" translatable="false">Holfuy ID</string>
+    <string name="email" translatable="false">Email</string>
+    <string name="csv" translatable="false">CSV</string>
+    <string name="xlsx" translatable="false">MS Excel XLSX</string>
+    <string-array name="export_formats">
+        <item>@string/email</item>
+        <item>@string/csv</item>
+        <item>@string/xlsx</item>
+    </string-array>
 </resources>

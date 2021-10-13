@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import cc.pogoda.mobile.pogodacc.activity.StationDetailsActivity;
+import cc.pogoda.mobile.pogodacc.type.ParceableFavsCallReason;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
 
 public class AllStationsActRecyclerViewButtonClickEvent implements View.OnClickListener {
@@ -16,19 +17,23 @@ public class AllStationsActRecyclerViewButtonClickEvent implements View.OnClickL
 
     Intent intent;
 
-    public AllStationsActRecyclerViewButtonClickEvent(WeatherStation wx, AppCompatActivity parent) {
+    ParceableFavsCallReason.Reason reason;
+
+    public AllStationsActRecyclerViewButtonClickEvent(WeatherStation wx, AppCompatActivity parent, ParceableFavsCallReason.Reason r) {
         station = wx;
         p = parent;
-
+        reason = r;
     }
 
     @Override
     public void onClick(View v) {
-        intent = new Intent(p, StationDetailsActivity.class);
-        intent.putExtra("station", station);
+        if (reason == null || reason == ParceableFavsCallReason.Reason.FAVOURITES) {
+            intent = new Intent(p, StationDetailsActivity.class);
+            intent.putExtra("station", station);
 
-        p.startActivity(intent);
+            p.startActivity(intent);
 
-        return;
+            return;
+        }
     }
 }

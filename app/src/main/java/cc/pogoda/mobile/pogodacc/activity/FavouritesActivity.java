@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.adapter.WeatherStationRecyclerViewAdapter;
 import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
+import cc.pogoda.mobile.pogodacc.type.ParceableFavsCallReason;
 import cc.pogoda.mobile.pogodacc.type.ParceableStationsList;
 
 public class FavouritesActivity extends AppCompatActivity {
@@ -33,6 +34,8 @@ public class FavouritesActivity extends AppCompatActivity {
 
         favourites = getIntent().getParcelableExtra("favs");
 
+        ParceableFavsCallReason callReason = getIntent().getParcelableExtra("callReason");
+
         if (favourites == null || favourites.getList().size() == 0) {
             setContentView(R.layout.activity_favourites_empty);
         }
@@ -44,7 +47,7 @@ public class FavouritesActivity extends AppCompatActivity {
             if (recyclerViewFavourites != null) {
                 WeatherStationRecyclerViewAdapter adapter = null;
 
-                adapter = new WeatherStationRecyclerViewAdapter(favourites.getList(), this);
+                adapter = new WeatherStationRecyclerViewAdapter(favourites.getList(), this, callReason.getReason());
 
                 recyclerViewFavourites.setAdapter(adapter);
 

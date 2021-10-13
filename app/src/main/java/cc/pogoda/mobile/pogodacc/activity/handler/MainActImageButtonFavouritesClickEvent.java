@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import cc.pogoda.mobile.pogodacc.activity.FavouritesActivity;
+import cc.pogoda.mobile.pogodacc.type.ParceableFavsCallReason;
 import cc.pogoda.mobile.pogodacc.type.ParceableStationsList;
 
 public class MainActImageButtonFavouritesClickEvent implements View.OnClickListener{
@@ -19,6 +20,9 @@ public class MainActImageButtonFavouritesClickEvent implements View.OnClickListe
 
         intent = new Intent(this.parent, FavouritesActivity.class);
         intent.putExtra("favs", favs);
+
+        ParceableFavsCallReason callReason = new ParceableFavsCallReason(ParceableFavsCallReason.Reason.FAVOURITES);
+        intent.putExtra("callReason", callReason);
     }
 
     @Override

@@ -16,6 +16,7 @@ import java.util.List;
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.handler.AllStationsActRecyclerViewButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.view.AllStationsActRecyclerViewHolder;
+import cc.pogoda.mobile.pogodacc.type.ParceableFavsCallReason;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
 
 public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllStationsActRecyclerViewHolder> {
@@ -24,9 +25,12 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
 
     AppCompatActivity activity;
 
-    public WeatherStationRecyclerViewAdapter(List<WeatherStation> stations, AppCompatActivity parentActivity) {
+    ParceableFavsCallReason.Reason reason;
+
+    public WeatherStationRecyclerViewAdapter(List<WeatherStation> stations, AppCompatActivity parentActivity, ParceableFavsCallReason.Reason callReason) {
         this.stations = stations;
         this.activity = parentActivity;
+        this.reason = callReason;
     }
 
     @NonNull
@@ -54,7 +58,7 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
             textView.setText(station.getDisplayedName());
             button.setText(R.string.select_station);
 
-            button.setOnClickListener(new AllStationsActRecyclerViewButtonClickEvent(station, activity));
+            button.setOnClickListener(new AllStationsActRecyclerViewButtonClickEvent(station, activity, reason));
         }
 
     }
