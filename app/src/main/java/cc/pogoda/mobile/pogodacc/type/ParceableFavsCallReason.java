@@ -24,8 +24,8 @@ public class ParceableFavsCallReason  implements Parcelable {
         int reasonInt = in.readInt();
 
         switch (reasonInt) {
-            case 1: reason = Reason.FAVOURITES;
-            case 2: reason = Reason.EXPORT_SELECT;
+            case 1: reason = Reason.FAVOURITES; break;
+            case 2: reason = Reason.EXPORT_SELECT; break;
             default: reason = null;
         }
     }

@@ -1,9 +1,12 @@
 package cc.pogoda.mobile.pogodacc.activity.handler;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import cc.pogoda.mobile.pogodacc.activity.StationDetailsActivity;
 import cc.pogoda.mobile.pogodacc.type.ParceableFavsCallReason;
@@ -32,6 +35,16 @@ public class AllStationsActRecyclerViewButtonClickEvent implements View.OnClickL
             intent.putExtra("station", station);
 
             p.startActivity(intent);
+
+            return;
+        }
+        else if (reason == ParceableFavsCallReason.Reason.EXPORT_SELECT) {
+
+            EventBus.getDefault().post(station);
+
+            p.setResult(Activity.RESULT_OK);
+
+            p.finish();
 
             return;
         }

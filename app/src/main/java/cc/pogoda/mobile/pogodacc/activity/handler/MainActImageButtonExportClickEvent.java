@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import cc.pogoda.mobile.pogodacc.activity.AllStationsActivity;
 import cc.pogoda.mobile.pogodacc.activity.ExportDataActivity;
+import cc.pogoda.mobile.pogodacc.activity.FavouritesActivity;
+import cc.pogoda.mobile.pogodacc.type.ParceableStationsList;
 
 public class MainActImageButtonExportClickEvent implements View.OnClickListener{
 
@@ -14,10 +16,11 @@ public class MainActImageButtonExportClickEvent implements View.OnClickListener{
 
     Intent intent;
 
-    public MainActImageButtonExportClickEvent(AppCompatActivity p) {
+    public MainActImageButtonExportClickEvent(AppCompatActivity p, ParceableStationsList favs) {
         parent = p;
 
         intent = new Intent(this.parent, ExportDataActivity.class);
+        intent.putExtra("favs", favs);
     }
 
     @Override

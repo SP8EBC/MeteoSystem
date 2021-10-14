@@ -159,6 +159,9 @@ public class MainActivity extends AppCompatActivity {
         // convert this to parceable to exchange across intents
         parceableListOfAllStations = ParceableStationsList.createFromStdList(listOfAllStations);
 
+        // recreate list of favorites
+        recreateListOfFavs();
+
         ImageButton imageButtonAllStations = (ImageButton)findViewById(R.id.imageButtonAllStations);
         if (imageButtonAllStations != null)
             imageButtonAllStations.setOnClickListener(new MainActImageButtonAllStationsClickEvent(this, parceableListOfAllStations));
@@ -168,11 +171,9 @@ public class MainActivity extends AppCompatActivity {
         // set an action for clicking on export data button
         exportButton = (ImageButton)findViewById(R.id.imageButtonExport);
         if (exportButton != null) {
-            exportButton.setOnClickListener(new MainActImageButtonExportClickEvent(this));
+            exportButton.setOnClickListener(new MainActImageButtonExportClickEvent(this, parceableListOfFavStations));
         }
 
-        // recreate list of favorites
-        recreateListOfFavs();
     }
 
     @Override
