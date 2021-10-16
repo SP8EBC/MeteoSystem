@@ -1,9 +1,12 @@
 package cc.pogoda.mobile.pogodacc.activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.FileUtils;
 import android.text.Editable;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -90,7 +93,33 @@ public class ExportDataActivity extends AppCompatActivity {
     }
 
     public int getOutputFormat() {
+
+        String selected = outputFormat.getSelectedItem().toString();
+
+        switch (selected) {
+            case "CSV" : return 1;
+            case "MS Excel XLSX": return 2;
+        }
+
         return -1;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        String s;
+
+        if (requestCode == 123 && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+
+            s = uri.getPath();
+
+            FileUtils.
+
+            System.out.println(s);
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

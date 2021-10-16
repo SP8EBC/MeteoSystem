@@ -8,13 +8,14 @@ import cc.pogoda.mobile.pogodacc.web.TrendConsumer;
 import retrofit2.Response;
 
 public class TrendDao {
-    RestClientConfig restClient;
 
     Response<Trend> trend;
 
     String station = null;
 
     class Worker implements Runnable {
+
+        RestClientConfig restClient;
 
         @Override
         public void run() {
@@ -27,7 +28,7 @@ public class TrendDao {
                 trend = trendConsumer.getTrendForStation(station).execute();
             }
             catch (IOException e) {
-
+                e.printStackTrace();
             }
         }
     }
@@ -45,6 +46,9 @@ public class TrendDao {
 
             out = trend.body();
         } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        catch (NullPointerException e) {
             e.printStackTrace();
         }
 

@@ -3,6 +3,8 @@ package cc.pogoda.mobile.pogodacc.web;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.concurrent.TimeUnit;
+
 import cc.pogoda.mobile.pogodacc.type.CustomLocalDateTime;
 import cc.pogoda.mobile.pogodacc.web.deserializer.CustomLocalDateTimeDeserializer;
 import okhttp3.OkHttpClient;
@@ -16,7 +18,14 @@ public class RestClientConfig {
 
         Gson gson = new GsonBuilder().registerTypeAdapter(CustomLocalDateTime.class, new CustomLocalDateTimeDeserializer()).setLenient().create();
 
-        OkHttpClient client = new OkHttpClient();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
+
+        builder.readTimeout(20, TimeUnit.SECONDS);
+        builder.writeTimeout(20, TimeUnit.SECONDS);
+        builder.connectTimeout(20, TimeUnit.SECONDS);
+        builder.callTimeout(20, TimeUnit.SECONDS);
+
+        OkHttpClient client = builder.build();//new OkHttpClient(builder);
 
         out = new Retrofit.Builder().baseUrl("http://pogoda.cc:8080/").addConverterFactory(GsonConverterFactory.create(gson)).client(client).build();
 
