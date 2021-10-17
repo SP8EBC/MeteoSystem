@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.FileUtils;
 import android.text.Editable;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -23,10 +22,12 @@ import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
 
 import cc.pogoda.mobile.pogodacc.R;
-import cc.pogoda.mobile.pogodacc.activity.handler.ExportDataActStartButtonClickEvent;
+import cc.pogoda.mobile.pogodacc.dao.StationDataDao;
+import cc.pogoda.mobile.pogodacc.file.ExcelExport;
 import cc.pogoda.mobile.pogodacc.type.ParceableFavsCallReason;
 import cc.pogoda.mobile.pogodacc.type.ParceableStationsList;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
+import cc.pogoda.mobile.pogodacc.type.web.ListOfStationData;
 
 public class ExportDataActivity extends AppCompatActivity {
 
@@ -38,7 +39,7 @@ public class ExportDataActivity extends AppCompatActivity {
 
     private Spinner outputFormat;
 
-    AppCompatActivity act;
+    ExportDataActivity act;
 
     TextView stationNameToExport;
 
@@ -48,10 +49,19 @@ public class ExportDataActivity extends AppCompatActivity {
 
     WeatherStation stationToExport = null;
 
-    ExportDataActStartButtonClickEvent exportEvent;
-
     public WeatherStation getStationToExport() {
         return stationToExport;
+    }
+
+    public void openDirectory(Uri uriToLoad) {
+        // Choose a directory using the system's file picker.
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+
+        // Optionally, specify a URI for the directory that should be opened in
+        // the system file picker when it loads.
+        //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, uriToLoad);
+
+        act.startActivityForResult(intent, 123);
     }
 
     public int getExportLnInHours() {
@@ -112,11 +122,13 @@ public class ExportDataActivity extends AppCompatActivity {
         if (requestCode == 123 && resultCode == RESULT_OK) {
             Uri uri = data.getData();
 
+            String decoded = Uri.decode(uri.toString());
+
             s = uri.getPath();
 
-            FileUtils.
-
+            System.out.println(decoded);
             System.out.println(s);
+
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -157,7 +169,35 @@ public class ExportDataActivity extends AppCompatActivity {
             }
         });
 
-        startExportButton.setOnClickListener(new ExportDataActStartButtonClickEvent(this));
+        startExportButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                StationDataDao stationDataDao;
+
+                WeatherStation toExport = act.getStationToExport();
+
+                if (toExport != null) {
+                    long timestampStart = act.getStartTimestamp();
+                    long timestampStop = timestampStart + act.getExportLnInHours() * 3600;
+
+                    stationDataDao = new StationDataDao();
+
+                    ListOfStationData stationData = stationDataDao.getLastStationData(toExport.getSystemName(), timestampStart, timestampStop);
+
+                    int format = act.getOutputFormat();
+
+                    openDirectory(null);
+
+                    if (format == 2) {
+                        ExcelExport.exportToExcel(stationData, toExport, act.getApplicationContext());
+
+                    }
+
+
+                }
+            }
+        });
 
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.export_formats, android.R.layout.simple_spinner_item);
 
