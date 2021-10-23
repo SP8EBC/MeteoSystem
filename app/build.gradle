@@ -58,6 +58,5 @@ dependencies {
     implementation 'org.apache.poi:poi:3.12'
  //   implementation 'org.apache.poi:poi-ooxml:3.12'
     implementation 'com.fasterxml:aalto-xml:1.0.0'
-    implementation 'net.rdrei.android.dirchooser:library:3.2@aar'
 
 }

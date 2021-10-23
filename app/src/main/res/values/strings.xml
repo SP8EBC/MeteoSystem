@@ -121,7 +121,7 @@
     <string name="holfuy_id" translatable="false">Holfuy ID</string>
     <string name="email" translatable="false">Email</string>
     <string name="csv" translatable="false">CSV</string>
-    <string name="xlsx" translatable="false">MS Excel XLSX</string>
+    <string name="xlsx" translatable="false">MS Excel XLS</string>
     <string-array name="export_formats">
         <item>@string/email</item>
         <item>@string/csv</item>

@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
 import cc.pogoda.mobile.pogodacc.type.web.ListOfStationData;
@@ -22,7 +23,11 @@ import cc.pogoda.mobile.pogodacc.type.web.ListOfStationData;
 public class ExcelExport {
 
 
-    public static boolean exportToExcel(ListOfStationData data, WeatherStation station, Context context) {
+    public static boolean exportToExcel(ListOfStationData data, WeatherStation station, Context context, OutputStream out) {
+
+        if (out == null) {
+            return false;
+        }
 
         Cell cell;
 
@@ -56,13 +61,12 @@ public class ExcelExport {
         cell = header.createCell(7);
         cell.setCellValue("Wind Gusts");
 
-        File file = new File(context.getExternalFilesDir(null), "test.xls");
-        FileOutputStream fileOutputStream = null;
 
         try {
-            fileOutputStream = new FileOutputStream(file);
+            workbook.write(out);
 
-            workbook.write(fileOutputStream);
+            out.flush();
+            out.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

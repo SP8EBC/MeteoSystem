@@ -4,8 +4,12 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.UriPermission;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -21,6 +25,12 @@ import org.greenrobot.eventbus.ThreadMode;
 import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZonedDateTime;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintWriter;
+import java.util.List;
+
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.dao.StationDataDao;
 import cc.pogoda.mobile.pogodacc.file.ExcelExport;
@@ -35,7 +45,7 @@ public class ExportDataActivity extends AppCompatActivity {
 
     private Button selectStationButton;
 
-    private Button startExportButton;
+    private Button startExportButton, outputFileButton;
 
     private Spinner outputFormat;
 
@@ -49,19 +59,33 @@ public class ExportDataActivity extends AppCompatActivity {
 
     WeatherStation stationToExport = null;
 
+    Uri exportUri;
+
     public WeatherStation getStationToExport() {
         return stationToExport;
     }
 
     public void openDirectory(Uri uriToLoad) {
-        // Choose a directory using the system's file picker.
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+//        // Choose a directory using the system's file picker.
+//        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
+//
+//        // Optionally, specify a URI for the directory that should be opened in
+//        // the system file picker when it loads.
+//        //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, uriToLoad);
+//
+//        act.startActivityForResult(intent, 123);
+
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("application/vnd.ms-excel");
+        intent.putExtra(Intent.EXTRA_TITLE, "text.xls");
 
         // Optionally, specify a URI for the directory that should be opened in
-        // the system file picker when it loads.
-        //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, uriToLoad);
+        // the system file picker when your app creates the document.
+        //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri);
 
-        act.startActivityForResult(intent, 123);
+        startActivityForResult(intent, 123);
+
     }
 
     public int getExportLnInHours() {
@@ -108,7 +132,7 @@ public class ExportDataActivity extends AppCompatActivity {
 
         switch (selected) {
             case "CSV" : return 1;
-            case "MS Excel XLSX": return 2;
+            case "MS Excel XLS": return 2;
         }
 
         return -1;
@@ -117,17 +141,30 @@ public class ExportDataActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
-        String s;
-
         if (requestCode == 123 && resultCode == RESULT_OK) {
             Uri uri = data.getData();
 
-            String decoded = Uri.decode(uri.toString());
+            grantUriPermission(getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
 
-            s = uri.getPath();
+            exportUri = uri;
 
-            System.out.println(decoded);
-            System.out.println(s);
+//            try {
+//
+//                OutputStream out = getContentResolver().openOutputStream(uri);
+//
+//                PrintWriter writer = new PrintWriter(out);
+//
+//                writer.write("dupajasia");
+//
+//                writer.flush();
+//                writer.close();
+//                out.close();
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
         }
 
@@ -152,6 +189,15 @@ public class ExportDataActivity extends AppCompatActivity {
         exportLn = findViewById(R.id.editTextNumberExport);
         datePicker = findViewById(R.id.datePickerExportStartDate);
         outputFormat = findViewById(R.id.spinnerOutputFormat);
+        outputFileButton = findViewById(R.id.buttonExportTarget);
+
+        outputFileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDirectory(null);
+
+            }
+        });
 
         selectStationButton.setOnClickListener(new View.OnClickListener() {
 
@@ -187,10 +233,12 @@ public class ExportDataActivity extends AppCompatActivity {
 
                     int format = act.getOutputFormat();
 
-                    openDirectory(null);
-
                     if (format == 2) {
-                        ExcelExport.exportToExcel(stationData, toExport, act.getApplicationContext());
+                        try {
+                            ExcelExport.exportToExcel(stationData, toExport, act.getApplicationContext(), getContentResolver().openOutputStream(exportUri));
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
 
                     }
 

@@ -13,7 +13,7 @@
         android:layout_width="362dp"
         android:layout_height="47dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="21dp"
         android:backgroundTint="#56039BE5"
         android:text="@string/select_station_export"
@@ -25,9 +25,7 @@
         android:id="@+id/textViewStationToExport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="175dp"
-        android:layout_marginTop="14dp"
-        android:layout_marginEnd="178dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/alegreya_sans_sc_medium"
         android:text="@string/dash"
         android:textAllCaps="true"
@@ -40,23 +38,23 @@
         android:id="@+id/spinnerOutputFormat"
         android:layout_width="247dp"
         android:layout_height="29dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewStationToExport" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/alegreya_sans_sc_medium"
         android:text="@string/output_export_format"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSelectStationExport" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewStationToExport" />
 
 
     <DatePicker
@@ -77,12 +75,11 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/alegreya_sans_sc_medium"
-        android:text="@string/start_data"
+        android:text="@string/export_from"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinnerOutputFormat" />
 
@@ -90,7 +87,7 @@
         android:id="@+id/editTextNumberExport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
@@ -102,7 +99,7 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/alegreya_sans_sc_medium"
         android:text="@string/export_ln"
         android:textSize="20sp"
@@ -125,9 +122,21 @@
         android:id="@+id/buttonExportStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="9dp"
         android:backgroundTint="#56039BE5"
         android:text="@string/start_export"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonExportTarget" />
+
+    <Button
+        android:id="@+id/buttonExportTarget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#56039BE5"
+        android:text="@string/output_fn"
+        app:iconTint="#56039BE5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextNumberExport" />
