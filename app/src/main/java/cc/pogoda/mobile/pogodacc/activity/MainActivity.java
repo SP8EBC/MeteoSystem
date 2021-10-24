@@ -94,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                 fromFavs.setLat(fromAllStations.getLat());
                 fromFavs.setDisplayedName(fromAllStations.getDisplayedName());
                 fromFavs.setDisplayedLocation(fromAllStations.getDisplayedLocation());
+                fromFavs.setTimezone(fromAllStations.getTimezone());
 
                 // there is no need to delete and put object on the list once again
                 // as a list does not make a copy of the object. It (ArrayList) keeps

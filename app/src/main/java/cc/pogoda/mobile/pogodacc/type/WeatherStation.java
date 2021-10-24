@@ -130,6 +130,16 @@ public class WeatherStation implements Serializable {
 
     String imageUrl;
 
+    public String getTimezone() {
+        return timezone.trim();
+    }
+
+    public void setTimezone(String timezone) {
+        this.timezone = timezone;
+    }
+
+    String timezone;
+
     int imageAlign;
 
     int stationNameTextColor;

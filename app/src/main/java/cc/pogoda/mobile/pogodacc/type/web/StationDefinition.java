@@ -26,6 +26,8 @@ public class StationDefinition {
 
     public String moreInfo;
 
+    public String timezone;
+
     public float lat;
 
     public float lon;

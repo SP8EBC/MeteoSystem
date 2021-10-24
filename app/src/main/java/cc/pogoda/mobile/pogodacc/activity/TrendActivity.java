@@ -55,20 +55,8 @@ public class TrendActivity extends AppCompatActivity {
         NavDirections wind = WindTrendFragmentDirections.actionNavigationWindToNavigationTemperature(stationName);
         NavDirections pressure = PressureTrendFragmentDirections.actionNavigationPressureToNavigationWind(stationName);
 
-        //NavHostFragment.create(R.navigation.mobile_navigation, bundle);
-
-//        NavGraph navGraph = navController.getNavInflater().inflate(R.navigation.mobile_navigation);
-//        builder.setDefaultValue(stationName);
-//        navGraph.addArgument("station", builder.build());
-//        navController.setGraph(navGraph, bundle);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-        //navController.navigate(temperature);
-//
-//        NavArgument.Builder builder = new NavArgument.Builder();
-//        builder.setDefaultValue(stationName);
-//        navGraph.addArgument("station", builder.build());
-//        navController.setGraph(navGraph);
 
     }
 

@@ -66,6 +66,7 @@ public class AllStationsDao {
                             elem.setStationNameTextColor(def.stationNameTextColour);
                             elem.setImageAlign(def.backgroundJpgAlign);
                             elem.setMoreInfo(def.moreInfo);
+                            elem.setTimezone(def.timezone);
 
                             AvailableParameters availableParameters = AvailableParameters.fromStation(def);
                             elem.setAvailableParameters(availableParameters);

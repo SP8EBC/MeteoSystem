@@ -3,6 +3,8 @@ package cc.pogoda.mobile.pogodacc.activity;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.UriPermission;
 import android.database.Cursor;
@@ -59,13 +61,13 @@ public class ExportDataActivity extends AppCompatActivity {
 
     WeatherStation stationToExport = null;
 
-    Uri exportUri;
+    Uri exportUri = null;
 
     public WeatherStation getStationToExport() {
         return stationToExport;
     }
 
-    public void openDirectory(Uri uriToLoad) {
+    public void openDirectory(String fn, int outputFormat) {
 //        // Choose a directory using the system's file picker.
 //        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
 //
@@ -77,12 +79,15 @@ public class ExportDataActivity extends AppCompatActivity {
 
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("application/vnd.ms-excel");
-        intent.putExtra(Intent.EXTRA_TITLE, "text.xls");
+        if (outputFormat == 1) {
+            intent.setType("text/csv");
+            intent.putExtra(Intent.EXTRA_TITLE, fn + ".csv");
 
-        // Optionally, specify a URI for the directory that should be opened in
-        // the system file picker when your app creates the document.
-        //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, pickerInitialUri);
+        }
+        if (outputFormat == 2) {
+            intent.setType("application/vnd.ms-excel");
+            intent.putExtra(Intent.EXTRA_TITLE, fn + ".xls");
+        }
 
         startActivityForResult(intent, 123);
 
@@ -194,7 +199,17 @@ public class ExportDataActivity extends AppCompatActivity {
         outputFileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openDirectory(null);
+
+                String fn;
+
+                if (stationToExport != null) {
+                    fn = stationToExport.getSystemName() + "_" + datePicker.getDayOfMonth() + String.format("%02d", datePicker.getMonth()) + "_ln_" + act.getExportLnInHours() + "hrs";
+                }
+                else {
+                    fn = "export";
+                }
+
+                openDirectory(fn, act.getOutputFormat());
 
             }
         });
@@ -223,7 +238,7 @@ public class ExportDataActivity extends AppCompatActivity {
 
                 WeatherStation toExport = act.getStationToExport();
 
-                if (toExport != null) {
+                if (toExport != null && exportUri != null) {
                     long timestampStart = act.getStartTimestamp();
                     long timestampStop = timestampStart + act.getExportLnInHours() * 3600;
 
@@ -243,6 +258,15 @@ public class ExportDataActivity extends AppCompatActivity {
                     }
 
 
+                }
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(act);
+                    builder.setMessage(R.string.select_station_export);
+                    builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
+                        var1.dismiss();
+                    });
+                    builder.create();
+                    builder.show();
                 }
             }
         });

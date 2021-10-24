@@ -56,6 +56,7 @@ public class ParceableStationsList implements Parcelable {
                 parcel.writeString(s.getDisplayedLocation());
                 parcel.writeString(s.getSponsorUrl());
                 parcel.writeString(s.getImageUrl());
+                parcel.writeString(s.getTimezone());
 
                 parcel.writeInt(s.getImageAlign());
                 parcel.writeInt(s.getStationNameTextColor());
@@ -90,6 +91,7 @@ public class ParceableStationsList implements Parcelable {
             wx.displayedLocation = in.readString();
             wx.sponsorUrl = in.readString();
             wx.imageUrl = in.readString();
+            wx.timezone = in.readString();
 
             wx.imageAlign = in.readInt();
             wx.stationNameTextColor = in.readInt();
