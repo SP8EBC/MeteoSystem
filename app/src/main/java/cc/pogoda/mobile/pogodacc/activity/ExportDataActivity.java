@@ -259,9 +259,18 @@ public class ExportDataActivity extends AppCompatActivity {
 
 
                 }
-                else {
+                else if (toExport == null) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(act);
                     builder.setMessage(R.string.select_station_export);
+                    builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
+                        var1.dismiss();
+                    });
+                    builder.create();
+                    builder.show();
+                }
+                else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(act);
+                    builder.setMessage(R.string.select_output_file);
                     builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
                         var1.dismiss();
                     });

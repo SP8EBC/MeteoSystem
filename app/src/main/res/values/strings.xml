@@ -126,4 +126,5 @@
         <item>@string/csv</item>
         <item>@string/xlsx</item>
     </string-array>
+    <string name="select_output_file">Select output file</string>
 </resources>

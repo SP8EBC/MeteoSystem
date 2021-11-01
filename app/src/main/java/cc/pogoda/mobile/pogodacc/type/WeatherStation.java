@@ -126,6 +126,21 @@ public class WeatherStation implements Serializable {
 
     String displayedLocation;
 
+    public String getCallsignSsid() {
+        return callsignSsid;
+    }
+
+    public void setCallsignSsid(String callsign, int ssid) {
+        if (ssid < 16)
+            this.callsignSsid = callsign + "-" + ssid;
+    }
+
+    public void setCallsignSsid(String callsignSsid) {
+        this.callsignSsid = callsignSsid;
+    }
+
+    String callsignSsid;
+
     String sponsorUrl;
 
     String imageUrl;

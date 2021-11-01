@@ -107,4 +107,5 @@
     <string name="ever">No brīža, kad stacija uzstādīta</string>
     <string name="data_sources">Datu avoti</string>
     <string name="callsign">APRS izsaukuma signāls</string>
+    <string name="select_output_file">Atlasīt izejas fails</string>
 </resources>

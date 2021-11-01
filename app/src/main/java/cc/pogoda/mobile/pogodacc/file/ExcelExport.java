@@ -103,11 +103,11 @@ public class ExcelExport {
             off = offset.createCell(1);
             off.setCellValue(first.getOffset().toString());
 
-//            Row aprscall = sheet.createRow(rowNumber++);
-//            Cell call = aprscall.createCell(0);
-//            call.setCellValue("APRS Callsign:");
-//            call = aprscall.createCell(1);
-//            call.setCellValue(station.get);
+            Row aprscall = sheet.createRow(rowNumber++);
+            Cell call = aprscall.createCell(0);
+            call.setCellValue("APRS Callsign:");
+            call = aprscall.createCell(1);
+            call.setCellValue(station.getCallsignSsid());
         }
 
         rowNumber++;

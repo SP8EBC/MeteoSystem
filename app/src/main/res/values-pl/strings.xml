@@ -107,4 +107,5 @@
     <string name="ever">Od instalacji stacji</string>
     <string name="data_sources">Źródła danych</string>
     <string name="callsign">Znak wywoławczy w APRS</string>
+    <string name="select_output_file">Wybierz plik wyjściowy</string>
 </resources>

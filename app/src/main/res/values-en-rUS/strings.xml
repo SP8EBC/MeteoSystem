@@ -107,4 +107,5 @@
     <string name="ever">Since the station installation</string>
     <string name="data_sources">Data sources</string>
     <string name="callsign">APRS callsign</string>
+    <string name="select_output_file">Select output file</string>
 </resources>

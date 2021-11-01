@@ -67,6 +67,8 @@ public class AllStationsDao {
                             elem.setImageAlign(def.backgroundJpgAlign);
                             elem.setMoreInfo(def.moreInfo);
                             elem.setTimezone(def.timezone);
+                            elem.setCallsignSsid(def.callsign, def.ssid);
+
 
                             AvailableParameters availableParameters = AvailableParameters.fromStation(def);
                             elem.setAvailableParameters(availableParameters);
