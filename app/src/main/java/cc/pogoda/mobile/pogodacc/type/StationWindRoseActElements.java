@@ -93,6 +93,10 @@ public class StationWindRoseActElements implements StationActivityElements {
             }
         }
 
+        // create strings with wind speed, gusts etc
+        String average_speed = String.format("%3.1f", data.average_speed);
+        String gusts_speed = String.format("%3.1f", data.gusts);
+
         // check if wind data is avaliable in the input data set
         if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
             windArrow.setRotation(data.direction - 225.0f);
@@ -103,13 +107,13 @@ public class StationWindRoseActElements implements StationActivityElements {
         }
 
         if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
-            windSpeed.setText(activity.getResources().getString(R.string.mean_value) + '\n' + data.average_speed + "m/s");
+            windSpeed.setText(activity.getResources().getString(R.string.mean_value) + '\n' + average_speed + "m/s");
         } else {
             windSpeed.setText(activity.getResources().getString(R.string.mean_value) + '\n' + "---");
         }
 
         if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
-            windGusts.setText(activity.getResources().getString(R.string.wind_gust_short) + '\n' + data.gusts + "m/s");
+            windGusts.setText(activity.getResources().getString(R.string.wind_gust_short) + '\n' + gusts_speed + "m/s");
         } else {
             windGusts.setText(activity.getResources().getString(R.string.wind_gust_short) + '\n' + "---");
 
@@ -129,9 +133,12 @@ public class StationWindRoseActElements implements StationActivityElements {
         }
 
         if (!no_data && !old_data) {
+            String hour_max_gusts = String.format("%3.1f", data.hour_gusts);
+            String hour_min_avg = String.format("%3.1f", data.hour_min_average_speed);
+
             pressure.setText(activity.getResources().getString(R.string.qnh) + ": " + String.format("%d hPa", data.qnh));
-            maxGust.setText(activity.getResources().getString(R.string.max_1h_gust) + ": " + data.hour_gusts + "m/s");
-            minAverage.setText(activity.getResources().getString(R.string.min_1h_avg) + ": " + data.hour_min_average_speed + "m/s");
+            maxGust.setText(activity.getResources().getString(R.string.max_1h_gust) + ": " + hour_max_gusts + "m/s");
+            minAverage.setText(activity.getResources().getString(R.string.min_1h_avg) + ": " + hour_min_avg + "m/s");
         } else if (!no_data && old_data) {
             maxGust.setText(activity.getResources().getString(R.string.warning));
             maxGust.setTextColor(Color.RED);

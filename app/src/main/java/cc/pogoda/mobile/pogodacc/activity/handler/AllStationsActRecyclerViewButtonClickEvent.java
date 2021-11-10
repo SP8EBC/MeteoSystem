@@ -30,7 +30,7 @@ public class AllStationsActRecyclerViewButtonClickEvent implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        if (reason == null || reason == ParceableFavsCallReason.Reason.FAVOURITES) {
+        if (reason == null || reason == ParceableFavsCallReason.Reason.FAVOURITES || reason == ParceableFavsCallReason.Reason.ALL_STATIONS) {
             intent = new Intent(p, StationDetailsActivity.class);
             intent.putExtra("station", station);
 

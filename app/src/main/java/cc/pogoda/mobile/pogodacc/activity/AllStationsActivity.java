@@ -10,6 +10,7 @@ import cc.pogoda.mobile.pogodacc.dao.AllStationsDao;
 import cc.pogoda.mobile.pogodacc.dao.LastStationDataDao;
 import cc.pogoda.mobile.pogodacc.dao.SummaryDao;
 import cc.pogoda.mobile.pogodacc.dao.mock.AllStationsDaoMock;
+import cc.pogoda.mobile.pogodacc.type.ParceableFavsCallReason;
 import cc.pogoda.mobile.pogodacc.type.ParceableStationsList;
 import cc.pogoda.mobile.pogodacc.type.web.ListOfStationData;
 import cc.pogoda.mobile.pogodacc.type.web.Summary;
@@ -37,7 +38,7 @@ public class AllStationsActivity extends AppCompatActivity {
 
         WeatherStationRecyclerViewAdapter adapter = null;
 
-        adapter = new WeatherStationRecyclerViewAdapter(allStationsList.getList(), this, null);
+        adapter = new WeatherStationRecyclerViewAdapter(allStationsList.getList(), this, ParceableFavsCallReason.Reason.ALL_STATIONS);
 
         recyclerViewAllStations.setAdapter(adapter);
 

@@ -7,7 +7,8 @@ public class ParceableFavsCallReason  implements Parcelable {
 
     public enum Reason {
         FAVOURITES,
-        EXPORT_SELECT
+        EXPORT_SELECT,
+        ALL_STATIONS
     }
 
     public Reason getReason() {
@@ -26,6 +27,7 @@ public class ParceableFavsCallReason  implements Parcelable {
         switch (reasonInt) {
             case 1: reason = Reason.FAVOURITES; break;
             case 2: reason = Reason.EXPORT_SELECT; break;
+            case 3: reason = Reason.ALL_STATIONS; break;
             default: reason = null;
         }
     }
@@ -35,6 +37,7 @@ public class ParceableFavsCallReason  implements Parcelable {
         switch (reason) {
             case FAVOURITES: dest.writeInt(1); break;
             case EXPORT_SELECT: dest.writeInt(2); break;
+            case ALL_STATIONS: dest.writeInt(3); break;
         }
     }
 
