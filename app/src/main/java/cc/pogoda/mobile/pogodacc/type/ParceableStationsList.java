@@ -121,6 +121,11 @@ public class ParceableStationsList implements Parcelable {
 
     }
 
+    public ParceableStationsList(ParceableStationsList in ) {
+        this.list = new ArrayList<>(in.getList());
+        this.listSize = this.list.size();
+    }
+
     public ParceableStationsList() {
 
     }

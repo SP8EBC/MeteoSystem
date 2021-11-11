@@ -2,7 +2,13 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:title="@string/sort_alphabetical" />
-    <item android:title="@string/sort_in_adding_order" />
-    <item android:title="@string/clear_from_non_existent" />
+    <item
+        android:id="@+id/fav_sort_alph_oder"
+        android:title="@string/sort_alphabetical" />
+    <item
+        android:id="@+id/fav_sort_add_order"
+        android:title="@string/sort_in_adding_order" />
+    <item
+        android:id="@+id/fav_remove_noext"
+        android:title="@string/clear_from_non_existent" />
 </menu>
