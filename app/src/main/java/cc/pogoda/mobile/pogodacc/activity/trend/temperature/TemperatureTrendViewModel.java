@@ -118,11 +118,11 @@ public class TemperatureTrendViewModel extends ViewModel {
             if (!trend.current_humidity_qf.equals("NOT_AVALIABLE") && !trend.current_humidity_qf.equals("NO_DATA")) {
 
 
-                currentHumidityValue.postValue(String.format("%.1f %%", trend.humidity_trend.current_value));
-                twoHoursHumidityValue.postValue(String.format("%.1f %%", trend.humidity_trend.two_hours_value));
-                fourHoursHumidityValue.postValue(String.format("%.1f %%", trend.humidity_trend.four_hours_value));
-                sixHoursHumidityValue.postValue(String.format("%.1f %%", trend.humidity_trend.six_hours_value));
-                eightHoursHumidityValue.postValue(String.format("%.1f %%", trend.humidity_trend.eight_hours_value));
+                currentHumidityValue.postValue(String.format("%s%%", trend.humidity_trend.getCurrentVal(true, true)));
+                twoHoursHumidityValue.postValue(String.format("%s%%", trend.humidity_trend.getTwoHoursVal(true, true)));
+                fourHoursHumidityValue.postValue(String.format("%s%%", trend.humidity_trend.getFourHoursVal(true, true)));
+                sixHoursHumidityValue.postValue(String.format("%s%%", trend.humidity_trend.getSixHoursVal(true, true)));
+                eightHoursHumidityValue.postValue(String.format("%s%%", trend.humidity_trend.getEightHoursVal(true, true)));
             }
             else {
 
@@ -136,11 +136,11 @@ public class TemperatureTrendViewModel extends ViewModel {
             }
 
             if (!trend.current_temperature_qf.equals("NOT_AVALIABLE") && !trend.current_temperature_qf.equals("NO_DATA")) {
-                currentTemperatureValue.postValue(String.format("%.1f °C", trend.temperature_trend.current_value));
-                twoHoursTemperatureValue.postValue(String.format("%.1f °C", trend.temperature_trend.two_hours_value));
-                fourHoursTemperatureValue.postValue(String.format("%.1f °C", trend.temperature_trend.four_hours_value));
-                sixHoursTemperatureValue.postValue(String.format("%.1f °C", trend.temperature_trend.six_hours_value));
-                eightHoursTemperatureValue.postValue(String.format("%.1f °C", trend.temperature_trend.eight_hours_value));
+                currentTemperatureValue.postValue(String.format("%s°C", trend.temperature_trend.getCurrentVal(true, false)));
+                twoHoursTemperatureValue.postValue(String.format("%s°C", trend.temperature_trend.getTwoHoursVal(true, false)));
+                fourHoursTemperatureValue.postValue(String.format("%s°C", trend.temperature_trend.getFourHoursVal(true, false)));
+                sixHoursTemperatureValue.postValue(String.format("%s°C", trend.temperature_trend.getSixHoursVal(true, false)));
+                eightHoursTemperatureValue.postValue(String.format("%s°C", trend.temperature_trend.getEightHoursVal(true, false)));
             }
             else {
                 currentTemperatureValue.postValue("-- °C");

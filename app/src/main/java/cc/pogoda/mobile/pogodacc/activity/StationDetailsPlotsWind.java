@@ -263,8 +263,8 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
 
         if (this.textViewGusts != null && this.textViewSpeed != null && this.textViewTimestamp != null) {
             this.textViewTimestamp.setText(date);
-            this.textViewSpeed.setText(getString(R.string.mean_value_short) + String.format(": %.1f%s", mean, unit));
-            this.textViewGusts.setText(getString(R.string.wind_gust_short) + String.format(": %.1f%s", gusts, unit));
+            this.textViewSpeed.setText(getString(R.string.mean_value_short) + String.format(": %.1f%s", mean, unit).replace(',', '.'));
+            this.textViewGusts.setText(getString(R.string.wind_gust_short) + String.format(": %.1f%s", gusts, unit).replace(',', '.'));
         }
         else {
             return;

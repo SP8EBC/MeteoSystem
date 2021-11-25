@@ -94,8 +94,8 @@ public class StationWindRoseActElements implements StationActivityElements {
         }
 
         // create strings with wind speed, gusts etc
-        String average_speed = String.format("%s", data.getWindspeedStr());
-        String gusts_speed = String.format("%s", data.getWindgustsStr());
+        String average_speed = String.format("%s", data.getWindspeedStr(true));
+        String gusts_speed = String.format("%s", data.getWindgustsStr(true));
 
         // check if wind data is avaliable in the input data set
         if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
@@ -127,14 +127,14 @@ public class StationWindRoseActElements implements StationActivityElements {
 
         // check if temperature is avaliable in input data set
         if (!no_data && !data.temperature_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
-            temperature.setText(activity.getResources().getString(R.string.temperature_short) + '\n' + String.format("%.1f", data.avg_temperature) + "°C");
+            temperature.setText(activity.getResources().getString(R.string.temperature_short) + '\n' + String.format("%s", data.getTemperatureStr(true, false)));
         } else {
             temperature.setText(activity.getResources().getString(R.string.temperature_short) + '\n' + "---");
         }
 
         if (!no_data && !old_data) {
-            String hour_max_gusts = String.format("%s", data.getHourWindgustsStr());
-            String hour_min_avg = String.format("%s", data.getHourMinWindspeedStr());
+            String hour_max_gusts = String.format("%s", data.getHourWindgustsStr(true));
+            String hour_min_avg = String.format("%s", data.getHourMinWindspeedStr(true));
 
             pressure.setText(activity.getResources().getString(R.string.qnh) + ": " + String.format("%d hPa", data.qnh));
             maxGust.setText(activity.getResources().getString(R.string.max_1h_gust) + ": " + hour_max_gusts);

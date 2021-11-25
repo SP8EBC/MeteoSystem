@@ -121,33 +121,45 @@ public class WindTrendViewModel extends ViewModel {
                 displayedStationName.postValue(trend.displayed_name);
 
                 if (!trend.current_wind_qf.equals("NOT_AVALIABLE") && !trend.current_wind_qf.equals("NO_DATA")) {
-                    if (AppConfiguration.replaceMsWithKnots) {
-                        // if knots
-                        currentMeanValue.postValue(String.format("%.0f kts", trend.average_wind_speed_trend.current_value));
-                        twoHoursMeanValue.postValue(String.format("%.0f kts", trend.average_wind_speed_trend.two_hours_value));
-                        fourHoursMeanValue.postValue(String.format("%.0f kts", trend.average_wind_speed_trend.four_hours_value));
-                        sixHoursMeanValue.postValue(String.format("%.0f kts", trend.average_wind_speed_trend.six_hours_value));
-                        eightHoursMeanValue.postValue(String.format("%.0f kts", trend.average_wind_speed_trend.eight_hours_value));
+                    currentMeanValue.postValue(String.format("%sm/s", trend.average_wind_speed_trend.getCurrentVal(true, false)));
+                    twoHoursMeanValue.postValue(String.format("%sm/s", trend.average_wind_speed_trend.getTwoHoursVal(true, false)));
+                    fourHoursMeanValue.postValue(String.format("%sm/s", trend.average_wind_speed_trend.getFourHoursVal(true, false)));
+                    sixHoursMeanValue.postValue(String.format("%sm/s", trend.average_wind_speed_trend.getSixHoursVal(true, false)));
+                    eightHoursMeanValue.postValue(String.format("%sm/s", trend.average_wind_speed_trend.getEightHoursVal(true, false)));
 
-                        currentGustValue.postValue(String.format("%.0f kts", trend.maximum_wind_speed_trend.current_value));
-                        twoHoursGustValue.postValue(String.format("%.0f kts", trend.maximum_wind_speed_trend.two_hours_value));
-                        fourHoursGustValue.postValue(String.format("%.0f kts", trend.maximum_wind_speed_trend.four_hours_value));
-                        sixHoursGustValue.postValue(String.format("%.0f kts", trend.maximum_wind_speed_trend.six_hours_value));
-                        eightHoursGustValue.postValue(String.format("%.0f kts", trend.maximum_wind_speed_trend.eight_hours_value));
-                    } else {
-                        // if meters per second
-                        currentMeanValue.postValue(String.format("%.1f m/s", trend.average_wind_speed_trend.current_value));
-                        twoHoursMeanValue.postValue(String.format("%.1f m/s", trend.average_wind_speed_trend.two_hours_value));
-                        fourHoursMeanValue.postValue(String.format("%.1f m/s", trend.average_wind_speed_trend.four_hours_value));
-                        sixHoursMeanValue.postValue(String.format("%.1f m/s", trend.average_wind_speed_trend.six_hours_value));
-                        eightHoursMeanValue.postValue(String.format("%.1f m/s", trend.average_wind_speed_trend.eight_hours_value));
+                    currentGustValue.postValue(String.format("%sm/s", trend.maximum_wind_speed_trend.getCurrentVal(true, false)));
+                    twoHoursGustValue.postValue(String.format("%sm/s", trend.maximum_wind_speed_trend.getTwoHoursVal(true, false)));
+                    fourHoursGustValue.postValue(String.format("%sm/s", trend.maximum_wind_speed_trend.getFourHoursVal(true, false)));
+                    sixHoursGustValue.postValue(String.format("%sm/s", trend.maximum_wind_speed_trend.getSixHoursVal(true, false)));
+                    eightHoursGustValue.postValue(String.format("%sm/s", trend.maximum_wind_speed_trend.getEightHoursVal(true, false)));
 
-                        currentGustValue.postValue(String.format("%.1f m/s", trend.maximum_wind_speed_trend.current_value));
-                        twoHoursGustValue.postValue(String.format("%.1f m/s", trend.maximum_wind_speed_trend.two_hours_value));
-                        fourHoursGustValue.postValue(String.format("%.1f m/s", trend.maximum_wind_speed_trend.four_hours_value));
-                        sixHoursGustValue.postValue(String.format("%.1f m/s", trend.maximum_wind_speed_trend.six_hours_value));
-                        eightHoursGustValue.postValue(String.format("%.1f m/s", trend.maximum_wind_speed_trend.eight_hours_value));
-                    }
+//                    if (AppConfiguration.replaceMsWithKnots) {
+//                        // if knots
+//                        currentMeanValue.postValue(String.format("%.0f kts", trend.average_wind_speed_trend.current_value));
+//                        twoHoursMeanValue.postValue(String.format("%.0f kts", trend.average_wind_speed_trend.two_hours_value));
+//                        fourHoursMeanValue.postValue(String.format("%.0f kts", trend.average_wind_speed_trend.four_hours_value));
+//                        sixHoursMeanValue.postValue(String.format("%.0f kts", trend.average_wind_speed_trend.six_hours_value));
+//                        eightHoursMeanValue.postValue(String.format("%.0f kts", trend.average_wind_speed_trend.eight_hours_value));
+//
+//                        currentGustValue.postValue(String.format("%.0f kts", trend.maximum_wind_speed_trend.current_value));
+//                        twoHoursGustValue.postValue(String.format("%.0f kts", trend.maximum_wind_speed_trend.two_hours_value));
+//                        fourHoursGustValue.postValue(String.format("%.0f kts", trend.maximum_wind_speed_trend.four_hours_value));
+//                        sixHoursGustValue.postValue(String.format("%.0f kts", trend.maximum_wind_speed_trend.six_hours_value));
+//                        eightHoursGustValue.postValue(String.format("%.0f kts", trend.maximum_wind_speed_trend.eight_hours_value));
+//                    } else {
+//                        // if meters per second
+//                        currentMeanValue.postValue(String.format("%.1f m/s", trend.average_wind_speed_trend.current_value));
+//                        twoHoursMeanValue.postValue(String.format("%.1f m/s", trend.average_wind_speed_trend.two_hours_value));
+//                        fourHoursMeanValue.postValue(String.format("%.1f m/s", trend.average_wind_speed_trend.four_hours_value));
+//                        sixHoursMeanValue.postValue(String.format("%.1f m/s", trend.average_wind_speed_trend.six_hours_value));
+//                        eightHoursMeanValue.postValue(String.format("%.1f m/s", trend.average_wind_speed_trend.eight_hours_value));
+//
+//                        currentGustValue.postValue(String.format("%.1f m/s", trend.maximum_wind_speed_trend.current_value));
+//                        twoHoursGustValue.postValue(String.format("%.1f m/s", trend.maximum_wind_speed_trend.two_hours_value));
+//                        fourHoursGustValue.postValue(String.format("%.1f m/s", trend.maximum_wind_speed_trend.four_hours_value));
+//                        sixHoursGustValue.postValue(String.format("%.1f m/s", trend.maximum_wind_speed_trend.six_hours_value));
+//                        eightHoursGustValue.postValue(String.format("%.1f m/s", trend.maximum_wind_speed_trend.eight_hours_value));
+//                    }
                 } else {
                     currentMeanValue.postValue("--");
                     twoHoursMeanValue.postValue("--");

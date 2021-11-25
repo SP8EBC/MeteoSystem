@@ -109,14 +109,14 @@ public class StationSummaryActElements implements StationActivityElements {
         }
 
         if (!s.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE) && enabledForStation.windSpeed) {
-            wind_speed_val.setText(String.format("%s", s.getWindspeedStr()));
+            wind_speed_val.setText(String.format("%s", s.getWindspeedStr(true)));
         }
         else {
             wind_speed_val.setText("---");
         }
 
         if (!s.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE) && enabledForStation.windGusts) {
-            wind_gusts_val.setText(String.format("%s", s.getWindgustsStr()));
+            wind_gusts_val.setText(String.format("%s", s.getWindgustsStr(true)));
         }
         else {
             wind_gusts_val.setText("---");
@@ -130,7 +130,7 @@ public class StationSummaryActElements implements StationActivityElements {
         }
 
         if (!s.temperature_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
-            temperature_val.setText(String.format("%.1f °C", s.avg_temperature));
+            temperature_val.setText(String.format("%s", s.getTemperatureStr(true, false)));
         }
         else {
             temperature_val.setText("---");

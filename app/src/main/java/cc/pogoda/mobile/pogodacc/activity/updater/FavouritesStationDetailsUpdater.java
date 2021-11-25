@@ -87,18 +87,18 @@ public class FavouritesStationDetailsUpdater implements Runnable {
 
                         // check if station transmits humidity
                         if (summary.humidity_qf_native.equals(QualityFactor.FULL) || summary.humidity_qf_native.equals(QualityFactor.DEGRADED)) {
-                            str = String.format("%d°C %d%% %s %s max %s", Math.round(summary.avg_temperature), summary.humidity, summary.getWindDirStr(), summary.getWindspeedStr(), summary.getWindgustsStr());
+                            str = String.format("%s  %d%%  %s  %s max %s", summary.getTemperatureStr(false, true), summary.humidity, summary.getWindDirStr(), summary.getWindspeedStr(false), summary.getWindgustsStr(false));
                         }
                         else {
-                            str = String.format("%d°C %s %s max %s", Math.round(summary.avg_temperature), summary.getWindDirStr(), summary.getWindspeedStr(), summary.getWindgustsStr());
+                            str = String.format("%s  %s  %s max %s", summary.getTemperatureStr(false, true), summary.getWindDirStr(), summary.getWindspeedStr(false), summary.getWindgustsStr(false));
                         }
                     }
                     else {
                         if (summary.humidity_qf_native.equals(QualityFactor.FULL) || summary.humidity_qf_native.equals(QualityFactor.DEGRADED)) {
-                            str = String.format("%d°C %d%%", Math.round(summary.avg_temperature), summary.humidity);
+                            str = String.format("%s  %d%%", summary.getTemperatureStr(false, true), summary.humidity);
                         }
                         else {
-                            str = String.format("%d°C", Math.round(summary.avg_temperature));
+                            str = String.format("%s", summary.getTemperatureStr(false, true));
 
                         }
                     }

@@ -137,7 +137,7 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
         // use wind speed label (on the left) to display the temperature
         if (this.textViewSpeed != null && this.textViewTimestamp != null) {
             this.textViewTimestamp.setText(date);
-            this.textViewSpeed.setText(getString(R.string.temperature) + String.format(": %.1f°C", temperature));
+            this.textViewSpeed.setText(getString(R.string.temperature) + String.format(": %.1f°C", temperature).replace(',', '.'));
         }
         else {
             return;

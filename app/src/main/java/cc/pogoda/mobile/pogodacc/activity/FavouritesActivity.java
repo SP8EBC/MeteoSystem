@@ -122,6 +122,8 @@ public class FavouritesActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
 
-        adapter.stopUpdater();
+        if (adapter != null) {
+            adapter.stopUpdater();
+        }
     }
 }

@@ -4,11 +4,14 @@ import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
 
 public class Summary {
 
+    private static final String SPACE = " ";
+    private static final String NO_SPACE = "";
+
     public long last_timestamp;
 
     public int number_of_measurements;
 
-    public float avg_temperature;
+    private float avg_temperature;
 
     public String temperature_qf;
 
@@ -48,77 +51,180 @@ public class Summary {
         wind_qf_native = QualityFactor.UNSET;
     }
 
-    public String getWindspeedStr() {
+    public float getAvgTemperature() {
+        return avg_temperature;
+    }
+
+    public float getAverageSpeed() {
+        return average_speed;
+    }
+
+    public float getGusts() {
+        return gusts;
+    }
+
+    public float getHourGusts() {
+        return hour_gusts;
+    }
+
+    public float getHourMaxAverageSpeed() {
+        return hour_max_average_speed;
+    }
+
+    public float getHourMinAverageSpeed() {
+        return hour_min_average_speed;
+    }
+
+    public String getTemperatureStr(boolean space, boolean round) {
         String out;
+
+        String s;
+
+        if (space) {
+            s = SPACE;
+        }
+        else {
+            s = NO_SPACE;
+        }
+
+        if (round) {
+            out = String.format("%d%s°C", Math.round(avg_temperature), s);
+        }
+        else {
+            out = String.format("%.1f%s°C", avg_temperature, s);
+        }
+
+        out = out.replace(',', '.');
+
+        return out;
+    }
+    
+    public String getWindspeedStr(boolean space) {
+        String out;
+
+        String s;
+
+        if (space) {
+            s = SPACE;
+        }
+        else {
+            s = NO_SPACE;
+        }
 
         if (AppConfiguration.replaceMsWithKnots) {
             float knots = this.average_speed * 1.94f;
 
-            out = String.format("%2d kn", Math.round(knots));
+            out = String.format("%2d%skn", Math.round(knots), s);
         }
         else {
-            out = String.format("%4.1fm/s", this.average_speed);
+            out = String.format("%4.1f%sm/s", this.average_speed, s);
         }
+
+        out = out.replace(',', '.');
 
         return out;
     }
 
-    public String getHourMinWindspeedStr() {
+    public String getHourMinWindspeedStr(boolean space) {
         String out;
+
+        String s;
+
+        if (space) {
+            s = SPACE;
+        }
+        else {
+            s = NO_SPACE;
+        }
 
         if (AppConfiguration.replaceMsWithKnots) {
             float knots = this.hour_min_average_speed * 1.94f;
 
-            out = String.format("%2d kn", Math.round(knots));
+            out = String.format("%2d%skn", Math.round(knots), s);
         }
         else {
-            out = String.format("%4.1fm/s", this.hour_min_average_speed);
+            out = String.format("%4.1f%sm/s", this.hour_min_average_speed, s);
         }
+
+        out = out.replace(',', '.');
 
         return out;
     }
 
-    public String getHourMaxWindspeedStr() {
+    public String getHourMaxWindspeedStr(boolean space) {
         String out;
+
+        String s;
+
+        if (space) {
+            s = SPACE;
+        }
+        else {
+            s = NO_SPACE;
+        }
 
         if (AppConfiguration.replaceMsWithKnots) {
             float knots = this.hour_max_average_speed * 1.94f;
 
-            out = String.format("%2d kn", Math.round(knots));
+            out = String.format("%2d%skn", Math.round(knots), s);
         }
         else {
-            out = String.format("%4.1fm/s", this.hour_max_average_speed);
+            out = String.format("%4.1f%sm/s", this.hour_max_average_speed, s);
         }
+
+        out = out.replace(',', '.');
 
         return out;
     }
 
-    public String getWindgustsStr() {
+    public String getWindgustsStr(boolean space) {
         String out;
+
+        String s;
+
+        if (space) {
+            s = SPACE;
+        }
+        else {
+            s = NO_SPACE;
+        }
 
         if (AppConfiguration.replaceMsWithKnots) {
             float knots = this.gusts * 1.94f;
 
-            out = String.format("%2d kn", Math.round(knots));
+            out = String.format("%2d%skn", Math.round(knots), s);
         }
         else {
-            out = String.format("%4.1fm/s", this.gusts);
+            out = String.format("%4.1f%sm/s", this.gusts, s);
         }
+
+        out = out.replace(',', '.');
 
         return out;
     }
 
-    public String getHourWindgustsStr() {
+    public String getHourWindgustsStr(boolean space) {
         String out;
+
+        String s;
+
+        if (space) {
+            s = SPACE;
+        }
+        else {
+            s = NO_SPACE;
+        }
 
         if (AppConfiguration.replaceMsWithKnots) {
             float knots = this.hour_gusts * 1.94f;
 
-            out = String.format("%2d kn", Math.round(knots));
+            out = String.format("%2d%skn", Math.round(knots), s);
         }
         else {
-            out = String.format("%4.1fm/s", this.hour_gusts);
+            out = String.format("%4.1f%sm/s", this.hour_gusts, s);
         }
+
+        out = out.replace(',', '.');
 
         return out;
     }
