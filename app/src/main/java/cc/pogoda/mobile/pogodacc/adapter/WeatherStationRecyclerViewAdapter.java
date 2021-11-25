@@ -119,32 +119,6 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
         if (textViewData != null && favsUpdater != null) {
 
             favsUpdater.addNewStation(station.getSystemName(), textViewData);
-//            // in Favorites view there is 'textViewData' which displays measurements in each entry
-//
-//            Summary summary = summaryDao.getStationSummary(station.getSystemName());
-//
-//            if (summary != null) {
-//                String str;
-//                if (summary.wind_qf_native.equals(QualityFactor.FULL) || summary.wind_qf_native.equals(QualityFactor.DEGRADED)) {
-//                    if (summary.humidity_qf_native.equals(QualityFactor.FULL) || summary.humidity_qf_native.equals(QualityFactor.DEGRADED)) {
-//                        str = String.format("%d°C %d%% %s %3.1f m/s max %3.1f m/s", Math.round(summary.avg_temperature), summary.humidity, summary.getWindDirStr(), summary.average_speed, summary.gusts);
-//                    }
-//                    else {
-//                        str = String.format("%d°C %s %3.1f m/s max %3.1f m/s", Math.round(summary.avg_temperature), summary.getWindDirStr(), summary.average_speed, summary.gusts);
-//                    }
-//                }
-//                else {
-//                    if (summary.humidity_qf_native.equals(QualityFactor.FULL) || summary.humidity_qf_native.equals(QualityFactor.DEGRADED)) {
-//                        str = String.format("%d°C %d%%", Math.round(summary.avg_temperature), summary.humidity);
-//                    }
-//                    else {
-//                        str = String.format("%d°C", Math.round(summary.avg_temperature));
-//
-//                    }
-//                }
-//
-//                textViewData.setText(str);
-//            }
         }
 
     }

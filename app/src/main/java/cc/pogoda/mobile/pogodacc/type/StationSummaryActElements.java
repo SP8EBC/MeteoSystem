@@ -109,14 +109,14 @@ public class StationSummaryActElements implements StationActivityElements {
         }
 
         if (!s.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE) && enabledForStation.windSpeed) {
-            wind_speed_val.setText(String.format("%.1f m/s", s.average_speed));
+            wind_speed_val.setText(String.format("%s", s.getWindspeedStr()));
         }
         else {
             wind_speed_val.setText("---");
         }
 
         if (!s.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE) && enabledForStation.windGusts) {
-            wind_gusts_val.setText(String.format("%.1f m/s", s.gusts));
+            wind_gusts_val.setText(String.format("%s", s.getWindgustsStr()));
         }
         else {
             wind_gusts_val.setText("---");

@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.pogodacc.type.web;
 
+import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
+
 public class Summary {
 
     public long last_timestamp;
@@ -26,15 +28,15 @@ public class Summary {
 
     public short direction;
 
-    public float average_speed;
+    private float average_speed;
 
-    public float gusts;
+    private float gusts;
 
-    public float hour_gusts;
+    private float hour_gusts;
 
-    public float hour_max_average_speed;
+    private float hour_max_average_speed;
 
-    public float hour_min_average_speed;
+    private float hour_min_average_speed;
 
     public String wind_qf;
 
@@ -44,6 +46,81 @@ public class Summary {
         temperature_qf_native = QualityFactor.UNSET;
         humidity_qf_native = QualityFactor.UNSET;
         wind_qf_native = QualityFactor.UNSET;
+    }
+
+    public String getWindspeedStr() {
+        String out;
+
+        if (AppConfiguration.replaceMsWithKnots) {
+            float knots = this.average_speed * 1.94f;
+
+            out = String.format("%2d kn", Math.round(knots));
+        }
+        else {
+            out = String.format("%4.1fm/s", this.average_speed);
+        }
+
+        return out;
+    }
+
+    public String getHourMinWindspeedStr() {
+        String out;
+
+        if (AppConfiguration.replaceMsWithKnots) {
+            float knots = this.hour_min_average_speed * 1.94f;
+
+            out = String.format("%2d kn", Math.round(knots));
+        }
+        else {
+            out = String.format("%4.1fm/s", this.hour_min_average_speed);
+        }
+
+        return out;
+    }
+
+    public String getHourMaxWindspeedStr() {
+        String out;
+
+        if (AppConfiguration.replaceMsWithKnots) {
+            float knots = this.hour_max_average_speed * 1.94f;
+
+            out = String.format("%2d kn", Math.round(knots));
+        }
+        else {
+            out = String.format("%4.1fm/s", this.hour_max_average_speed);
+        }
+
+        return out;
+    }
+
+    public String getWindgustsStr() {
+        String out;
+
+        if (AppConfiguration.replaceMsWithKnots) {
+            float knots = this.gusts * 1.94f;
+
+            out = String.format("%2d kn", Math.round(knots));
+        }
+        else {
+            out = String.format("%4.1fm/s", this.gusts);
+        }
+
+        return out;
+    }
+
+    public String getHourWindgustsStr() {
+        String out;
+
+        if (AppConfiguration.replaceMsWithKnots) {
+            float knots = this.hour_gusts * 1.94f;
+
+            out = String.format("%2d kn", Math.round(knots));
+        }
+        else {
+            out = String.format("%4.1fm/s", this.hour_gusts);
+        }
+
+        return out;
     }
 
     public String getWindDirStr() {

@@ -87,10 +87,10 @@ public class FavouritesStationDetailsUpdater implements Runnable {
 
                         // check if station transmits humidity
                         if (summary.humidity_qf_native.equals(QualityFactor.FULL) || summary.humidity_qf_native.equals(QualityFactor.DEGRADED)) {
-                            str = String.format("%d°C %d%% %s %3.1f m/s max %3.1f m/s", Math.round(summary.avg_temperature), summary.humidity, summary.getWindDirStr(), summary.average_speed, summary.gusts);
+                            str = String.format("%d°C %d%% %s %s max %s", Math.round(summary.avg_temperature), summary.humidity, summary.getWindDirStr(), summary.getWindspeedStr(), summary.getWindgustsStr());
                         }
                         else {
-                            str = String.format("%d°C %s %3.1f m/s max %3.1f m/s", Math.round(summary.avg_temperature), summary.getWindDirStr(), summary.average_speed, summary.gusts);
+                            str = String.format("%d°C %s %s max %s", Math.round(summary.avg_temperature), summary.getWindDirStr(), summary.getWindspeedStr(), summary.getWindgustsStr());
                         }
                     }
                     else {
