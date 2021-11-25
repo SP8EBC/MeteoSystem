@@ -61,6 +61,8 @@ public class FavouritesActivity extends AppCompatActivity {
                 if (recyclerViewFavourites != null) {
                     adapter = new WeatherStationRecyclerViewAdapter(sortedFavourites.getList(), this, callReason.getReason());
 
+                    adapter.createAndStartUpdater();
+
                     recyclerViewFavourites.setAdapter(adapter);
                 }
 
@@ -70,6 +72,8 @@ public class FavouritesActivity extends AppCompatActivity {
 
                 if (recyclerViewFavourites != null) {
                     adapter = new WeatherStationRecyclerViewAdapter(favourites.getList(), this, callReason.getReason());
+
+                    adapter.createAndStartUpdater();
 
                     recyclerViewFavourites.setAdapter(adapter);
                 }
@@ -105,10 +109,19 @@ public class FavouritesActivity extends AppCompatActivity {
             if (recyclerViewFavourites != null) {
                 adapter = new WeatherStationRecyclerViewAdapter(favourites.getList(), this, callReason.getReason());
 
+                adapter.createAndStartUpdater();
+
                 recyclerViewFavourites.setAdapter(adapter);
 
                 recyclerViewFavourites.setLayoutManager(new LinearLayoutManager(this));
             }
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        adapter.stopUpdater();
     }
 }
