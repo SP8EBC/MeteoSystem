@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.StrictMode;
+import android.os.strictmode.Violation;
 import android.view.Menu;
 import android.widget.ImageButton;
 
@@ -134,6 +137,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        StrictMode.VmPolicy.Builder b = new StrictMode.VmPolicy.Builder();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            StrictMode.VmPolicy policy = b.detectAll().detectNonSdkApiUsage().penaltyListener((Runnable r) -> r.run(), (Violation v) -> {v.printStackTrace();}).build();
+            StrictMode.setVmPolicy(policy);
+        }
 
         // register to Event bus to receive events when a station is added od removed from favourites
         EventBus.getDefault().register(this);

@@ -33,15 +33,14 @@ public class TrendActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String stationName = (String)getIntent().getExtras().get("station");
-        setContentView(R.layout.activity_trend);
 
-        NavArgument.Builder builder = new NavArgument.Builder();
-
-
+        this.station = stationName;
         Bundle bundle = new Bundle();
         bundle.putString("station", stationName);
 
-        this.station = stationName;
+        setContentView(R.layout.activity_trend);
+
+        NavArgument.Builder builder = new NavArgument.Builder();
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
