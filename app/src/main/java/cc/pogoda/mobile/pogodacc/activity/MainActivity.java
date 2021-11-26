@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.pogodacc.activity;
 
+// https://www.softicons.com/web-icons/vector-stylish-weather-icons-by-bartosz-kaszubowski/sun-rays-cloud-icon#google_vignette
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
@@ -21,12 +23,12 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.handler.MainActImageButtonAllStationsClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.MainActImageButtonExportClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.MainActImageButtonFavouritesClickEvent;
+import cc.pogoda.mobile.pogodacc.activity.handler.MainActImageButtonSettingsClickEvent;
 import cc.pogoda.mobile.pogodacc.dao.AllStationsDao;
 import cc.pogoda.mobile.pogodacc.file.FavouritiesFile;
 import cc.pogoda.mobile.pogodacc.file.FileNames;
@@ -55,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton imageButtonFavourites;
 
     private ImageButton exportButton;
+
+    private ImageButton settingsButton;
 
     public MainActivity() {
 
@@ -184,6 +188,11 @@ public class MainActivity extends AppCompatActivity {
         exportButton = (ImageButton)findViewById(R.id.imageButtonExport);
         if (exportButton != null) {
             exportButton.setOnClickListener(new MainActImageButtonExportClickEvent(this, parceableListOfFavStations));
+        }
+
+        settingsButton = (ImageButton) findViewById(R.id.imageButtonSettings);
+        if (settingsButton != null) {
+            settingsButton.setOnClickListener(new MainActImageButtonSettingsClickEvent(this));
         }
 
     }

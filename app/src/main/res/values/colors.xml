@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="yellow_1">#FDD835</color>
+    <color name="orange_1">#FFB300</color>
+    <color name="blue">#56039BE5</color>
+    <color name="dark_blue">#1E88E5</color>
+    <color name="ic_launcher_icon_background">#FFFFFFFF</color>
 </resources>

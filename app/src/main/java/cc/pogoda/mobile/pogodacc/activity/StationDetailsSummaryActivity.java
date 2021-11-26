@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.TypedValue;
 
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.updater.StationDetailsValuesUpdater;
@@ -37,6 +38,13 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
 
         elems.title = findViewById(R.id.textViewStationDetailsSummaryTitle);
         elems.title.setText(station.getDisplayedName());
+
+        if (station.getDisplayedName().length() < 18) {
+            elems.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 38);
+        }
+        else {
+            elems.title.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30);
+        }
 
         elems.wind_dir_val = findViewById(R.id.textViewWinddirValue);
         elems.wind_gusts_val = findViewById(R.id.textViewWindGustsValue);

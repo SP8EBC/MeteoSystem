@@ -123,8 +123,9 @@
     <string name="csv" translatable="false">CSV</string>
     <string name="xlsx" translatable="false">MS Excel XLS</string>
     <string-array name="export_formats">
-        <item>@string/csv</item>
         <item>@string/xlsx</item>
+        <item>@string/csv</item>
     </string-array>
     <string name="select_output_file">Select output file</string>
+    <string name="success">Operation successed</string>
 </resources>

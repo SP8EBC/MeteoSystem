@@ -68,14 +68,6 @@ public class ExportDataActivity extends AppCompatActivity {
     }
 
     public void openDirectory(String fn, int outputFormat) {
-//        // Choose a directory using the system's file picker.
-//        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT_TREE);
-//
-//        // Optionally, specify a URI for the directory that should be opened in
-//        // the system file picker when it loads.
-//        //intent.putExtra(DocumentsContract.EXTRA_INITIAL_URI, uriToLoad);
-//
-//        act.startActivityForResult(intent, 123);
 
         Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -154,23 +146,6 @@ public class ExportDataActivity extends AppCompatActivity {
 
             exportUri = uri;
 
-//            try {
-//
-//                OutputStream out = getContentResolver().openOutputStream(uri);
-//
-//                PrintWriter writer = new PrintWriter(out);
-//
-//                writer.write("dupajasia");
-//
-//                writer.flush();
-//                writer.close();
-//                out.close();
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-
         }
 
         super.onActivityResult(requestCode, resultCode, data);
@@ -203,7 +178,7 @@ public class ExportDataActivity extends AppCompatActivity {
                 String fn;
 
                 if (stationToExport != null) {
-                    fn = stationToExport.getSystemName() + "_" + datePicker.getDayOfMonth() + String.format("%02d", datePicker.getMonth()) + "_ln_" + act.getExportLnInHours() + "hrs";
+                    fn = stationToExport.getSystemName() + "_" + datePicker.getDayOfMonth() + "-" + String.format("%02d", datePicker.getMonth()) + "-" + datePicker.getYear() +"_" + act.getExportLnInHours() + "hrs";
                 }
                 else {
                     fn = "export";
@@ -250,7 +225,15 @@ public class ExportDataActivity extends AppCompatActivity {
 
                     if (format == 2) {
                         try {
-                            ExcelExport.exportToExcel(stationData, toExport, act.getApplicationContext(), getContentResolver().openOutputStream(exportUri));
+                            if (ExcelExport.exportToExcel(stationData, toExport, act.getApplicationContext(), getContentResolver().openOutputStream(exportUri))) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(act);
+                                builder.setMessage(R.string.success);
+                                builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
+                                    var1.dismiss();
+                                });
+                                builder.create();
+                                builder.show();
+                            }
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }

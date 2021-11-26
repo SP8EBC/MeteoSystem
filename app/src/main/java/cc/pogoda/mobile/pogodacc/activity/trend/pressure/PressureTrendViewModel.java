@@ -51,11 +51,11 @@ public class PressureTrendViewModel extends ViewModel {
             stationName.postValue(trend.displayed_name);
 
             if (!trend.current_qnh_qf.equals("NOT_AVALIABLE") && !trend.current_qnh_qf.equals("NO_DATA")) {
-                currentValue.postValue(String.format("%shPa", trend.pressure_trend.getCurrentVal(true, false)));
-                twoHoursValue.postValue(String.format("%shPa", trend.pressure_trend.getTwoHoursVal(true, false)));
-                fourHoursValue.postValue(String.format("%shPa", trend.pressure_trend.getFourHoursVal(true, false)));
-                sixHoursValue.postValue(String.format("%shPa", trend.pressure_trend.getSixHoursVal(true, false)));
-                eightHoursValue.postValue(String.format("%shPa", trend.pressure_trend.getEightHoursVal(true, false)));
+                currentValue.postValue(String.format("%shPa", trend.pressure_trend.getCurrentVal(true, true)));
+                twoHoursValue.postValue(String.format("%shPa", trend.pressure_trend.getTwoHoursVal(true, true)));
+                fourHoursValue.postValue(String.format("%shPa", trend.pressure_trend.getFourHoursVal(true, true)));
+                sixHoursValue.postValue(String.format("%shPa", trend.pressure_trend.getSixHoursVal(true, true)));
+                eightHoursValue.postValue(String.format("%shPa", trend.pressure_trend.getEightHoursVal(true, true)));
             }
             else {
                 currentValue.postValue("-- hPa");

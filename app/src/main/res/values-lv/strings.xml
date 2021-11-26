@@ -108,4 +108,5 @@
     <string name="data_sources">Datu avoti</string>
     <string name="callsign">APRS izsaukuma signāls</string>
     <string name="select_output_file">Atlasīt izejas fails</string>
+    <string name="success">"Operācija izdevusies "</string>
 </resources>
