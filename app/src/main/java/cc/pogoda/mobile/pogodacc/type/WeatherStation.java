@@ -73,7 +73,12 @@ public class WeatherStation implements Serializable {
     }
 
     public int getStationNameTextColor() {
-        return stationNameTextColor;
+        if (stationNameTextColor == 0) {
+            return -16777216;
+        }
+        else {
+            return stationNameTextColor;
+        }
     }
 
     public void setStationNameTextColor(int stationNameTextColor) {

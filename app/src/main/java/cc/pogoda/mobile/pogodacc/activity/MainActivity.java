@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
                 fromFavs.setDisplayedLocation(fromAllStations.getDisplayedLocation());
                 fromFavs.setTimezone(fromAllStations.getTimezone());
                 fromFavs.setCallsignSsid(fromAllStations.getCallsignSsid());
+                fromFavs.setStationNameTextColor(fromAllStations.getStationNameTextColor());
 
                 // there is no need to delete and put object on the list once again
                 // as a list does not make a copy of the object. It (ArrayList) keeps

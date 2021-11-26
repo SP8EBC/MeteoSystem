@@ -3,6 +3,7 @@ package cc.pogoda.mobile.pogodacc.activity.trend.wind;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +65,13 @@ public class WindTrendFragment extends Fragment {
         textViewWindTrendEightHoursGustsVal = root.findViewById(R.id.textViewTemperatureTrendEightHoursHVal);
 
         windTrendViewModel.getDisplayedStationName().observe(getViewLifecycleOwner(), s -> {
+            if (s.length() < 18) {
+                textViewWindTrendStationName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 38);
+            }
+            else {
+                textViewWindTrendStationName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
+            }
+
             textViewWindTrendStationName.setText(s);
         });
 

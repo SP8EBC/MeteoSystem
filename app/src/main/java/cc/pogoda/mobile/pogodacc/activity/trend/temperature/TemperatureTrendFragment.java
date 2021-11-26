@@ -3,6 +3,7 @@ package cc.pogoda.mobile.pogodacc.activity.trend.temperature;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,14 @@ public class TemperatureTrendFragment extends Fragment {
         textViewTemperatureTrendEightHoursHVal = root.findViewById(R.id.textViewTemperatureTrendEightHoursHVal);
 
         temperatureTrendViewModel.getDisplayedStationName().observe(getViewLifecycleOwner(), s -> {
+
+            if (s.length() < 18) {
+                textViewTemperatureTrendStationName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 38);
+            }
+            else {
+                textViewTemperatureTrendStationName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
+            }
+
             textViewTemperatureTrendStationName.setText(s);
         });
 

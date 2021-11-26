@@ -3,6 +3,7 @@ package cc.pogoda.mobile.pogodacc.activity.trend.pressure;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,15 @@ public class PressureTrendFragment extends Fragment {
         eightHours =  root.findViewById(R.id.textViewPressureTrendEightHoursVal);
 
         pressureTrendViewModel.getStationName().observe(getViewLifecycleOwner(), s -> {
+            if (s.length() < 18) {
+                stationName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 38);
+            }
+            else {
+                stationName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 28);
+            }
+
             stationName.setText(s);
+
         });
 
         pressureTrendViewModel.getLastMeasuremenetTime().observe(getViewLifecycleOwner(), s -> {

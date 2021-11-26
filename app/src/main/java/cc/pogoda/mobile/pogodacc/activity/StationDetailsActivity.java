@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.icu.text.LocaleDisplayNames;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,9 +34,11 @@ import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActWindDirection
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActWindSpeedPlotsButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActSummaryButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActWindRoseButtonClickEvent;
+import cc.pogoda.mobile.pogodacc.activity.updater.StationBackgroundImageUpdater;
 import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
 import cc.pogoda.mobile.pogodacc.type.WeatherStationListEvent;
+import cc.pogoda.mobile.pogodacc.web.StationBackgroundDownloader;
 
 public class StationDetailsActivity extends AppCompatActivity {
 
@@ -87,40 +90,11 @@ public class StationDetailsActivity extends AppCompatActivity {
      */
     int selectedLn = 0;
 
-    /**
-     * This class downloads the background JPG image from the internet and
-     */
-    private class DownloadImage implements Runnable {
-
-        ImageView iv;
-        String image_url;
-
-        Bitmap bitmap;
-
-        public DownloadImage(ImageView background, String url) {
-            iv = background;
-            image_url = url;
-        }
-
-        @Override
-        public void run() {
-            try {
-                InputStream in = new java.net.URL(image_url).openStream();
-                bitmap = BitmapFactory.decodeStream(in);
-
-                iv.setImageBitmap(bitmap);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
+    Handler handler;
 
     public StationDetailsActivity() {
         stationName = null;
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -277,11 +251,12 @@ public class StationDetailsActivity extends AppCompatActivity {
             stationSponsorUrl.setText(station.getSponsorUrl());
             stationMoreInfo.setText(station.getMoreInfo());
 
-
-            DownloadImage downloadImage = new DownloadImage(topBackground, station.getImageUrl());
-            Thread t = new Thread(downloadImage);
+            StationBackgroundDownloader downloader = new StationBackgroundDownloader(station);
+            Thread t = new Thread(downloader);
             t.start();
-            //runOnUiThread(downloadImage);
+
+            handler = new Handler();
+            handler.postDelayed(new StationBackgroundImageUpdater(topBackground, stationName, station, downloader, handler), 100);
 
             if (station_lat > 0.0f && station_lon > 0.0f) {
                 // europe
