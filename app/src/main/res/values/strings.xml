@@ -128,4 +128,8 @@
     </string-array>
     <string name="select_output_file">Select output file</string>
     <string name="success">Operation successed</string>
+    <string name="failure">Operation failed</string>
+    <string name="knots_long">kn (knots)</string>
+    <string name="export_decimation">Export data decimation</string>
+    <string name="export_decimation_minutes">Minimum time resolution</string>
 </resources>

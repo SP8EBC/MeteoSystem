@@ -80,7 +80,7 @@
     <string name="h8_value">Osiem godzin temu</string>
     <string name="no_comm_with_backend">Brak komunikacji z serwerem</string>
     <string name="no_stations_in_fav_1">Brak stacji na Twojej liście ulubionych</string>
-    <string name="no_stations_in_fav_2">Proszę użyć menu w oknie szczegułów stacji aby coś tu dodać</string>
+    <string name="no_stations_in_fav_2">Proszę użyć menu w oknie szczegółów stacji aby coś tu dodać</string>
     <string name="fav_added_success">Stacja została dodana do ulubionych</string>
     <string name="fav_deleted_success">Stacja została usunięta z ulubionych</string>
     <string name="settings">Ustawienia</string>
@@ -109,4 +109,8 @@
     <string name="callsign">Znak wywoławczy w APRS</string>
     <string name="select_output_file">Wybierz plik wyjściowy</string>
     <string name="success">Zakończono z powodzeniem</string>
+    <string name="failure">Wystąpił błąd</string>
+    <string name="knots_long">kn (węzły)</string>
+    <string name="export_decimation">Decymacja eskportowanych danych</string>
+    <string name="export_decimation_minutes">Minimalny krok w minutach</string>
 </resources>
