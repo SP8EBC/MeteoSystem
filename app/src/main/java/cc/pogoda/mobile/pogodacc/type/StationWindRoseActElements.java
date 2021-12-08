@@ -37,6 +37,9 @@ public class StationWindRoseActElements implements StationActivityElements {
      */
     public TextView minAverage;
 
+    public int goodColor;
+    public int badColor;
+
     Activity activity;
 
     public StationWindRoseActElements() {
@@ -126,8 +129,15 @@ public class StationWindRoseActElements implements StationActivityElements {
         }
 
         // check if temperature is avaliable in input data set
-        if (!no_data && !data.temperature_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
+        if (!no_data) {
             temperature.setText(activity.getResources().getString(R.string.temperature_short) + '\n' + String.format("%s", data.getTemperatureStr(true, false)));
+
+            if (!data.temperature_qf_native.equals(QualityFactor.NOT_AVALIABLE) && goodColor != 0) {
+                temperature.setTextColor(goodColor);
+            }
+            else if (badColor != 0) {
+                temperature.setTextColor(badColor);
+            }
         } else {
             temperature.setText(activity.getResources().getString(R.string.temperature_short) + '\n' + "---");
         }
@@ -139,6 +149,12 @@ public class StationWindRoseActElements implements StationActivityElements {
             pressure.setText(activity.getResources().getString(R.string.qnh) + ": " + String.format("%d hPa", data.qnh));
             maxGust.setText(activity.getResources().getString(R.string.max_1h_gust) + ": " + hour_max_gusts);
             minAverage.setText(activity.getResources().getString(R.string.min_1h_avg) + ": " + hour_min_avg);
+
+            if (goodColor != 0) {
+                pressure.setTextColor(goodColor);
+                maxGust.setTextColor(goodColor);
+                minAverage.setTextColor(goodColor);
+            }
         } else if (!no_data && old_data) {
             maxGust.setText(activity.getResources().getString(R.string.warning));
             maxGust.setTextColor(Color.RED);

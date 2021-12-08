@@ -18,6 +18,7 @@ import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.handler.AllStationsActRecyclerViewButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.updater.FavouritesStationDetailsUpdater;
 import cc.pogoda.mobile.pogodacc.activity.view.AllStationsActRecyclerViewHolder;
+import cc.pogoda.mobile.pogodacc.dao.AvailableParametersDao;
 import cc.pogoda.mobile.pogodacc.dao.SummaryDao;
 import cc.pogoda.mobile.pogodacc.type.ParceableFavsCallReason;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
@@ -33,6 +34,8 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
     ParceableFavsCallReason.Reason reason;
 
     SummaryDao summaryDao;
+    
+    AvailableParametersDao paramsDao;
 
     FavouritesStationDetailsUpdater favsUpdater = null;
 
@@ -43,6 +46,7 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
         this.activity = parentActivity;
         this.reason = callReason;
         this.summaryDao = new SummaryDao();
+        this.paramsDao = new AvailableParametersDao();
 
 
     }

@@ -2,6 +2,7 @@ package cc.pogoda.mobile.pogodacc.type;
 
 import java.io.Serializable;
 
+import cc.pogoda.mobile.pogodacc.type.web.AvailableParametersWeb;
 import cc.pogoda.mobile.pogodacc.type.web.StationDefinition;
 
 public class AvailableParameters implements Serializable {
@@ -31,6 +32,20 @@ public class AvailableParameters implements Serializable {
         humidity = false;
         waterTemperature = false;
         rain = false;
+    }
+
+    public static AvailableParameters fromWebData(AvailableParametersWeb w) {
+        AvailableParameters out = new AvailableParameters();
+
+        out.humidity = w.hasHumidity;
+        out.windSpeed = w.hasWind;
+        out.windGusts = w.hasWind;
+        out.windDirection = w.hasWind;
+        out.qnh = w.hasQnh;
+        out.airTemperature = true;
+        out.rain = w.hasRain;
+
+        return out;
     }
 
     public static AvailableParameters fromStation(StationDefinition s) {

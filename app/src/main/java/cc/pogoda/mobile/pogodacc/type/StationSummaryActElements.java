@@ -29,6 +29,9 @@ public class StationSummaryActElements implements StationActivityElements {
     public TextView humidity_val = null;
     public TextView message = null;
 
+    public int goodColor = 0;
+    public int badColor = 0;
+
     public static String convertDegreesToDir(int directionInDegrees) {
         String out = null;
 
@@ -108,43 +111,80 @@ public class StationSummaryActElements implements StationActivityElements {
             message.setTextColor(Color.argb(0xFF, 0xFF, 0x0, 0x0));
         }
 
-        if (!s.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE) && enabledForStation.windSpeed) {
+        if (enabledForStation.windSpeed) {
             wind_speed_val.setText(String.format("%s", s.getWindspeedStr(true)));
+
+            if (goodColor != 0 && !s.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
+                wind_speed_val.setTextColor(goodColor);
+            }
+            else if (badColor != 0) {
+                wind_speed_val.setTextColor(badColor);
+            }
         }
         else {
             wind_speed_val.setText("---");
         }
 
-        if (!s.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE) && enabledForStation.windGusts) {
+        if (enabledForStation.windGusts) {
             wind_gusts_val.setText(String.format("%s", s.getWindgustsStr(true)));
+
+            if (goodColor != 0 && !s.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
+                wind_gusts_val.setTextColor(goodColor);
+            }
+            else if (badColor != 0) {
+                wind_gusts_val.setText(badColor);
+            }
         }
         else {
             wind_gusts_val.setText("---");
         }
 
-        if (!s.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE) && enabledForStation.windDirection) {
+        if (enabledForStation.windDirection) {
             wind_dir_val.setText(this.convertDegreesToDir(s.direction));
+
+            if (goodColor != 0 && !s.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
+                wind_dir_val.setTextColor(goodColor);
+            }
+            else if (badColor != 0){
+                wind_dir_val.setTextColor(badColor);
+            }
         }
         else  {
             wind_dir_val.setText("---");
         }
 
-        if (!s.temperature_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
-            temperature_val.setText(String.format("%s", s.getTemperatureStr(true, false)));
+        temperature_val.setText(String.format("%s", s.getTemperatureStr(true, false)));
+
+        if (goodColor != 0 && !s.temperature_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
+            temperature_val.setTextColor(goodColor);
         }
-        else {
-            temperature_val.setText("---");
+        else if (badColor != 0){
+            temperature_val.setTextColor(badColor);
         }
         // TODO
-        if (!s.qnh_qf_native.equals(QualityFactor.NOT_AVALIABLE) && enabledForStation.qnh) {
+        if (enabledForStation.qnh) {
             qnh_val.setText(String.format("%d hPa", s.qnh));
+
+            if (goodColor != 0 && !s.qnh_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
+                qnh_val.setTextColor(goodColor);
+            }
+            else if (badColor != 0) {
+                qnh_val.setTextColor(badColor);
+            }
         }
         else {
             qnh_val.setText("---");
         }
 
-        if (!s.humidity_qf_native.equals(QualityFactor.NOT_AVALIABLE) && enabledForStation.humidity) {
+        if (enabledForStation.humidity) {
             humidity_val.setText(String.format("%d %%", s.humidity));
+
+            if (goodColor != 0 && !s.humidity_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
+                humidity_val.setTextColor(goodColor);
+            }
+            else {
+                humidity_val.setTextColor(badColor);
+            }
         }
         else {
             humidity_val.setText("---");

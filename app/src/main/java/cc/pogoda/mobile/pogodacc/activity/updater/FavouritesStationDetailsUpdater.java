@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.pogodacc.activity.updater;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Handler;
 import android.widget.TextView;
 
@@ -8,7 +10,10 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
+import cc.pogoda.mobile.pogodacc.R;
+import cc.pogoda.mobile.pogodacc.dao.AvailableParametersDao;
 import cc.pogoda.mobile.pogodacc.dao.SummaryDao;
+import cc.pogoda.mobile.pogodacc.type.web.AvailableParametersWeb;
 import cc.pogoda.mobile.pogodacc.type.web.QualityFactor;
 import cc.pogoda.mobile.pogodacc.type.web.Summary;
 
@@ -34,6 +39,11 @@ public class FavouritesStationDetailsUpdater implements Runnable {
     private SummaryDao dao = null;
 
     /**
+     *
+     */
+    private AvailableParametersDao availableParametersDao = null;
+
+    /**
      * Not sure if this is really required but just to be sure that updater won't be started
      * after the activity had been torn down.
      */
@@ -43,6 +53,7 @@ public class FavouritesStationDetailsUpdater implements Runnable {
         handler = _handler;
         dao = new SummaryDao();
         stationsToUpdate = new HashMap<>();
+        availableParametersDao = new AvailableParametersDao();
     }
 
     public boolean isEnabled() {
@@ -57,6 +68,7 @@ public class FavouritesStationDetailsUpdater implements Runnable {
         stationsToUpdate.put(_station_system_name, _tv);
     }
 
+    @SuppressLint("ResourceAsColor")
     @Override
     public void run() {
 
@@ -78,15 +90,18 @@ public class FavouritesStationDetailsUpdater implements Runnable {
                 // query web service for station data
                 Summary summary = dao.getStationSummary(stationSystemName);
 
+                // query for available parameters
+                AvailableParametersWeb params = availableParametersDao.getAvaliableParamsByStationName(stationSystemName);
+
                 // if data has been collected
                 if (summary != null) {
                     String str;
 
                     // check if this station transmits wind information
-                    if (summary.wind_qf_native.equals(QualityFactor.FULL) || summary.wind_qf_native.equals(QualityFactor.DEGRADED)) {
+                    if (params.hasWind) {
 
                         // check if station transmits humidity
-                        if (summary.humidity_qf_native.equals(QualityFactor.FULL) || summary.humidity_qf_native.equals(QualityFactor.DEGRADED)) {
+                        if (params.hasHumidity) {
                             str = String.format("%s  %d%%  %s  %s max %s", summary.getTemperatureStr(false, true), summary.humidity, summary.getWindDirStr(), summary.getWindspeedStr(false), summary.getWindgustsStr(false));
                         }
                         else {
@@ -94,7 +109,7 @@ public class FavouritesStationDetailsUpdater implements Runnable {
                         }
                     }
                     else {
-                        if (summary.humidity_qf_native.equals(QualityFactor.FULL) || summary.humidity_qf_native.equals(QualityFactor.DEGRADED)) {
+                        if (params.hasHumidity) {
                             str = String.format("%s  %d%%", summary.getTemperatureStr(false, true), summary.humidity);
                         }
                         else {
@@ -105,6 +120,16 @@ public class FavouritesStationDetailsUpdater implements Runnable {
 
                     // update text view on the favourites list
                     toUpdate.setText(str);
+
+                    if (    (params.hasHumidity && summary.humidity_qf_native.equals(QualityFactor.NOT_AVALIABLE)) ||
+                            (summary.temperature_qf_native.equals(QualityFactor.NOT_AVALIABLE)) ||
+                            (params.hasWind && summary.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)))
+                    {
+                        toUpdate.setTextColor(Color.RED);
+                    }
+                    else {
+                        toUpdate.setTextColor(androidx.activity.R.color.secondary_text_default_material_light);
+                    }
                 }
             }
 

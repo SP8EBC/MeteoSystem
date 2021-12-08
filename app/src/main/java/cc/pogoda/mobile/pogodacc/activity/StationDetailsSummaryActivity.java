@@ -1,7 +1,9 @@
 package cc.pogoda.mobile.pogodacc.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.TypedValue;
@@ -28,6 +30,8 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
 
         elems = new StationSummaryActElements();
 
+        int color = ContextCompat.getColor(this, android.R.color.secondary_text_light);
+
         Summary summary = null;
         SummaryDao summary_dao = new SummaryDao();
 
@@ -53,6 +57,9 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
         elems.qnh_val = findViewById(R.id.textViewQnhVaue);
         elems.humidity_val = findViewById(R.id.textViewHumidityValue);
         elems.message = findViewById(R.id.textViewSummaryMessage);
+
+        elems.goodColor = color;
+        elems.badColor = Color.RED;
 
         // get the summary data for this station
         summary = summary_dao.getStationSummary(station.getSystemName());
