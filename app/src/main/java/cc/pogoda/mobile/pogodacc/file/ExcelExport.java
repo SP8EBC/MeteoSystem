@@ -112,6 +112,12 @@ public class ExcelExport {
 
         rowNumber++;
         rowNumber++;
+
+        Row info = sheet.createRow(rowNumber++);
+        cell = info.createCell(0);
+        cell.setCellValue("Windspeed is exported both in m/s and knots. One knot equals one nautical mile per hour");
+
+        rowNumber++;
         rowNumber++;
 
         Row header = sheet.createRow(rowNumber++);
@@ -146,6 +152,14 @@ public class ExcelExport {
 
         cell = header.createCell(7);
         cell.setCellValue("Wind Gusts [m/s]");
+        cell.setCellStyle(left);
+
+        cell = header.createCell(8);
+        cell.setCellValue("Wind Average Speed [knots]");
+        cell.setCellStyle(left);
+
+        cell = header.createCell(9);
+        cell.setCellValue("Wind Gusts [knots]");
         cell.setCellStyle(left);
 
         // put data into output file
@@ -183,6 +197,14 @@ public class ExcelExport {
 
             Cell windgust = r.createCell(7);
             windgust.setCellValue(round(d.windgusts));
+            windgust.setCellStyle(left);
+
+            Cell windspeed_kts = r.createCell(8);
+            windspeed.setCellValue(round(d.windspeed * 0.514));
+            windspeed.setCellStyle(left);
+
+            Cell windgust_kts = r.createCell(9);
+            windgust.setCellValue(round(d.windgusts * 0.514));
             windgust.setCellStyle(left);
         }
 

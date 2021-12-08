@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pogoda.cc</string>
+
+    <string name="select_station">VYBRAT</string>
+
+    <string name="all_stations">Všechny stanice</string>
+
+    <string name="fav_stations">Oblíbené</string>
+
+    <string name="station_summary">Aktuální hodnoty</string>
+
+    <string name="station_plots">Diagramy</string>
+
+    <string name="wind_speed">Rychlost větru</string>
+
+    <string name="wind_gusts">Poryvy větru</string>
+
+    <string name="wind_direction">Směr větru</string>
+
+    <string name="temperature">Teplota</string>
+
+    <string name="qnh">QNH</string>
+    <string name="humidity">Vlhkost vzduchu</string>
+
+    <string name="auto_refresh">Hodnoty v tomto okně se automaticky obnovují každých 90 sekund</string>
+
+    <string name="dash">-</string>
+    <string name="time">Čas</string>
+
+    <string name="date">Datum</string>
+    <string name="add">Přidat</string>
+
+    <string name="delete">Vymazat</string>
+
+    <string name="delete_fav">Odstranit z oblíbených</string>
+
+    <string name="station_not_comm">Pozor! Tato stanice neodesílá žádná data déle než 2 hodiny</string>
+
+    <string name="station_disabled">Pozor!Stanice byla dočasně odpojena nebo byla delší dobu nečinná</string>
+
+    <string name="archive_data">Archivní data</string>
+
+    <string name="export_from">Exportovat do</string>
+
+    <string name="time_scale">Časové měřítko</string>
+
+    <string name="mean_value">Průměr</string>
+    <string name="max_value">Maximální hodnota</string>
+
+    <string name="show_previous">Zobrazit poslední</string>
+
+    <string name="hours">Hodiny</string>
+    <string name="days">Dny</string>
+    <string name="hours_12">12 Hodin</string>
+    <string name="hours_24">24 Hodin</string>
+    <string name="maximum">Maximum</string>
+    <string name="ok">OK</string>
+    <string name="select">Vybrat</string>
+
+    <string name="apply">Aplikovat</string>
+
+    <string name="cancel">Zrušit</string>
+
+    <string name="wind_rose">Větrná růžice</string>
+    <string name="mean_value_short">Průměr</string>
+    <string name="max_value_short">Max</string>
+    <string name="add_fav">Přidat k oblíbeným</string>
+
+    <string name="wind_gust_short">Poryv</string>
+    <string name="last_hour">Poslední hodina</string>
+
+    <string name="wind_direction_short">Směr</string>
+
+    <string name="temperature_short">Teplota</string>
+    <string name="degress">Stupně</string>
+
+    <string name="max_1h_gust">Maximální poryv za poslední hodinu</string>
+
+    <string name="min_1h_avg">Minimální rychlost za poslední hodinu</string>
+
+    <string name="no_data">Žádná data</string>
+
+    <string name="warning">Pozor!</string>
+    <string name="station_doesnt_transmit">Stanice neodesílá data</string>
+
+    <string name="for_longer_than_2_hours">Více než dvě hodiny</string>
+
+    <string name="export_data">Exportovat data</string>
+
+    <string name="export_ln">Délka v hodinách</string>
+
+    <string name="select_station_export">Vyberte stanici, kterou chcete přenést</string>
+    <string name="start_data">Počáteční datum a čas</string>
+
+    <string name="max_100_hours">Maximálně sto hodin</string>
+
+    <string name="output_fn">Výstupní soubor</string>
+
+    <string name="start_export">Začněte exportovat</string>
+
+    <string name="output_export_format">Formát výstupního souboru</string>
+
+    <string name="last_data_timestamp">Čas posledního měření</string>
+
+    <string name="wind_speed_plots">Rychlost větru</string>
+
+    <string name="wind_direction_plots">Směr větru</string>
+    <string name="temperature_plot">Teplota</string>
+
+    <string name="humidity_plot">Vlhkost vzduchu</string>
+
+    <string name="station_doesnt_measure">Stanice tento parametr neměří</string>
+    <string name="click_on_plot">Klikněte na bod na grafu</string>
+    <string name="sort_alphabetical">Seřadit podle abecedy</string>
+
+    <string name="sort_in_adding_order">Seřadit podle pořadí přidávání</string>
+    <string name="clear_from_non_existent">Odstraňte neexistující stanice</string>
+    <string name="days_3">Tři dny</string>
+
+    <string name="plot_data_lenght">Délka dat v grafech</string>
+    <string name="pressure">Tlak</string>
+    <string name="wind">Vítr</string>
+
+    <string name="current_value">Aktuální hodnota</string>
+
+    <string name="h2_value">Před dvěmi hodinami</string>
+
+    <string name="h4_value">Před čtyřmi hodinami</string>
+
+    <string name="h6_value">Před šesti hodinami</string>
+
+    <string name="h8_value">Před osmi hodinami</string>
+
+    <string name="no_comm_with_backend">Neni komunikace se serverem</string>
+    <string name="no_stations_in_fav_1">Ve vašem seznamu oblíbených není žádná stanice</string>
+    <string name="no_stations_in_fav_2">Chcete-li sem něco přidat, použijte nabídku v okně podrobností stanice</string>
+    <string name="fav_added_success">Stanice byla přidána do oblíbených</string>
+    <string name="fav_deleted_success">Stanice byla odstraněna z oblíbených</string>
+    <string name="settings">Nastavení</string>
+
+    <string name="test_warning">Pozor! Toto je zkušební verze aplikace!</string>
+    <string name="credits_1">Výrobce:</string>
+    <string name="camera">Webová kamera</string>
+
+    <string name="forecast">Předpověď počasí</string>
+
+    <string name="from">Od</string>
+    <string name="to">Do</string>
+    <string name="language">Jazyk</string>
+    <string name="unit_of_measure">Měrná jednotka</string>
+
+    <string name="wind_unit_of_measure">Jednotka rychlosti větru</string>
+
+    <string name="filter">Filtruj</string>
+    <string name="search">Hledejte podle jména</string>
+
+    <string name="sort">Seřadit</string>
+
+    <string name="sort_by_name">Seřaď dle jména</string>
+
+    <string name="sort_in_add_order">Seřadit v pořadí, v jakém byly přidány</string>
+
+    <string name="translation_authors">Autoři překladů</string>
+
+    <string name="ice_temperature">Teplota ledu</string>
+
+    <string name="reference_runner_temperature">Temperatura płozy kontrolnej</string>
+    <string name="records">Rekordy</string>
+    <string name="last_30_days">Za posledních 30 dní</string>
+
+    <string name="this_year">Od začátku roku</string>
+
+    <string name="ever">Od instalace stanice</string>
+
+    <string name="data_sources">Zdroje dat</string>
+
+    <string name="callsign">Volací znak w APRS</string>
+
+    <string name="select_output_file">Vyberte výstupní soubor</string>
+
+    <string name="success">Úspěšně dokončeno</string>
+
+    <string name="failure">Nastala chyba</string>
+
+    <string name="knots_long">kn (Uzly)</string>
+    <string name="export_decimation">/string>Decimace eskportovaných údajov</string>
+    <string name="export_decimation_minutes">Minimální krok v minutách</string>
+
+</resources>

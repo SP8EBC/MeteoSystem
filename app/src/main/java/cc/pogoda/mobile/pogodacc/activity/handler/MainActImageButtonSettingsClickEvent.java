@@ -6,6 +6,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import cc.pogoda.mobile.pogodacc.activity.SettingsActivity;
+import cc.pogoda.mobile.pogodacc.file.ConfigurationFile;
 
 public class MainActImageButtonSettingsClickEvent implements View.OnClickListener {
 
@@ -13,7 +14,7 @@ public class MainActImageButtonSettingsClickEvent implements View.OnClickListene
 
     Intent intent;
 
-    public MainActImageButtonSettingsClickEvent(AppCompatActivity _parent) {
+    public MainActImageButtonSettingsClickEvent(AppCompatActivity _parent, ConfigurationFile _configuration_file) {
         parent = _parent;
 
         intent = new Intent(parent, SettingsActivity.class);

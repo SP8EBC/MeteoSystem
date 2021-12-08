@@ -2,9 +2,12 @@ package cc.pogoda.mobile.pogodacc.activity;
 
 // https://www.softicons.com/web-icons/vector-stylish-weather-icons-by-bartosz-kaszubowski/sun-rays-cloud-icon#google_vignette
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
@@ -12,6 +15,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.os.strictmode.Violation;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageButton;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
@@ -23,13 +27,16 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.activity.handler.MainActImageButtonAllStationsClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.MainActImageButtonExportClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.MainActImageButtonFavouritesClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.MainActImageButtonSettingsClickEvent;
+import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
 import cc.pogoda.mobile.pogodacc.dao.AllStationsDao;
+import cc.pogoda.mobile.pogodacc.file.ConfigurationFile;
 import cc.pogoda.mobile.pogodacc.file.FavouritiesFile;
 import cc.pogoda.mobile.pogodacc.file.FileNames;
 import cc.pogoda.mobile.pogodacc.type.ParceableStationsList;
@@ -143,6 +150,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        baseContext = getApplicationContext();
+
         StrictMode.VmPolicy.Builder b = new StrictMode.VmPolicy.Builder();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             StrictMode.VmPolicy policy = b.detectAll().detectNonSdkApiUsage().penaltyListener((Runnable r) -> r.run(), (Violation v) -> {v.printStackTrace();}).build();
@@ -154,16 +163,20 @@ public class MainActivity extends AppCompatActivity {
 
         AndroidThreeTen.init(this);
 
-//        Locale locale = new Locale("pl");
-//        Locale.setDefault(locale);
-//        Resources resources = this.getResources();
-//        Configuration config = resources.getConfiguration();
-//        config.setLocale(locale);
-//        resources.updateConfiguration(config, resources.getDisplayMetrics());
+        ConfigurationFile confFile = new ConfigurationFile(baseContext);
+
+        confFile.restoreFromFile();
+
+        if (AppConfiguration.locale != null && AppConfiguration.locale != "default") {
+            Locale locale = new Locale(AppConfiguration.locale);
+            Locale.setDefault(locale);
+            Resources resources = this.getResources();
+            Configuration config = resources.getConfiguration();
+            config.setLocale(locale);
+            resources.updateConfiguration(config, resources.getDisplayMetrics());
+        }
 
         setContentView(R.layout.activity_main);
-
-        baseContext = getApplicationContext();
 
         fileNames = new FileNames(baseContext);
 
@@ -192,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
 
         settingsButton = (ImageButton) findViewById(R.id.imageButtonSettings);
         if (settingsButton != null) {
-            settingsButton.setOnClickListener(new MainActImageButtonSettingsClickEvent(this));
+            settingsButton.setOnClickListener(new MainActImageButtonSettingsClickEvent(this, confFile));
         }
 
     }
@@ -200,6 +213,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_activity_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //return super.onOptionsItemSelected(item);
+
+        switch (item.getItemId()) {
+            case R.id.menu_item_translation_authors: {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("ENG: Mateusz Lubecki\r\n" +
+                        "CZE: Sylwiusz Pachel\r\n" +
+                        "GER: Jakub Fiałek\r\n" +
+                        "LAT: Andris Stikáns\r\n" +
+                        "UKR, RUS: Влад Поливач \r\n(Wład Polywacz)\r\n\r\nProgram Icon: Bartosz Kaszubowski");
+                builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
+                    var1.dismiss();
+                });
+                builder.create();
+                builder.show();
+            }
+        }
+
         return true;
     }
 

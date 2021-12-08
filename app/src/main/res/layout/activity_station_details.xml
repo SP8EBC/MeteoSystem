@@ -131,7 +131,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="57dp"
                         android:layout_marginTop="142dp"
-                        android:layout_marginEnd="61dp"
+                        android:layout_marginEnd="57dp"
                         android:layout_marginBottom="19dp"
                         android:text="@string/wind_rose"
                         app:layout_constraintBottom_toBottomOf="@+id/imageButtonWindRose"
@@ -161,11 +161,11 @@
 
                     <TextView
                         android:id="@+id/textViewCurrent"
-                        android:layout_width="131dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="25dp"
                         android:layout_marginStart="54dp"
                         android:layout_marginTop="143dp"
-                        android:layout_marginEnd="67dp"
+                        android:layout_marginEnd="54dp"
                         android:layout_marginBottom="18dp"
                         android:text="@string/station_summary"
                         android:textAlignment="center"
@@ -196,11 +196,11 @@
 
                     <TextView
                         android:id="@+id/textViewTrend"
-                        android:layout_width="128dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="24dp"
-                        android:layout_marginStart="55dp"
+                        android:layout_marginStart="54dp"
                         android:layout_marginTop="141dp"
-                        android:layout_marginEnd="59dp"
+                        android:layout_marginEnd="54dp"
                         android:layout_marginBottom="15dp"
                         android:text="@string/title_activity_trend"
                         android:textAlignment="center"
@@ -231,11 +231,11 @@
 
                     <TextView
                         android:id="@+id/textViewPlotsTemperature"
-                        android:layout_width="128dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="24dp"
-                        android:layout_marginStart="55dp"
+                        android:layout_marginStart="54dp"
                         android:layout_marginTop="141dp"
-                        android:layout_marginEnd="59dp"
+                        android:layout_marginEnd="54dp"
                         android:layout_marginBottom="15dp"
                         android:text="@string/temperature_plot"
                         android:textAlignment="center"
@@ -266,11 +266,11 @@
 
                     <TextView
                         android:id="@+id/textViewPlotsHumidity"
-                        android:layout_width="128dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="24dp"
-                        android:layout_marginStart="55dp"
+                        android:layout_marginStart="54dp"
                         android:layout_marginTop="141dp"
-                        android:layout_marginEnd="59dp"
+                        android:layout_marginEnd="54dp"
                         android:layout_marginBottom="15dp"
                         android:text="@string/humidity_plot"
                         android:textAlignment="center"
@@ -303,11 +303,11 @@
 
                     <TextView
                         android:id="@+id/textViewPlotsWindSpeed"
-                        android:layout_width="128dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="24dp"
-                        android:layout_marginStart="55dp"
+                        android:layout_marginStart="54dp"
                         android:layout_marginTop="141dp"
-                        android:layout_marginEnd="59dp"
+                        android:layout_marginEnd="54dp"
                         android:layout_marginBottom="15dp"
                         android:text="@string/wind_speed_plots"
                         android:textAlignment="center"
@@ -338,11 +338,11 @@
 
                     <TextView
                         android:id="@+id/textViewPlotsWindDirection"
-                        android:layout_width="128dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="24dp"
-                        android:layout_marginStart="55dp"
+                        android:layout_marginStart="54dp"
                         android:layout_marginTop="141dp"
-                        android:layout_marginEnd="59dp"
+                        android:layout_marginEnd="54dp"
                         android:layout_marginBottom="15dp"
                         android:text="@string/wind_direction_plots"
                         android:textAlignment="center"

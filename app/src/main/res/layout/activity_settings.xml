@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -31,12 +33,38 @@
 
     <TextView
         android:id="@+id/textViewSettingsWindspeedUnitDisp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="46dp"
+        android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="..."
-        android:textSize="20sp"
+        android:textAlignment="center"
+        android:textSize="24sp"
         app:layout_constraintStart_toEndOf="@+id/switchKnots"
         app:layout_constraintTop_toBottomOf="@+id/textViewSettingsLabelWindspeedUnit" />
+
+    <TextView
+        android:id="@+id/textViewSettingsLabelLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:text="Language / Język / Язык / Valoda"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switchKnots" />
+
+    <Spinner
+        android:id="@+id/spinnerSettingsLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSettingsLabelLanguage" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

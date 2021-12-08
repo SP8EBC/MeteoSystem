@@ -51,11 +51,11 @@
 
                 <TextView
                     android:id="@+id/textViewCurrent"
-                    android:layout_width="62dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:layout_marginStart="54dp"
                     android:layout_marginTop="143dp"
-                    android:layout_marginEnd="67dp"
+                    android:layout_marginEnd="54dp"
                     android:layout_marginBottom="18dp"
                     android:text="@string/fav_stations"
                     android:textAlignment="center"
@@ -100,7 +100,7 @@
 
                 <TextView
                     android:id="@+id/textViewAllStations"
-                    android:layout_width="113dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:layout_marginStart="21dp"
                     android:layout_marginTop="116dp"
@@ -150,9 +150,9 @@
 
                 <TextView
                     android:id="@+id/textViewExport"
-                    android:layout_width="113dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:layout_marginStart="21dp"
+                    android:layout_marginStart="22dp"
                     android:layout_marginTop="116dp"
                     android:layout_marginEnd="22dp"
                     android:layout_marginBottom="18dp"
@@ -197,11 +197,11 @@
 
                 <TextView
                     android:id="@+id/textViewSettings"
-                    android:layout_width="62dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:layout_marginStart="54dp"
                     android:layout_marginTop="143dp"
-                    android:layout_marginEnd="67dp"
+                    android:layout_marginEnd="54dp"
                     android:layout_marginBottom="18dp"
                     android:text="@string/settings"
                     android:textAlignment="center"

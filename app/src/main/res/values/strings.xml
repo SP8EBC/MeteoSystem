@@ -132,4 +132,13 @@
     <string name="knots_long">kn (knots)</string>
     <string name="export_decimation">Export data decimation</string>
     <string name="export_decimation_minutes">Minimum time resolution</string>
+    <string-array name="languages">
+        <item>AUTO</item>
+        <item>English</item>
+        <item>Polski</item>
+        <item>Čeština</item>
+        <item>Українська мова</item>
+        <item>Русский</item>
+        <item>Latviešu</item>
+    </string-array>
 </resources>

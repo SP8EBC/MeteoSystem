@@ -35,6 +35,7 @@ import java.util.List;
 
 import cc.pogoda.mobile.pogodacc.R;
 import cc.pogoda.mobile.pogodacc.dao.StationDataDao;
+import cc.pogoda.mobile.pogodacc.file.CsvExport;
 import cc.pogoda.mobile.pogodacc.file.ExcelExport;
 import cc.pogoda.mobile.pogodacc.type.ParceableFavsCallReason;
 import cc.pogoda.mobile.pogodacc.type.ParceableStationsList;
@@ -234,10 +235,35 @@ public class ExportDataActivity extends AppCompatActivity {
                                 builder.create();
                                 builder.show();
                             }
+                            else {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(act);
+                                builder.setMessage(R.string.failure);
+                                builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
+                                    var1.dismiss();
+                                });
+                                builder.create();
+                                builder.show();
+                            }
                         } catch (FileNotFoundException e) {
                             e.printStackTrace();
                         }
 
+                    }
+
+                    else if (format == 1) {
+                        try {
+                            if (CsvExport.exportToCsv(stationData, toExport, act.getApplicationContext(), getContentResolver().openOutputStream(exportUri))) {
+                                AlertDialog.Builder builder = new AlertDialog.Builder(act);
+                                builder.setMessage(R.string.success);
+                                builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
+                                    var1.dismiss();
+                                });
+                                builder.create();
+                                builder.show();
+                            }
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
                     }
 
 

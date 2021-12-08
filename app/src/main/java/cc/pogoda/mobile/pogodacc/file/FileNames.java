@@ -9,6 +9,7 @@ public class FileNames {
     public static final String DIRECTORY = "files";
 
     public static final String FAVS = "favourites.json";
+    public static final String CONF = "app_configuration.json";
 
     private Context ctx;
 
@@ -25,5 +26,11 @@ public class FileNames {
 
         return new File(dir.getAbsolutePath() + "/" + FAVS);
 
+    }
+
+    public File getAppConfigurationFile() {
+        File dir = this.getDirectory();
+
+        return new File(dir.getAbsolutePath() + "/" + CONF);
     }
 }
