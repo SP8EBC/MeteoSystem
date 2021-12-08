@@ -29,7 +29,7 @@ public class StationSummaryActElements implements StationActivityElements {
     public TextView humidity_val = null;
     public TextView message = null;
 
-    private String convertDegreesToDir(int directionInDegrees) {
+    public static String convertDegreesToDir(int directionInDegrees) {
         String out = null;
 
         if (directionInDegrees <= 11 || directionInDegrees >= 349)

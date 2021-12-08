@@ -28,6 +28,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.io.InputStream;
 
 import cc.pogoda.mobile.pogodacc.R;
+import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActHumidityPlotButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActTemperaturePlotButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActTrendButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActWindDirectionPlotsButtonClickEvent;
@@ -36,6 +37,7 @@ import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActSummaryButton
 import cc.pogoda.mobile.pogodacc.activity.handler.StationDetailsActWindRoseButtonClickEvent;
 import cc.pogoda.mobile.pogodacc.activity.updater.StationBackgroundImageUpdater;
 import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
+import cc.pogoda.mobile.pogodacc.type.AvailableParameters;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
 import cc.pogoda.mobile.pogodacc.type.WeatherStationListEvent;
 import cc.pogoda.mobile.pogodacc.web.StationBackgroundDownloader;
@@ -54,10 +56,13 @@ public class StationDetailsActivity extends AppCompatActivity {
     ImageButton windSpeedPlotsButton = null;
     ImageButton windDirectionPlotsButton = null;
     ImageButton temperatureButton = null;
+    ImageButton humidityButton = null;
     ImageButton windRoseButton = null;
     ImageButton trendButton = null;
 
     ImageView topBackground = null;
+
+    AppCompatActivity act;
 
     /**
      * Click event on Station Summary Button
@@ -72,6 +77,8 @@ public class StationDetailsActivity extends AppCompatActivity {
     StationDetailsActWindDirectionPlotsButtonClickEvent windDirectionPlotsClickEvent = null;
 
     StationDetailsActTemperaturePlotButtonClickEvent temperaturePlotButtonClickEvent = null;
+
+    StationDetailsActHumidityPlotButtonClickEvent humidityPlotButtonClickEvent = null;
 
     StationDetailsActTrendButtonClickEvent trendButtonClickEvent = null;
 
@@ -159,9 +166,13 @@ public class StationDetailsActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
 
+        act = this;
+
         setContentView(R.layout.activity_station_details);
 
         station = (WeatherStation) getIntent().getSerializableExtra("station");
+
+        AvailableParameters parameters = station.getAvailableParameters();
 
         stationName = findViewById(R.id.textViewStationName);
         stationLocation = findViewById(R.id.textViewLocalization);
@@ -193,6 +204,7 @@ public class StationDetailsActivity extends AppCompatActivity {
             windSpeedPlotsClickEvent = new StationDetailsActWindSpeedPlotsButtonClickEvent(station, this);
             windDirectionPlotsClickEvent = new StationDetailsActWindDirectionPlotsButtonClickEvent(station, this);
             temperaturePlotButtonClickEvent = new StationDetailsActTemperaturePlotButtonClickEvent(station, this);
+            humidityPlotButtonClickEvent = new StationDetailsActHumidityPlotButtonClickEvent(station, this);
             windRoseClickEvent = new StationDetailsActWindRoseButtonClickEvent(station, this);
             trendButtonClickEvent = new StationDetailsActTrendButtonClickEvent(station, this);
 
@@ -200,16 +212,68 @@ public class StationDetailsActivity extends AppCompatActivity {
             summaryButton.setOnClickListener(summaryClickEvent);
 
             windSpeedPlotsButton = findViewById(R.id.imageButtonPlotsWindSpeed);
-            windSpeedPlotsButton.setOnClickListener(windSpeedPlotsClickEvent);
+            if (parameters.windSpeed) {
+                windSpeedPlotsButton.setOnClickListener(windSpeedPlotsClickEvent);
+            }
+            else {
+                windSpeedPlotsButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(act);
+                        builder.setMessage(R.string.station_doesnt_measure);
+                        builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
+                            var1.dismiss();
+                        });
+                        builder.create();
+                        builder.show();
+                    }
+                });
+
+            }
 
             windDirectionPlotsButton = findViewById(R.id.imageButtonPlotsWindDirection);
-            windDirectionPlotsButton.setOnClickListener(windDirectionPlotsClickEvent);
+            if (parameters.windSpeed) {
+                windDirectionPlotsButton.setOnClickListener(windDirectionPlotsClickEvent);
+            }
+            else {
+                windDirectionPlotsButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(act);
+                        builder.setMessage(R.string.station_doesnt_measure);
+                        builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
+                            var1.dismiss();
+                        });
+                        builder.create();
+                        builder.show();
+                    }
+                });
+            }
 
             windRoseButton = findViewById(R.id.imageButtonWindRose);
             windRoseButton.setOnClickListener(windRoseClickEvent);
 
             temperatureButton = findViewById(R.id.imageButtonPlotsTemperature);
             temperatureButton.setOnClickListener(temperaturePlotButtonClickEvent);
+
+            humidityButton = findViewById(R.id.imageButtonPlotsHumidity);
+            if (parameters.humidity) {
+                humidityButton.setOnClickListener(humidityPlotButtonClickEvent);
+            }
+            else {
+                humidityButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(act);
+                        builder.setMessage(R.string.station_doesnt_measure);
+                        builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
+                            var1.dismiss();
+                        });
+                        builder.create();
+                        builder.show();
+                    }
+                });
+            }
 
             trendButton = findViewById(R.id.imageButtonTrend);
             trendButton.setOnClickListener(trendButtonClickEvent);

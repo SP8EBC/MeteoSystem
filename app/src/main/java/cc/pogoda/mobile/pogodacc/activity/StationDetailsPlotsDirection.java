@@ -30,6 +30,7 @@ import cc.pogoda.mobile.pogodacc.activity.handler.PlotClickEvent;
 import cc.pogoda.mobile.pogodacc.dao.LastStationDataDao;
 import cc.pogoda.mobile.pogodacc.dao.StationDataDao;
 import cc.pogoda.mobile.pogodacc.type.StationDetailsPlot;
+import cc.pogoda.mobile.pogodacc.type.StationSummaryActElements;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
 import cc.pogoda.mobile.pogodacc.type.web.ListOfStationData;
 import cc.pogoda.mobile.pogodacc.type.web.StationData;
@@ -70,8 +71,10 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
             // and then shift to the user timezone for convinient display
             ZonedDateTime localDateTime = utcDateTime.atZone(ZoneOffset.UTC).withZoneSameInstant(ZoneId.systemDefault());
 
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm");
+
             /* format only the time to keep X axis clean */
-            return DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).format(localDateTime);
+            return fmt.format(localDateTime);
 
             //return dt;
         }
@@ -161,10 +164,13 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
         xAxis.setTextColor(Color.WHITE);
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(true);
-        xAxis.setTextColor(Color.rgb(255, 192, 56));
+        xAxis.setTextColor(R.color.design_default_color_primary_dark);
         xAxis.setCenterAxisLabels(true);
-        xAxis.setGranularity(1f); // one hour
+        xAxis.setGranularity(100f); // one hour
+        xAxis.setLabelRotationAngle(45.0f);
         xAxis.setValueFormatter(new StationDetailsPlotsDirection.ValueFormatter());
+        xAxis.setTextSize(123.0f);
+        xAxis.setCenterAxisLabels(true);
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
@@ -173,9 +179,10 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
         leftAxis.setDrawGridLines(true);
         leftAxis.setGranularityEnabled(true);
         leftAxis.setAxisMinimum(0.0f);
-        leftAxis.setAxisMaximum(360.0f);
+        leftAxis.setAxisMaximum(400.0f);
         leftAxis.setYOffset(0.0f);
-        leftAxis.setTextColor(Color.rgb(255, 192, 56));
+        leftAxis.setTextColor(R.color.design_default_color_primary_dark);
+        leftAxis.setTextSize(123.0f);
 
         YAxis rightAxis = chart.getAxisRight();
         rightAxis.setEnabled(false);
@@ -210,7 +217,7 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
 
         if (this.textViewSpeed != null && this.textViewTimestamp != null) {
             this.textViewTimestamp.setText(date);
-            this.textViewSpeed.setText(getString(R.string.wind_direction_short) + String.format(": %d", (int)direction));
+            this.textViewSpeed.setText(getString(R.string.wind_direction_short) + String.format(": %d - ", (int)direction) + StationSummaryActElements.convertDegreesToDir((int) direction));
         }
         else {
             return;

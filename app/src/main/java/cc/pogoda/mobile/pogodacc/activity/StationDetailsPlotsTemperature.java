@@ -69,10 +69,10 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
             // and then shift to the user timezone for convinient display
             ZonedDateTime localDateTime = utcDateTime.atZone(ZoneOffset.UTC).withZoneSameInstant(ZoneId.systemDefault());
 
-            // format only the time to keep X axis clean
-            String dt = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT).format(localDateTime);
+            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm");
 
-            return dt;
+            /* format only the time to keep X axis clean */
+            return fmt.format(localDateTime);
         }
 
     }
@@ -289,10 +289,13 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
         xAxis.setTextColor(Color.WHITE);
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(true);
-        xAxis.setTextColor(Color.rgb(255, 192, 56));
+        xAxis.setTextColor(R.color.design_default_color_primary_dark);
         xAxis.setCenterAxisLabels(true);
         xAxis.setGranularity(1f); // one hour
         xAxis.setValueFormatter(new StationDetailsPlotsTemperature.ValueFormatter());
+        xAxis.setTextSize(123.0f);
+        xAxis.setCenterAxisLabels(true);
+        xAxis.setLabelRotationAngle(45.0f);
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
@@ -303,7 +306,8 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
         leftAxis.setAxisMinimum(-30.0f);
         leftAxis.setAxisMaximum(40.0f);
         leftAxis.setYOffset(0.0f);
-        leftAxis.setTextColor(Color.rgb(255, 192, 56));
+        leftAxis.setTextColor(R.color.design_default_color_primary_dark);
+        leftAxis.setTextSize(123.0f);
 
         YAxis rightAxis = chart.getAxisRight();
         rightAxis.setEnabled(false);

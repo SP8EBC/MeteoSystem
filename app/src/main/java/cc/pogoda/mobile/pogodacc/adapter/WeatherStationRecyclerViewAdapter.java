@@ -59,7 +59,7 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
             handler = new Handler();
             favsUpdater = new FavouritesStationDetailsUpdater(handler);
 
-            handler.postDelayed(favsUpdater, 3000);
+            handler.postDelayed(favsUpdater, 300);
             favsUpdater.setEnabled(true);
         }
     }

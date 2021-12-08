@@ -31,6 +31,7 @@
         <activity android:name=".activity.StationDetailsPlotsWind" />
         <activity android:name=".activity.StationDetailsPlotsDirection" />
         <activity android:name=".activity.StationDetailsPlotsTemperature" />
+        <activity android:name=".activity.StationDetailsPlotsHumidity" />
         <activity android:name=".activity.StationDetailsSummaryActivity" />
         <activity android:name=".activity.StationDetailsActivity" />
         <activity android:name=".activity.AllStationsActivity" />
