@@ -55,7 +55,7 @@
     <string name="export_ln">Тривалість у годинах</string>
     <string name="select_station_export">Виберіть станцію для експорту</string>
     <string name="start_data">Початкова дата та час</string>
-    <string name="max_100_hours">Максимум сто годин</string>
+    <string name="max_100_hours">Максимум 199 годин</string>
     <string name="output_fn">Вихідний файл</string>
     <string name="start_export">Розпочати експорт</string>
     <string name="output_export_format">Формат вихідного файлу</string>

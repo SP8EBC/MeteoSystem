@@ -3,10 +3,13 @@ package cc.pogoda.mobile.pogodacc.activity;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -27,6 +30,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     Spinner language;
 
+    EditText enditTextMinutesPeriod;
+
     private static String languageNameFromShort(String shortName) {
         switch (shortName) {
             case "en-rUS": return "English";
@@ -35,6 +40,7 @@ public class SettingsActivity extends AppCompatActivity {
             case "uk": return "Українська мова";
             case "ru": return "Русский";
             case "lv": return "Latviešu";
+            case "de": return "Deutsch";
             default: return "AUTO";
         }
     }
@@ -42,7 +48,7 @@ public class SettingsActivity extends AppCompatActivity {
     private void updateWindspdUnitTv(boolean b) {
         if (windspdUnitDisplayTv != null) {
             if (b) {
-                windspdUnitDisplayTv.setText(R.string.knots);
+                windspdUnitDisplayTv.setText(R.string.knots_long);
             }
             else {
                 windspdUnitDisplayTv.setText(R.string.meters_per_second);
@@ -75,6 +81,37 @@ public class SettingsActivity extends AppCompatActivity {
             });
         }
 
+        enditTextMinutesPeriod = (EditText) findViewById(R.id.editTextNumberSettingsMinTimeRes);
+        enditTextMinutesPeriod.setText(Integer.toString(AppConfiguration.decimationPeriod));
+        if (enditTextMinutesPeriod != null) {
+            enditTextMinutesPeriod.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                    if (i2 > 0) {
+                        try {
+                            int newValue = Integer.valueOf(String.valueOf(charSequence), 10);
+                            AppConfiguration.decimationPeriod = newValue;
+
+                            confFile.storeToFile();
+                        }
+                        catch (NumberFormatException e) {
+                            AppConfiguration.decimationPeriod = 0;
+                        }
+                    }
+                }
+
+                @Override
+                public void afterTextChanged(Editable editable) {
+
+                }
+            });
+        }
+
         language = (Spinner) findViewById(R.id.spinnerSettingsLanguage);
         if (language != null) {
             ArrayAdapter spinnerLanguageAdapter = ArrayAdapter.createFromResource(getBaseContext(), R.array.languages, R.layout.spinner_item);
@@ -100,6 +137,7 @@ public class SettingsActivity extends AppCompatActivity {
                         case "Українська мова": AppConfiguration.locale = "uk"; break;
                         case "Русский": AppConfiguration.locale = "ru"; break;
                         case "Latviešu": AppConfiguration.locale = "lv"; break;
+                        case "Deutsch": AppConfiguration.locale = "de"; break;
                         default: AppConfiguration.locale = "default";
                     }
 

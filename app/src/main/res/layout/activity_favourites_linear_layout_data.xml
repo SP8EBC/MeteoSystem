@@ -13,6 +13,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="24dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/station_button_fav"
         app:layout_constraintEnd_toStartOf="@+id/station_button_fav"

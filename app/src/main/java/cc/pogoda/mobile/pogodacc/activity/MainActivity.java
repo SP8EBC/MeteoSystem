@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
 
         confFile.restoreFromFile();
 
-        if (AppConfiguration.locale != null && AppConfiguration.locale != "default") {
+        if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default") ) {
             Locale locale = new Locale(AppConfiguration.locale);
             Locale.setDefault(locale);
             Resources resources = this.getResources();

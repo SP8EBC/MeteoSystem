@@ -3,7 +3,9 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24sp"
+        android:textSize="18sp"
         android:gravity="left"
-        android:padding="5dip" />
+        android:padding="5dip"
+        android:textColor="@color/black"
+        android:fontFamily="@font/alegreya_sans_sc_medium"/>
 

@@ -93,7 +93,7 @@
     <string name="select_station_export">Vyberte stanici, kterou chcete přenést</string>
     <string name="start_data">Počáteční datum a čas</string>
 
-    <string name="max_100_hours">Maximálně sto hodin</string>
+    <string name="max_100_hours">Maximálně 199 hodin</string>
 
     <string name="output_fn">Výstupní soubor</string>
 
@@ -184,7 +184,7 @@
     <string name="failure">Nastala chyba</string>
 
     <string name="knots_long">kn (Uzly)</string>
-    <string name="export_decimation">/string>Decimace eskportovaných údajov</string>
+    <string name="export_decimation">Decimace eskportovaných údajov</string>
     <string name="export_decimation_minutes">Minimální krok v minutách</string>
 
 </resources>

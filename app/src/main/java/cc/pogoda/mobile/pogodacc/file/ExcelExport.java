@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 
+import cc.pogoda.mobile.pogodacc.config.AppConfiguration;
 import cc.pogoda.mobile.pogodacc.type.WeatherStation;
 import cc.pogoda.mobile.pogodacc.type.web.ListOfStationData;
 import cc.pogoda.mobile.pogodacc.type.web.StationData;
@@ -53,6 +54,8 @@ public class ExcelExport {
         }
 
         int rowNumber = 0;
+
+        long previousEpoch = 0;
 
         Cell cell;
 
@@ -164,6 +167,13 @@ public class ExcelExport {
 
         // put data into output file
         for (StationData d : data.list_of_station_data) {
+
+            if (d.epoch - previousEpoch < AppConfiguration.decimationPeriod * 60) {
+                continue;
+            }
+
+            previousEpoch = d.epoch;
+
             Row r = sheet.createRow(rowNumber++);
 
             Cell epoch = r.createCell(0);
@@ -200,12 +210,12 @@ public class ExcelExport {
             windgust.setCellStyle(left);
 
             Cell windspeed_kts = r.createCell(8);
-            windspeed.setCellValue(round(d.windspeed * 0.514));
-            windspeed.setCellStyle(left);
+            windspeed_kts.setCellValue(round(d.windspeed * 0.514));
+            windspeed_kts.setCellStyle(left);
 
             Cell windgust_kts = r.createCell(9);
-            windgust.setCellValue(round(d.windgusts * 0.514));
-            windgust.setCellStyle(left);
+            windgust_kts.setCellValue(round(d.windgusts * 0.514));
+            windgust_kts.setCellStyle(left);
         }
 
         sheet.setColumnWidth(0, 6600);

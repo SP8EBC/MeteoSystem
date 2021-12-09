@@ -55,7 +55,7 @@
     <string name="export_ln">Продолжительность в часах</string>
     <string name="select_station_export">Выберите станцию ​​для экспорта</string>
     <string name="start_data">Начальная дата и время</string>
-    <string name="max_100_hours">Максимум сто часов</string>
+    <string name="max_100_hours">Максимум 199 часов</string>
     <string name="output_fn">Файл исходный</string>
     <string name="start_export">Начать экспорт</string>
     <string name="output_export_format">Формат исходного файла</string>

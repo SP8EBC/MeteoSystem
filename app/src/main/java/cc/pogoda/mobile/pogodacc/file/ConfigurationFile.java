@@ -44,12 +44,14 @@ public class ConfigurationFile {
 
             AppConfiguration.replaceMsWithKnots = mainObject.getBoolean("replaceMsWithKnots");
             AppConfiguration.locale = mainObject.getString("locale");
+            AppConfiguration.decimationPeriod = mainObject.getInt("decimationPeriodMinutes");
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
 
             AppConfiguration.locale = "default";
             AppConfiguration.replaceMsWithKnots = false;
+            AppConfiguration.decimationPeriod = 0;
         }
 
     }
@@ -64,6 +66,7 @@ public class ConfigurationFile {
 
             masterObject.put("replaceMsWithKnots", AppConfiguration.replaceMsWithKnots);
             masterObject.put("locale", AppConfiguration.locale);
+            masterObject.put("decimationPeriodMinutes", AppConfiguration.decimationPeriod);
 
             jsonData = masterObject.toString();
 

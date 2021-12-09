@@ -55,7 +55,7 @@
     <string name="export_ln">Garums stundās</string>
     <string name="select_station_export">Atlasīt staciju eksportēšanai</string>
     <string name="start_data">Sākuma datums un laiks</string>
-    <string name="max_100_hours">Maksimums 100 stundas</string>
+    <string name="max_100_hours">Maksimums 199 stundas</string>
     <string name="output_fn">Izejas fails</string>
     <string name="start_export">EKSPORTS</string>
     <string name="output_export_format">Izejas faila formāts</string>

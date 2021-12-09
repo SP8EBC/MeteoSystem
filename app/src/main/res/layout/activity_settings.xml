@@ -25,21 +25,25 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
         android:text="@string/wind_unit_of_measure"
         android:textColorLink="#000000"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textViewSettingsWindspeedUnitDisp"
-        android:layout_width="46dp"
+        android:layout_width="118dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
+        android:gravity="center"
         android:text="..."
-        android:textAlignment="center"
-        android:textSize="24sp"
+        android:textAlignment="viewStart"
+        android:textColor="#000000"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/switchKnots"
         app:layout_constraintTop_toBottomOf="@+id/textViewSettingsLabelWindspeedUnit" />
 
@@ -49,8 +53,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
         android:text="Language / Język / Язык / Valoda"
-        android:textSize="24sp"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/switchKnots" />
 
@@ -66,5 +71,42 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewSettingsLabelLanguage" />
+
+    <TextView
+        android:id="@+id/textViewSettingsLabelDecimation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
+        android:text="@string/export_decimation"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerSettingsLanguage" />
+
+    <TextView
+        android:id="@+id/textViewSettingsLabelDecimationTimeStep"
+        android:layout_width="wrap_content"
+        android:layout_height="41dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
+        android:gravity="center"
+        android:text="@string/export_decimation_minutes"
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSettingsLabelDecimation" />
+
+    <EditText
+        android:id="@+id/editTextNumberSettingsMinTimeRes"
+        android:layout_width="93dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="16dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/textViewSettingsLabelDecimationTimeStep"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSettingsLabelDecimation" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

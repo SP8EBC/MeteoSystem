@@ -55,7 +55,7 @@
     <string name="export_ln">Długość w godzinach</string>
     <string name="select_station_export">Wybierz stację do eksportu</string>
     <string name="start_data">Początkowa data i czas</string>
-    <string name="max_100_hours">Maksymalnie sto godzin</string>
+    <string name="max_100_hours">Maksymalnie 199 godzin</string>
     <string name="output_fn">Plik wyjściowy</string>
     <string name="start_export">Rozpocznij eksport</string>
     <string name="output_export_format">Format pliku wyjściowego</string>

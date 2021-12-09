@@ -94,8 +94,8 @@ public class ExportDataActivity extends AppCompatActivity {
         try {
             Integer ln = Integer.valueOf(text.toString());
 
-            if (ln > 100) {
-                out = 100;
+            if (ln > 199) {
+                out = 199;
             }
             else {
                 out = ln;
