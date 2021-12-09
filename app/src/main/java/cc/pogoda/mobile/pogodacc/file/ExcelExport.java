@@ -120,6 +120,14 @@ public class ExcelExport {
         cell = info.createCell(0);
         cell.setCellValue("Windspeed is exported both in m/s and knots. One knot equals one nautical mile per hour");
 
+        if (AppConfiguration.decimationPeriod > 0) {
+            rowNumber++;
+
+            Row decim = sheet.createRow(rowNumber++);
+            cell = decim.createCell(0);
+            cell.setCellValue("Decimation has been applied to the station data and some measurements have been dropped during an export. Minimal time difference between consecutive records is set to " + AppConfiguration.decimationPeriod + " minutes");
+        }
+
         rowNumber++;
         rowNumber++;
 
@@ -224,8 +232,10 @@ public class ExcelExport {
         sheet.setColumnWidth(3, 4600);
         sheet.setColumnWidth(4, 2900);
         sheet.setColumnWidth(5, 3200);
-        sheet.setColumnWidth(6, 3700);
-        sheet.setColumnWidth(7, 3200);
+        sheet.setColumnWidth(6, 5000);
+        sheet.setColumnWidth(7, 4400);
+        sheet.setColumnWidth(8, 4900);
+        sheet.setColumnWidth(9, 4400);
 
         try {
             workbook.write(out);

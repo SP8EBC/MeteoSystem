@@ -95,6 +95,13 @@ public class SettingsActivity extends AppCompatActivity {
                     if (i2 > 0) {
                         try {
                             int newValue = Integer.valueOf(String.valueOf(charSequence), 10);
+
+                            if (newValue > 60) {
+                                newValue = 60;
+
+                                enditTextMinutesPeriod.setText(Integer.toString(newValue));
+                            }
+
                             AppConfiguration.decimationPeriod = newValue;
 
                             confFile.storeToFile();
