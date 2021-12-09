@@ -38,10 +38,10 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
         // find all elements in the xml layout file and set the references in a holding object
         elements = new StationWindRoseActElements();
         elements.windArrow = findViewById(R.id.imageViewWindRoseArrow);
-        elements.windSpeed = findViewById(R.id.textViewWindRoseWindSpeed);
-        elements.windGusts = findViewById(R.id.textViewWindRoseWindGusts);
-        elements.windDirection = findViewById(R.id.textViewWindRoseWindDirection);
-        elements.temperature = findViewById(R.id.textViewWindRoseTemperatura);
+        elements.windSpeed = findViewById(R.id.textViewWindRoseWindSpeedValue);
+        elements.windGusts = findViewById(R.id.textViewWindRoseWindGustsValue);
+        elements.windDirection = findViewById(R.id.textViewWindRoseWindDirectionValue);
+        elements.temperature = findViewById(R.id.textViewWindRoseTemperaturaValue);
         elements.maxGust = findViewById(R.id.textViewWindRoseMaxHourGust);
         elements.minAverage = findViewById(R.id.textViewWindRoseMinHourSpeed);
         elements.pressure = findViewById(R.id.textViewWindRosePressure);

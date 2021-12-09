@@ -110,27 +110,27 @@ public class StationWindRoseActElements implements StationActivityElements {
         }
 
         if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
-            windSpeed.setText(activity.getResources().getString(R.string.mean_value) + '\n' + average_speed);
+            windSpeed.setText(average_speed);
         } else {
-            windSpeed.setText(activity.getResources().getString(R.string.mean_value) + '\n' + "---");
+            windSpeed.setText("---");
         }
 
         if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
-            windGusts.setText(activity.getResources().getString(R.string.wind_gust_short) + '\n' + gusts_speed);
+            windGusts.setText(gusts_speed);
         } else {
-            windGusts.setText(activity.getResources().getString(R.string.wind_gust_short) + '\n' + "---");
+            windGusts.setText("---");
 
         }
 
         if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
-            windDirection.setText(activity.getResources().getString(R.string.wind_direction_short) + '\n' + data.direction + activity.getResources().getString(R.string.degrees_sign));
+            windDirection.setText(String.valueOf(data.direction) + activity.getResources().getString(R.string.degrees_sign));
         } else {
-            windDirection.setText(activity.getResources().getString(R.string.wind_direction_short) + '\n' + "---");
+            windDirection.setText("---");
         }
 
         // check if temperature is avaliable in input data set
         if (!no_data) {
-            temperature.setText(activity.getResources().getString(R.string.temperature_short) + '\n' + String.format("%s", data.getTemperatureStr(true, false)));
+            temperature.setText(String.format("%s", data.getTemperatureStr(true, false)));
 
             if (!data.temperature_qf_native.equals(QualityFactor.NOT_AVALIABLE) && goodColor != 0) {
                 temperature.setTextColor(goodColor);
@@ -139,7 +139,7 @@ public class StationWindRoseActElements implements StationActivityElements {
                 temperature.setTextColor(badColor);
             }
         } else {
-            temperature.setText(activity.getResources().getString(R.string.temperature_short) + '\n' + "---");
+            temperature.setText("---");
         }
 
         if (!no_data && !old_data) {

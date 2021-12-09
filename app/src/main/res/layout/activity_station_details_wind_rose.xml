@@ -47,7 +47,7 @@
             <TextView
                 android:id="@+id/textViewWindRoseWindSpeed"
                 android:layout_width="152dp"
-                android:layout_height="69dp"
+                android:layout_height="40dp"
                 android:text="@string/mean_value"
                 android:textAlignment="center"
                 android:textSize="28sp"
@@ -56,12 +56,12 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/guidelineRoseNUp"
-                app:layout_constraintVertical_bias="0.046" />
+                app:layout_constraintVertical_bias="0.01999998" />
 
             <TextView
                 android:id="@+id/textViewWindRoseWindDirection"
                 android:layout_width="152dp"
-                android:layout_height="69dp"
+                android:layout_height="40dp"
                 android:text="@string/wind_direction_short"
                 android:textAlignment="center"
                 android:textSize="28sp"
@@ -70,12 +70,12 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/guidelineRoseNUp"
-                app:layout_constraintVertical_bias="0.935" />
+                app:layout_constraintVertical_bias="0.9" />
 
             <TextView
                 android:id="@+id/textViewWindRoseTemperatura"
                 android:layout_width="152dp"
-                android:layout_height="69dp"
+                android:layout_height="40dp"
                 android:text="@string/temperature_short"
                 android:textAlignment="center"
                 android:textSize="28sp"
@@ -84,12 +84,12 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/guidelineRoseNUp"
-                app:layout_constraintVertical_bias="0.935" />
+                app:layout_constraintVertical_bias="0.9" />
 
             <TextView
                 android:id="@+id/textViewWindRoseWindGusts"
                 android:layout_width="152dp"
-                android:layout_height="70dp"
+                android:layout_height="40dp"
                 android:text="@string/wind_gust_short"
                 android:textAlignment="center"
                 android:textSize="28sp"
@@ -98,7 +98,7 @@
                 app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@id/guidelineRoseNUp"
-                app:layout_constraintVertical_bias="0.046" />
+                app:layout_constraintVertical_bias="0.01999998" />
 
             <TextView
                 android:id="@+id/textViewSouth"
@@ -215,6 +215,50 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewWindRoseMinHourSpeed"
                 app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textViewWindRoseWindSpeedValue"
+                android:layout_width="152dp"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="28sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewWindRoseWindSpeed" />
+
+            <TextView
+                android:id="@+id/textViewWindRoseWindGustsValue"
+                android:layout_width="152dp"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="28sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewWindRoseWindGusts" />
+
+            <TextView
+                android:id="@+id/textViewWindRoseWindDirectionValue"
+                android:layout_width="152dp"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="28sp"
+                app:layout_constraintStart_toStartOf="@+id/textViewWindRoseWindDirection"
+                app:layout_constraintTop_toBottomOf="@+id/textViewWindRoseWindDirection" />
+
+            <TextView
+                android:id="@+id/textViewWindRoseTemperaturaValue"
+                android:layout_width="152dp"
+                android:layout_height="wrap_content"
+                android:text="..."
+                android:textAlignment="center"
+                android:textColor="#000000"
+                android:textSize="28sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewWindRoseTemperatura" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
