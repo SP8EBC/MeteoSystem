@@ -9,7 +9,7 @@ android {
     apply plugin: "androidx.navigation.safeargs"
 
     defaultConfig {
-        applicationId "cc.pogoda.mobile.pogodacc"
+        applicationId "cc.pogoda.mobile.meteosystem"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 9

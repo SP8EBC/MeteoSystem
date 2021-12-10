@@ -212,19 +212,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:id="@+id/textViewTestWarning"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:fontFamily="@font/alegreya_sans_sc_medium"
-                android:text="@string/test_warning"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutExport" />
-
-            <TextView
                 android:id="@+id/textViewCredits1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -233,7 +220,7 @@
                 android:text="@string/credits_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewTestWarning" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayoutExport" />
 
             <TextView
                 android:id="@+id/textViewCredits2"

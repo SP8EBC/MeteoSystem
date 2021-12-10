@@ -142,4 +142,5 @@
         <item>English</item>
         <item>Deutsch</item>
     </string-array>
+    <string name="lang_change_req_restart" translatable="false">Changing language requires app restart after making a choose in this window.</string>
 </resources>

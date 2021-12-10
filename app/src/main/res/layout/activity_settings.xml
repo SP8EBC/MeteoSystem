@@ -109,4 +109,18 @@
         app:layout_constraintStart_toEndOf="@+id/textViewSettingsLabelDecimationTimeStep"
         app:layout_constraintTop_toBottomOf="@+id/textViewSettingsLabelDecimation" />
 
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/alegreya_sans_sc_medium"
+        android:text="@string/lang_change_req_restart"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSettingsLabelDecimationTimeStep" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,6 +2,8 @@ package cc.pogoda.mobile.meteosystem.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -29,6 +31,8 @@ public class SettingsActivity extends AppCompatActivity {
     Spinner language;
 
     EditText enditTextMinutesPeriod;
+
+    AppCompatActivity act;
 
     private static String languageNameFromShort(String shortName) {
         switch (shortName) {
@@ -62,6 +66,8 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         confFile = new ConfigurationFile(getBaseContext());
+
+        act = this;
 
         windspdUnitDisplayTv = (TextView) findViewById(R.id.textViewSettingsWindspeedUnitDisp);
         updateWindspdUnitTv(AppConfiguration.replaceMsWithKnots);
