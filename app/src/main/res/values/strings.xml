@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Pogoda.cc</string>
+    <string name="app_name">MeteoSystem</string>
     <string name="select_station">SELECT</string>
     <string name="all_stations">All Stations</string>
     <string name="fav_stations">Favourities</string>

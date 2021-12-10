@@ -11,7 +11,7 @@
 
     <fragment
         android:id="@+id/navigation_wind"
-        android:name="cc.pogoda.mobile.pogodacc.activity.trend.wind.WindTrendFragment"
+        android:name="cc.pogoda.mobile.meteosystem.activity.trend.wind.WindTrendFragment"
         android:label="@string/wind"
         tools:layout="@layout/fragment_wind" >
         <argument
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/navigation_temperature"
-        android:name="cc.pogoda.mobile.pogodacc.activity.trend.temperature.TemperatureTrendFragment"
+        android:name="cc.pogoda.mobile.meteosystem.activity.trend.temperature.TemperatureTrendFragment"
         android:label="@string/temperature"
         tools:layout="@layout/fragment_temperature" >
         <argument
@@ -45,7 +45,7 @@
 
     <fragment
         android:id="@+id/navigation_pressure"
-        android:name="cc.pogoda.mobile.pogodacc.activity.trend.pressure.PressureTrendFragment"
+        android:name="cc.pogoda.mobile.meteosystem.activity.trend.pressure.PressureTrendFragment"
         android:label="@string/pressure"
         tools:layout="@layout/fragment_pressure" >
         <argument

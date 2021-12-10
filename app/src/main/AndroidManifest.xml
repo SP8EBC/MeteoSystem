@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="cc.pogoda.mobile.pogodacc">
+    package="cc.pogoda.mobile.meteosystem">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -17,26 +17,26 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_icon_foreground"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Pogodacc">
+        android:theme="@style/Theme.Meteosystem">
         <activity
-            android:name=".activity.SettingsActivity"
+            android:name="cc.pogoda.mobile.meteosystem.activity.SettingsActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.ExportDataActivity"
+            android:name="cc.pogoda.mobile.meteosystem.activity.ExportDataActivity"
             android:exported="true" />
         <activity
-            android:name=".activity.TrendActivity"
+            android:name="cc.pogoda.mobile.meteosystem.activity.TrendActivity"
             android:label="@string/title_activity_trend" />
-        <activity android:name=".activity.StationDetailsWindRoseActivity" />
-        <activity android:name=".activity.StationDetailsPlotsWind" />
-        <activity android:name=".activity.StationDetailsPlotsDirection" />
-        <activity android:name=".activity.StationDetailsPlotsTemperature" />
-        <activity android:name=".activity.StationDetailsPlotsHumidity" />
-        <activity android:name=".activity.StationDetailsSummaryActivity" />
-        <activity android:name=".activity.StationDetailsActivity" />
-        <activity android:name=".activity.AllStationsActivity" />
-        <activity android:name=".activity.FavouritesActivity" />
-        <activity android:name=".activity.MainActivity">
+        <activity android:name="cc.pogoda.mobile.meteosystem.activity.StationDetailsWindRoseActivity" />
+        <activity android:name="cc.pogoda.mobile.meteosystem.activity.StationDetailsPlotsWind" />
+        <activity android:name="cc.pogoda.mobile.meteosystem.activity.StationDetailsPlotsDirection" />
+        <activity android:name="cc.pogoda.mobile.meteosystem.activity.StationDetailsPlotsTemperature" />
+        <activity android:name="cc.pogoda.mobile.meteosystem.activity.StationDetailsPlotsHumidity" />
+        <activity android:name="cc.pogoda.mobile.meteosystem.activity.StationDetailsSummaryActivity" />
+        <activity android:name="cc.pogoda.mobile.meteosystem.activity.StationDetailsActivity" />
+        <activity android:name="cc.pogoda.mobile.meteosystem.activity.AllStationsActivity" />
+        <activity android:name="cc.pogoda.mobile.meteosystem.activity.FavouritesActivity" />
+        <activity android:name="cc.pogoda.mobile.meteosystem.activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
