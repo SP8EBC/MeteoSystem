@@ -153,8 +153,6 @@ public class ExportDataActivity extends AppCompatActivity {
 
         act = this;
 
-        ParceableStationsList favs = getIntent().getParcelableExtra("favs");
-
         formatSpinner = findViewById(R.id.spinnerOutputFormat);
         selectStationButton = findViewById(R.id.buttonSelectStationExport);
         stationNameToExport = findViewById(R.id.textViewStationToExport);
@@ -189,7 +187,6 @@ public class ExportDataActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 intent = new Intent(act, FavouritesActivity.class);
-                intent.putExtra("favs", favs);
 
                 ParceableFavsCallReason callReason = new ParceableFavsCallReason(ParceableFavsCallReason.Reason.EXPORT_SELECT);
                 intent.putExtra("callReason", callReason);

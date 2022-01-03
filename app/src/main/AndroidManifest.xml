@@ -17,6 +17,7 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_icon_foreground"
         android:supportsRtl="true"
+        android:name=".Main"
         android:theme="@style/Theme.Meteosystem">
         <activity
             android:name="cc.pogoda.mobile.meteosystem.activity.SettingsActivity"

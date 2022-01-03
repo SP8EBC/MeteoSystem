@@ -14,11 +14,10 @@ public class MainActImageButtonAllStationsClickEvent implements View.OnClickList
 
     Intent intent;
 
-    public MainActImageButtonAllStationsClickEvent(AppCompatActivity parent, ParceableStationsList allStations) {
+    public MainActImageButtonAllStationsClickEvent(AppCompatActivity parent) {
         this.parent = parent;
 
         intent = new Intent(this.parent, AllStationsActivity.class);
-        intent.putExtra("all_stations", allStations);
 
 
     }

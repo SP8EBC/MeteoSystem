@@ -3,6 +3,7 @@ package cc.pogoda.mobile.meteosystem.file;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.tinylog.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -28,6 +29,8 @@ public class FavouritiesFile {
         List<WeatherStation> out = new LinkedList<>();
 
         File file = fileNames.getFavJsonFile();
+
+        Logger.info("[FavouritiesFile][loadFavourites][file = " + file +  "]");
 
         try {
             // create an input stream to load file content
@@ -56,6 +59,8 @@ public class FavouritiesFile {
                         station.setSystemName(root.getJSONObject(i).getString("systemName"));
 
                         out.add(station);
+
+                        Logger.debug("[FavouritiesFile][loadFavourites][i = " + i +"][station.getSystemName() = " + station.getSystemName() +  "]");
                     }
                 }
             } catch (IOException e) {
@@ -81,6 +86,8 @@ public class FavouritiesFile {
         // main array for all stations
         JSONArray mainArray = new JSONArray();
 
+        Logger.info("[FavouritiesFile][persistFavourities][favourites.size() = " + favourites.size() +  "]");
+
         for (WeatherStation wx : favourites) {
             JSONObject obj = new JSONObject();
 
@@ -95,6 +102,8 @@ public class FavouritiesFile {
                 obj.put("lon", wx.getLon());
 
                 mainArray.put(obj);
+
+                Logger.debug("[FavouritiesFile][persistFavourities][wx.getSystemName() = " + wx.getSystemName() +  "]");
             } catch (JSONException e) {
                 e.printStackTrace();
             }

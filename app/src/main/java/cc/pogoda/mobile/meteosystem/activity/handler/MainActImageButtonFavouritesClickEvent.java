@@ -15,11 +15,10 @@ public class MainActImageButtonFavouritesClickEvent implements View.OnClickListe
 
     Intent intent;
 
-    public MainActImageButtonFavouritesClickEvent(AppCompatActivity parent, ParceableStationsList favs) {
+    public MainActImageButtonFavouritesClickEvent(AppCompatActivity parent) {
         this.parent = parent;
 
         intent = new Intent(this.parent, FavouritesActivity.class);
-        intent.putExtra("favs", favs);
 
         ParceableFavsCallReason callReason = new ParceableFavsCallReason(ParceableFavsCallReason.Reason.FAVOURITES);
         intent.putExtra("callReason", callReason);

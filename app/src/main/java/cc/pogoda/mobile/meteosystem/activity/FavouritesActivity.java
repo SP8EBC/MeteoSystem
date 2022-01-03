@@ -10,8 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
+import cc.pogoda.mobile.meteosystem.Main;
 import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.adapter.WeatherStationRecyclerViewAdapter;
 import cc.pogoda.mobile.meteosystem.type.ParceableFavsCallReason;
@@ -20,9 +23,11 @@ import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 
 public class FavouritesActivity extends AppCompatActivity {
 
+    Main main;
+
     RecyclerView recyclerViewFavourites;
 
-    ParceableStationsList favourites, sortedFavourites;
+    List<WeatherStation> favourites, sortedFavourites;
 
     boolean sorting = false;
 
@@ -58,7 +63,7 @@ public class FavouritesActivity extends AppCompatActivity {
                 sorting = true;
 
                 if (recyclerViewFavourites != null) {
-                    adapter = new WeatherStationRecyclerViewAdapter(sortedFavourites.getList(), this, callReason.getReason());
+                    adapter = new WeatherStationRecyclerViewAdapter(sortedFavourites, this, callReason.getReason());
 
                     adapter.createAndStartUpdater();
 
@@ -70,7 +75,7 @@ public class FavouritesActivity extends AppCompatActivity {
                 sorting = false;
 
                 if (recyclerViewFavourites != null) {
-                    adapter = new WeatherStationRecyclerViewAdapter(favourites.getList(), this, callReason.getReason());
+                    adapter = new WeatherStationRecyclerViewAdapter(favourites, this, callReason.getReason());
 
                     adapter.createAndStartUpdater();
 
@@ -89,15 +94,17 @@ public class FavouritesActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        favourites = getIntent().getParcelableExtra("favs");
+        //favourites = getIntent().getParcelableExtra("favs");
+        main = (Main)getApplication();
 
-        sortedFavourites = new ParceableStationsList(favourites);
+        favourites = main.getFavs();
+        sortedFavourites = new ArrayList<>(favourites);
 
-        sortedFavourites.getList().sort(new WxStationComparator());
+        sortedFavourites.sort(new WxStationComparator());
 
         callReason = getIntent().getParcelableExtra("callReason");
 
-        if (favourites == null || favourites.getList().size() == 0) {
+        if (favourites == null || favourites.size() == 0) {
             setContentView(R.layout.activity_favourites_empty);
         }
         else {
@@ -106,7 +113,7 @@ public class FavouritesActivity extends AppCompatActivity {
             recyclerViewFavourites = findViewById(R.id.recyclerViewFavourites);
 
             if (recyclerViewFavourites != null) {
-                adapter = new WeatherStationRecyclerViewAdapter(favourites.getList(), this, callReason.getReason());
+                adapter = new WeatherStationRecyclerViewAdapter(favourites, this, callReason.getReason());
 
                 adapter.createAndStartUpdater();
 
