@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //recreateListOfFavs();
     }
 
     @Override
@@ -145,6 +144,24 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return true;
+    }
+
+    public boolean listOfAllStationsReady() {
+        if (main != null) {
+            return main.listOfAllStationsReady();
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean listOfAllFavsReady() {
+        if (main != null) {
+            return main.listOfFavsReady();
+        }
+        else {
+            return false;
+        }
     }
 
 }

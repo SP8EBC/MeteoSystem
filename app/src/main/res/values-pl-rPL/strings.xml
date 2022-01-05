@@ -22,7 +22,7 @@
     <string name="station_not_comm">Uwaga! Ta stacja nie wysyła żadnych danych dłużej niż od 2 godzin</string>
     <string name="station_disabled">Uwaga! Stacja została tymczasowo wyłączona bądź nie pracuje od dłuższego czasu</string>
     <string name="archive_data">Dane Archiwalne</string>
-    <string name="export_from">Exportuj do</string>
+    <string name="export_from">Exportuj od</string>
     <string name="time_scale">Skala czasu</string>
     <string name="mean_value">Średnia</string>
     <string name="max_value">Wartość maksymalna</string>

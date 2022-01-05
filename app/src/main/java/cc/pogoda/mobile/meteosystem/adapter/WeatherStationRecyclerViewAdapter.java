@@ -37,7 +37,6 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
 
     FavouritesStationDetailsUpdater favsUpdater = null;
 
-    Handler handler = null;
 
     public WeatherStationRecyclerViewAdapter(List<WeatherStation> stations, AppCompatActivity parentActivity, ParceableFavsCallReason.Reason callReason) {
         this.stations = stations;
@@ -47,30 +46,6 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
         this.paramsDao = new AvailableParametersDao();
 
 
-    }
-
-    public void createAndStartUpdater() {
-
-        if (reason.equals(ParceableFavsCallReason.Reason.FAVOURITES)) {
-
-            // check if there is previous instance of updater
-            if (favsUpdater != null && favsUpdater.isEnabled()) {
-                stopUpdater();
-            }
-
-            handler = new Handler();
-            favsUpdater = new FavouritesStationDetailsUpdater(handler);
-
-            handler.postDelayed(favsUpdater, 300);
-            favsUpdater.setEnabled(true);
-        }
-    }
-
-    public void stopUpdater() {
-        if (reason.equals(ParceableFavsCallReason.Reason.FAVOURITES)) {
-            handler.removeCallbacks(favsUpdater);
-            favsUpdater.setEnabled(false);
-        }
     }
 
     @NonNull

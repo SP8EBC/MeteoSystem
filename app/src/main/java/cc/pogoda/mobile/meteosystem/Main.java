@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.os.StrictMode;
 import android.os.strictmode.Violation;
 
@@ -22,11 +24,13 @@ import java.util.List;
 import java.util.Locale;
 
 import cc.pogoda.mobile.meteosystem.activity.handler.MainActImageButtonFavouritesClickEvent;
+import cc.pogoda.mobile.meteosystem.activity.updater.FavouritesStationDetailsUpdater;
 import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.dao.AllStationsDao;
 import cc.pogoda.mobile.meteosystem.file.ConfigurationFile;
 import cc.pogoda.mobile.meteosystem.file.FavouritiesFile;
 import cc.pogoda.mobile.meteosystem.file.FileNames;
+import cc.pogoda.mobile.meteosystem.type.ParceableFavsCallReason;
 import cc.pogoda.mobile.meteosystem.type.ParceableStationsList;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 import cc.pogoda.mobile.meteosystem.type.WeatherStationListEvent;
@@ -56,6 +60,10 @@ public class Main extends Application {
     }
 
     private List<WeatherStation> favs;
+
+    private Handler handler = null;
+
+    private FavouritesStationDetailsUpdater favsUpdater = null;
 
     public File getDirectory() {
         return directory;
@@ -98,6 +106,10 @@ public class Main extends Application {
         ConfigurationFile confFile = new ConfigurationFile(ctx);
 
         confFile.restoreFromFile();
+
+        handler = new Handler(Looper.getMainLooper());
+
+        favsUpdater = new FavouritesStationDetailsUpdater(handler);
 
         fileNames = new FileNames(ctx);
 
@@ -212,6 +224,45 @@ public class Main extends Application {
         // recreate parceable object and pass it everywhere
         recreateListOfFavs();
         //Toast.makeText(this, intentServiceResult.getResultValue(), Toast.LENGTH_SHORT).show();
+    }
+
+    public boolean listOfAllStationsReady() {
+        if (listOfAllStations != null && listOfAllStations.size() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public boolean listOfFavsReady() {
+        if (favs != null && favs.size() > 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public void createAndStartUpdater() {
+
+            // check if there is previous instance of updater
+            if (favsUpdater != null && favsUpdater.isEnabled()) {
+                stopUpdater();
+            }
+
+            handler = new Handler(Looper.getMainLooper());
+            favsUpdater = new FavouritesStationDetailsUpdater(handler);
+
+            handler.postDelayed(favsUpdater, 300);
+            favsUpdater.setEnabled(true);
+    }
+
+    public void stopUpdater() {
+        if (reason.equals(ParceableFavsCallReason.Reason.FAVOURITES)) {
+            handler.removeCallbacks(favsUpdater);
+            favsUpdater.setEnabled(false);
+        }
     }
 
 }

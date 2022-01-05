@@ -6,16 +6,17 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import cc.pogoda.mobile.meteosystem.activity.FavouritesActivity;
+import cc.pogoda.mobile.meteosystem.activity.MainActivity;
 import cc.pogoda.mobile.meteosystem.type.ParceableFavsCallReason;
 import cc.pogoda.mobile.meteosystem.type.ParceableStationsList;
 
 public class MainActImageButtonFavouritesClickEvent implements View.OnClickListener{
 
-    AppCompatActivity parent;
+    MainActivity parent;
 
     Intent intent;
 
-    public MainActImageButtonFavouritesClickEvent(AppCompatActivity parent) {
+    public MainActImageButtonFavouritesClickEvent(MainActivity parent) {
         this.parent = parent;
 
         intent = new Intent(this.parent, FavouritesActivity.class);
@@ -26,7 +27,9 @@ public class MainActImageButtonFavouritesClickEvent implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        if (parent.listOfAllFavsReady()) {
+            parent.startActivity(intent);
 
-        parent.startActivity(intent);
+        }
     }
 }

@@ -8,7 +8,6 @@ import cc.pogoda.mobile.meteosystem.Main;
 import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.adapter.WeatherStationRecyclerViewAdapter;
 import cc.pogoda.mobile.meteosystem.type.ParceableFavsCallReason;
-import cc.pogoda.mobile.meteosystem.type.ParceableStationsList;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 import cc.pogoda.mobile.meteosystem.type.web.Summary;
 
