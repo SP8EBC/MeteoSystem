@@ -5,6 +5,8 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.widget.TextView;
 
+import org.tinylog.Logger;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -17,7 +19,8 @@ import cc.pogoda.mobile.meteosystem.type.web.QualityFactor;
 import cc.pogoda.mobile.meteosystem.type.web.Summary;
 
 /**
- * This class is used to update entries on Favourites list
+ * This class is used to update entries (TextView) on Favourites list using HashMap
+ * which is updated by {@link FavouritesStationSummaryUpdater}
  */
 public class FavouritesStationDetailsUpdater implements Runnable {
 
@@ -33,14 +36,14 @@ public class FavouritesStationDetailsUpdater implements Runnable {
     private HashMap<String, TextView> stationsToUpdate;
 
     /**
-     * Used to get data from web service
-     */
-    private SummaryDao dao = null;
-
-    /**
      *
      */
     private AvailableParametersDao availableParametersDao = null;
+
+    /**
+     * This map comes from 'Main' class and it is shared with @link{{@link FavouritesStationSummaryUpdater}}
+     */
+    HashMap<String, Summary> stationNameSummary = null;
 
     /**
      * Not sure if this is really required but just to be sure that updater won't be started
@@ -48,11 +51,11 @@ public class FavouritesStationDetailsUpdater implements Runnable {
      */
     private boolean enabled;
 
-    public FavouritesStationDetailsUpdater(Handler _handler) {
+    public FavouritesStationDetailsUpdater(Handler _handler, HashMap<String, Summary> _station_system_name_to_summary) {
         handler = _handler;
-        dao = new SummaryDao();
         stationsToUpdate = new HashMap<>();
         availableParametersDao = new AvailableParametersDao();
+        stationNameSummary = _station_system_name_to_summary;
     }
 
     public boolean isEnabled() {
@@ -71,7 +74,7 @@ public class FavouritesStationDetailsUpdater implements Runnable {
     @Override
     public void run() {
 
-        if (enabled && stationsToUpdate != null && stationsToUpdate.size() > 0) {
+        if (stationNameSummary != null && enabled && stationsToUpdate != null && stationsToUpdate.size() > 0) {
 
             // get a set of all elements stored in the map
             Set<Map.Entry<String, TextView>> entries = stationsToUpdate.entrySet();
@@ -87,7 +90,9 @@ public class FavouritesStationDetailsUpdater implements Runnable {
                 TextView toUpdate = e.getValue();
 
                 // query web service for station data
-                Summary summary = dao.getStationSummary(stationSystemName);
+                Summary summary = stationNameSummary.get(stationSystemName);
+
+                Logger.debug("[FavouritesStationDetailsUpdater][run][stationSystemName = " + stationSystemName +"][summary.last_timestamp = " + summary.last_timestamp +"]");
 
                 // query for available parameters
                 AvailableParametersWeb params = availableParametersDao.getAvaliableParamsByStationName(stationSystemName);
@@ -132,7 +137,7 @@ public class FavouritesStationDetailsUpdater implements Runnable {
                 }
             }
 
-            handler.postDelayed(this, 30000);
+            handler.postDelayed(this, 60000);
         }
     }
 }

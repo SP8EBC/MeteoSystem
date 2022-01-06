@@ -20,11 +20,14 @@ import org.tinylog.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 import cc.pogoda.mobile.meteosystem.activity.handler.MainActImageButtonFavouritesClickEvent;
 import cc.pogoda.mobile.meteosystem.activity.updater.FavouritesStationDetailsUpdater;
+import cc.pogoda.mobile.meteosystem.activity.updater.FavouritesStationSummaryUpdater;
+import cc.pogoda.mobile.meteosystem.activity.view.AllStationsActRecyclerViewHolder;
 import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.dao.AllStationsDao;
 import cc.pogoda.mobile.meteosystem.file.ConfigurationFile;
@@ -34,6 +37,7 @@ import cc.pogoda.mobile.meteosystem.type.ParceableFavsCallReason;
 import cc.pogoda.mobile.meteosystem.type.ParceableStationsList;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 import cc.pogoda.mobile.meteosystem.type.WeatherStationListEvent;
+import cc.pogoda.mobile.meteosystem.type.web.Summary;
 
 public class Main extends Application {
 
@@ -61,9 +65,16 @@ public class Main extends Application {
 
     private List<WeatherStation> favs;
 
-    private Handler handler = null;
+    /**
+     * This download summary for all stations stored on favourites list and stores results
+     * in 'HashMap<String, Summary> stationSystemNameToSummary'
+     */
+    private FavouritesStationSummaryUpdater favsSummaryUpdater = null;
 
-    private FavouritesStationDetailsUpdater favsUpdater = null;
+    /**
+     * This map stores summary for all favourites station
+     */
+    private HashMap<String, Summary> stationSystemNameToSummary = null;
 
     public File getDirectory() {
         return directory;
@@ -77,6 +88,10 @@ public class Main extends Application {
         return confFile;
     }
 
+    public HashMap<String, Summary> getStationSystemNameToSummary() {
+        return stationSystemNameToSummary;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -85,19 +100,22 @@ public class Main extends Application {
 
         confFile = new ConfigurationFile(ctx);
 
-        StrictMode.VmPolicy.Builder b = new StrictMode.VmPolicy.Builder();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            StrictMode.VmPolicy policy = b.detectAll().detectNonSdkApiUsage().penaltyListener((Runnable r) -> r.run(), (Violation v) -> {v.printStackTrace();}).build();
-            StrictMode.setVmPolicy(policy);
-        }
-
-        directory = getApplicationContext().getDir("meteosystem", Context.MODE_PRIVATE);
+        directory = getApplicationContext().getDir("files", Context.MODE_PRIVATE);
 
         directoryForLogs = new File(directory.getAbsolutePath() + "/logs/");
 
         System.setProperty("tinylog.directory", directoryForLogs.getAbsolutePath());
 
         Logger.info("Application starting...");
+
+//        StrictMode.VmPolicy.Builder b = new StrictMode.VmPolicy.Builder();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+//            StrictMode.VmPolicy policy = b.detectAll().detectNonSdkApiUsage().penaltyListener((Runnable r) -> r.run(), (Violation v) -> {
+//                v.printStackTrace();
+//                Logger.warn("[StrictMode.VmPolicy][penaltyListener][Violation][v.getLocalizedMessage() = " + v.getLocalizedMessage() + "]");
+//            }).build();
+//            StrictMode.setVmPolicy(policy);
+//        }
 
         AndroidThreeTen.init(this);
 
@@ -107,9 +125,7 @@ public class Main extends Application {
 
         confFile.restoreFromFile();
 
-        handler = new Handler(Looper.getMainLooper());
-
-        favsUpdater = new FavouritesStationDetailsUpdater(handler);
+        stationSystemNameToSummary = new HashMap<>();
 
         fileNames = new FileNames(ctx);
 
@@ -122,6 +138,10 @@ public class Main extends Application {
 
         // recreate list of favorites
         recreateListOfFavs();
+
+        favsSummaryUpdater = new FavouritesStationSummaryUpdater(stationSystemNameToSummary);
+
+        favsSummaryUpdater.start(100);
 
         if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default") ) {
             Logger.debug("[Main][onCreate][AppConfiguration.locale = " + AppConfiguration.locale +  "]");
@@ -180,6 +200,7 @@ public class Main extends Application {
                 // as a list does not make a copy of the object. It (ArrayList) keeps
                 // only a reference to an object
 
+                stationSystemNameToSummary.put(fromAllStations.getSystemName(), null);
 
             }
         }
@@ -223,7 +244,9 @@ public class Main extends Application {
 
         // recreate parceable object and pass it everywhere
         recreateListOfFavs();
-        //Toast.makeText(this, intentServiceResult.getResultValue(), Toast.LENGTH_SHORT).show();
+
+        favsSummaryUpdater.updateImmediately();
+
     }
 
     public boolean listOfAllStationsReady() {
@@ -236,7 +259,7 @@ public class Main extends Application {
     }
 
     public boolean listOfFavsReady() {
-        if (favs != null && favs.size() > 0) {
+        if (favs != null/* && favs.size() > 0*/) {
             return true;
         }
         else {
@@ -244,25 +267,17 @@ public class Main extends Application {
         }
     }
 
-    public void createAndStartUpdater() {
+    public boolean checkIsOnFavsList(String _system_name) {
+        boolean out = false;
 
-            // check if there is previous instance of updater
-            if (favsUpdater != null && favsUpdater.isEnabled()) {
-                stopUpdater();
+        for (WeatherStation wx : favs) {
+            if (wx.getSystemName().equals(_system_name)) {
+                out = true;
+                break;
             }
-
-            handler = new Handler(Looper.getMainLooper());
-            favsUpdater = new FavouritesStationDetailsUpdater(handler);
-
-            handler.postDelayed(favsUpdater, 300);
-            favsUpdater.setEnabled(true);
-    }
-
-    public void stopUpdater() {
-        if (reason.equals(ParceableFavsCallReason.Reason.FAVOURITES)) {
-            handler.removeCallbacks(favsUpdater);
-            favsUpdater.setEnabled(false);
         }
+
+        return out;
     }
 
 }

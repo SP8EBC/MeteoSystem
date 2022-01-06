@@ -4,6 +4,7 @@ import android.content.Context;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.tinylog.Logger;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -48,6 +49,8 @@ public class ConfigurationFile {
 
         } catch (IOException | JSONException e) {
             e.printStackTrace();
+
+            Logger.error("[ConfigurationFile][restoreFromFile][e = " + e.getLocalizedMessage() +"]");
 
             AppConfiguration.locale = "default";
             AppConfiguration.replaceMsWithKnots = false;

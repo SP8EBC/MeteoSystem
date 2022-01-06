@@ -2,6 +2,7 @@ package cc.pogoda.mobile.meteosystem.adapter;
 
 import android.content.Context;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import cc.pogoda.mobile.meteosystem.Main;
 import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.activity.handler.AllStationsActRecyclerViewButtonClickEvent;
 import cc.pogoda.mobile.meteosystem.activity.updater.FavouritesStationDetailsUpdater;
@@ -35,8 +37,18 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
     
     AvailableParametersDao paramsDao;
 
-    FavouritesStationDetailsUpdater favsUpdater = null;
+    /**
+     * This updater takes data stored in the hashmap and then updates TextViews on View Holders on
+     * Favourites list
+     */
+    private FavouritesStationDetailsUpdater favsUpdater = null;
 
+    Handler handler = null;
+
+    /**
+     * This instance of 'Main' singleton class is used to obtain HashMap<String, Summary> stationSystemNameToSummary
+     */
+    Main main;
 
     public WeatherStationRecyclerViewAdapter(List<WeatherStation> stations, AppCompatActivity parentActivity, ParceableFavsCallReason.Reason callReason) {
         this.stations = stations;
@@ -44,8 +56,7 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
         this.reason = callReason;
         this.summaryDao = new SummaryDao();
         this.paramsDao = new AvailableParametersDao();
-
-
+        this.main = (Main) parentActivity.getApplication();
     }
 
     @NonNull
@@ -103,6 +114,28 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
     @Override
     public int getItemCount() {
         return stations.size();
+    }
+
+
+    public void createAndStartUpdater() {
+
+        // check if there is previous instance of updater
+        if (favsUpdater != null && favsUpdater.isEnabled()) {
+            stopUpdater();
+        }
+
+        handler = new Handler(Looper.getMainLooper());
+        favsUpdater = new FavouritesStationDetailsUpdater(handler, main.getStationSystemNameToSummary());
+
+        handler.postDelayed(favsUpdater, 100);
+        favsUpdater.setEnabled(true);
+    }
+
+    public void stopUpdater() {
+        if (reason.equals(ParceableFavsCallReason.Reason.FAVOURITES)) {
+            handler.removeCallbacks(favsUpdater);
+            favsUpdater.setEnabled(false);
+        }
     }
 
 }
