@@ -65,7 +65,7 @@
     <string name="temperature_plot">Temperatura</string>
     <string name="humidity_plot">Wilgotność</string>
     <string name="station_doesnt_measure">Stacja nie mierzy tego parametru</string>
-    <string name="click_on_plot">Kliknij na punkt na wykresie</string>
+    <string name="click_on_plot">Kliknij na wykres</string>
     <string name="sort_alphabetical">Sortuj alfabetycznie</string>
     <string name="sort_in_adding_order">Sortuj wg kolejności dodania</string>
     <string name="clear_from_non_existent">Usuń nieistniejące stacje</string>
@@ -113,4 +113,5 @@
     <string name="knots_long">kn (węzły)</string>
     <string name="export_decimation">Decymacja eskportowanych danych</string>
     <string name="export_decimation_minutes">Minimalny krok w minutach</string>
+    <string name="www_link">Więcej informacji</string>
 </resources>

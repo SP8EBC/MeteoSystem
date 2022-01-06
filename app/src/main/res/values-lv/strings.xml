@@ -113,4 +113,5 @@
     <string name="knots_long">kn</string>
     <string name="export_decimation">Export data decimation</string>
     <string name="export_decimation_minutes">Minimum time resolution</string>
+    <string name="www_link">URL to more information</string>
 </resources>

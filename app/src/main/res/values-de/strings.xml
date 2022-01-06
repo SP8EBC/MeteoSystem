@@ -66,7 +66,7 @@
         <string name="temperature_plot">temperatu</string>
         <string name="humidity_plot">feichtigkeit</string>
         <string name="station_doesnt_measure">Die Station misst keine Parameter </string>
-        <string name="click_on_plot">Druck auf den Punkt auf dem Diagramm </string>
+        <string name="click_on_plot">"Druck auf der Diagramm "</string>
         <string name="sort_alphabetical">Alphabetisch sortieren </string>
         <string name="sort_in_adding_order">Sortiere nach hinzufügen datum </string>
         <string name="clear_from_non_existent">lösche nicht existierende Stationen </string>
@@ -115,6 +115,7 @@
         <string name="knots_long">kn (knoten)</string>
         <string name="export_decimation">Dezimierung exportierten Dateien </string>
         <string name="export_decimation_minutes">Minimaler Schritt in Minuten </string>
-    </resources>
+    <string name="www_link">URL to more information</string>
+</resources>
 
 

@@ -22,7 +22,7 @@ import cc.pogoda.mobile.meteosystem.type.web.Summary;
  * This class is used to update entries (TextView) on Favourites list using HashMap
  * which is updated by {@link FavouritesStationSummaryUpdater}
  */
-public class FavouritesStationDetailsUpdater implements Runnable {
+public class FavouritesStationDetailsOnListUpdater implements Runnable {
 
     /**
      * Handler is used by Android to put a Runnable into MessageQueue handler by the Looper. This
@@ -51,7 +51,7 @@ public class FavouritesStationDetailsUpdater implements Runnable {
      */
     private boolean enabled;
 
-    public FavouritesStationDetailsUpdater(Handler _handler, HashMap<String, Summary> _station_system_name_to_summary) {
+    public FavouritesStationDetailsOnListUpdater(Handler _handler, HashMap<String, Summary> _station_system_name_to_summary) {
         handler = _handler;
         stationsToUpdate = new HashMap<>();
         availableParametersDao = new AvailableParametersDao();
@@ -92,7 +92,7 @@ public class FavouritesStationDetailsUpdater implements Runnable {
                 // query web service for station data
                 Summary summary = stationNameSummary.get(stationSystemName);
 
-                Logger.debug("[FavouritesStationDetailsUpdater][run][stationSystemName = " + stationSystemName +"][summary.last_timestamp = " + summary.last_timestamp +"]");
+                Logger.debug("[FavouritesStationDetailsOnListUpdater][run][stationSystemName = " + stationSystemName +"][summary.last_timestamp = " + summary.last_timestamp +"]");
 
                 // query for available parameters
                 AvailableParametersWeb params = availableParametersDao.getAvaliableParamsByStationName(stationSystemName);

@@ -2,6 +2,8 @@ package cc.pogoda.mobile.meteosystem.activity.updater;
 
 import android.os.Handler;
 
+import org.tinylog.Logger;
+
 import cc.pogoda.mobile.meteosystem.dao.SummaryDao;
 import cc.pogoda.mobile.meteosystem.type.StationActivityElements;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
@@ -13,7 +15,7 @@ import cc.pogoda.mobile.meteosystem.type.web.Summary;
  * Class used to update the content of StationDetailsSummaryActivity and
  * StationDetailsWindRoseActivity
  */
-public class StationDetailsValuesUpdater implements Runnable {
+public class StationDetailsValuesOnActivityUpdater implements Runnable {
 
     StationActivityElements elements = null;
 
@@ -27,7 +29,7 @@ public class StationDetailsValuesUpdater implements Runnable {
 
     WeatherStation station;
 
-    public StationDetailsValuesUpdater(StationActivityElements elems, Handler h, String station_name, WeatherStation station) {
+    public StationDetailsValuesOnActivityUpdater(StationActivityElements elems, Handler h, String station_name, WeatherStation station) {
         elements = elems;
         handler = h;
         this.station_name = station_name;
@@ -46,6 +48,8 @@ public class StationDetailsValuesUpdater implements Runnable {
         else {
             // get the current data from the Web Service
             station_summary = dao.getStationSummary(station_name);
+
+            Logger.debug("[StationDetailsValuesOnActivityUpdater][run][station_name = " + station_name +"]");
 
             // null check is done inside this call
             elements.updateFromSummary(station_summary, station.getAvailableParameters());

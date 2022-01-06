@@ -7,7 +7,9 @@ import android.widget.TextView;
 import org.threeten.bp.Duration;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.temporal.ChronoUnit;
+import org.tinylog.Logger;
 
 import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.type.web.QualityFactor;
@@ -91,6 +93,8 @@ public class StationSummaryActElements implements StationActivityElements {
         LocalDateTime current = LocalDateTime.now();
 
         long minutes_difference = last_station_data.until(current, ChronoUnit.MINUTES);
+
+        Logger.debug("[StationSummaryActElements][updateFromSummary][last_station_data = " + last_station_data.format(DateTimeFormatter. ISO_LOCAL_DATE_TIME) +"]");
 
         // calculate the duration between
         Duration duration = Duration.between(last_station_data, current);

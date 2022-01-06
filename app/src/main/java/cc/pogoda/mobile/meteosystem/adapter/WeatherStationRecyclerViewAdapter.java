@@ -3,6 +3,7 @@ package cc.pogoda.mobile.meteosystem.adapter;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +19,7 @@ import java.util.List;
 import cc.pogoda.mobile.meteosystem.Main;
 import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.activity.handler.AllStationsActRecyclerViewButtonClickEvent;
-import cc.pogoda.mobile.meteosystem.activity.updater.FavouritesStationDetailsUpdater;
+import cc.pogoda.mobile.meteosystem.activity.updater.FavouritesStationDetailsOnListUpdater;
 import cc.pogoda.mobile.meteosystem.activity.view.AllStationsActRecyclerViewHolder;
 import cc.pogoda.mobile.meteosystem.dao.AvailableParametersDao;
 import cc.pogoda.mobile.meteosystem.dao.SummaryDao;
@@ -41,7 +42,7 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
      * This updater takes data stored in the hashmap and then updates TextViews on View Holders on
      * Favourites list
      */
-    private FavouritesStationDetailsUpdater favsUpdater = null;
+    private FavouritesStationDetailsOnListUpdater favsUpdater = null;
 
     Handler handler = null;
 
@@ -100,6 +101,13 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
             textView.setText(station.getDisplayedName());
             button.setText(R.string.select_station);
 
+            if (station.getDisplayedName().length() > 24) {
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16.0f);
+            }
+            else {
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20.0f);
+            }
+
             button.setOnClickListener(new AllStationsActRecyclerViewButtonClickEvent(station, activity, reason));
         }
 
@@ -125,7 +133,7 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
         }
 
         handler = new Handler(Looper.getMainLooper());
-        favsUpdater = new FavouritesStationDetailsUpdater(handler, main.getStationSystemNameToSummary());
+        favsUpdater = new FavouritesStationDetailsOnListUpdater(handler, main.getStationSystemNameToSummary());
 
         handler.postDelayed(favsUpdater, 100);
         favsUpdater.setEnabled(true);

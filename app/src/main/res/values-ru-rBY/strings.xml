@@ -113,4 +113,5 @@
     <string name="knots_long">kn (узлы)</string>
     <string name="export_decimation">Децимация экспортируемых данных</string>
     <string name="export_decimation_minutes">Минимальный шаг в минутах</string>
+    <string name="www_link">URL to more information</string>
 </resources>

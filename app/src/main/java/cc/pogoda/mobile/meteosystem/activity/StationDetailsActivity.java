@@ -2,11 +2,15 @@ package cc.pogoda.mobile.meteosystem.activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.text.HtmlCompat;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -294,13 +298,29 @@ public class StationDetailsActivity extends AppCompatActivity {
             }
 
 
-            stationName.setText(station.getDisplayedName());
+            if (station.getDisplayedName().length() > 18) {
+                stationName.setText(station.getDisplayedName());
+                stationName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 30.0f);
+            }
+            else {
+                stationName.setText(station.getDisplayedName());
+                stationName.setTextSize(TypedValue.COMPLEX_UNIT_SP, 36.0f);
+            }
+
             stationLocation.setText(station.getDisplayedLocation());
 
             station_lat = station.getLat();
             station_lon = station.getLon();
 
-            stationSponsorUrl.setText(station.getSponsorUrl());
+//            if (station.getSponsorUrl().length() > 32) {
+//                stationSponsorUrl.setClickable(true);
+//                stationSponsorUrl.setMovementMethod(LinkMovementMethod.getInstance());
+//                stationSponsorUrl.setText(Html.fromHtml("<a href=\"" + station.getSponsorUrl() +"\">" + getString(R.string.www_link) + "</a>\n", HtmlCompat.FROM_HTML_MODE_LEGACY));
+//            }
+//            else {
+                stationSponsorUrl.setText(station.getSponsorUrl());
+//            }
+
             stationMoreInfo.setText(station.getMoreInfo());
 
             StationBackgroundDownloader downloader = new StationBackgroundDownloader(station);
@@ -312,33 +332,33 @@ public class StationDetailsActivity extends AppCompatActivity {
 
             if (station_lat > 0.0f && station_lon > 0.0f) {
                 // europe
-                sb.append(station_lon);
-                sb.append(" N / ");
                 sb.append(station_lat);
+                sb.append(" N / ");
+                sb.append(station_lon);
                 sb.append(" E");
 
                 stationLatLon.setText(sb.toString());
             } else if (station_lat < 0.0f && station_lon > 0.0f) {
                 // usa
-                sb.append(station_lon);
+                sb.append(station_lat);
                 sb.append(" N / ");
-                sb.append(-station_lat);
+                sb.append(-station_lon);
                 sb.append(" W");
 
                 stationLatLon.setText(sb.toString());
             } else if (station_lat < 0.0f && station_lon < 0.0f) {
                 // brazil
-                sb.append(-station_lon);
-                sb.append(" S / ");
                 sb.append(-station_lat);
+                sb.append(" S / ");
+                sb.append(-station_lon);
                 sb.append(" W");
 
                 stationLatLon.setText(sb.toString());
             } else if (station_lat > 0.0f && station_lat > 0.0f) {
                 // australia
-                sb.append(-station_lon);
+                sb.append(-station_lat);
                 sb.append(" S / ");
-                sb.append(station_lat);
+                sb.append(station_lon);
                 sb.append(" E");
 
                 stationLatLon.setText(sb.toString());

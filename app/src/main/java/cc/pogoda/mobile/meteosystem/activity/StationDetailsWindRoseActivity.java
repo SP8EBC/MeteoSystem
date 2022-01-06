@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 
+import cc.pogoda.mobile.meteosystem.Main;
 import cc.pogoda.mobile.meteosystem.R;
-import cc.pogoda.mobile.meteosystem.activity.updater.StationDetailsValuesUpdater;
+import cc.pogoda.mobile.meteosystem.activity.updater.StationDetailsValuesOnActivityFromSummaryUpdater;
+import cc.pogoda.mobile.meteosystem.activity.updater.StationDetailsValuesOnActivityUpdater;
 import cc.pogoda.mobile.meteosystem.dao.SummaryDao;
 import cc.pogoda.mobile.meteosystem.type.StationWindRoseActElements;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
@@ -18,11 +20,15 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
 
     Summary summary;
 
-    StationDetailsValuesUpdater updater = null;
+    StationDetailsValuesOnActivityUpdater onActivityUpdater = null;
+
+    StationDetailsValuesOnActivityFromSummaryUpdater fromSummaryUpdater = null;
 
     Handler handler = null;
 
     StationWindRoseActElements elements;
+
+    Main main = null;
 
     public StationDetailsWindRoseActivity() {
 
@@ -34,6 +40,8 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_station_details_wind_rose);
 
         station = (WeatherStation) getIntent().getSerializableExtra("station");
+
+        main = (Main)getApplication();
 
         // find all elements in the xml layout file and set the references in a holding object
         elements = new StationWindRoseActElements();
@@ -59,12 +67,26 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
         elements.updateFromSummary(summary, station.getAvailableParameters());
 
         handler = new Handler();
-        updater = new StationDetailsValuesUpdater(elements, handler, station.getSystemName(), station);
 
-        if (handler != null && updater != null) {
-            // start the handler to update the wind rose activity in background
-            handler.post(updater);
+        // check if this station is on favourites list
+        boolean onFavs = main.checkIsOnFavsList(station.getSystemName());
+
+        if (onFavs) {
+            fromSummaryUpdater = new StationDetailsValuesOnActivityFromSummaryUpdater(elements, handler, station, main.getStationSystemNameToSummary());
+
+            if (handler != null && fromSummaryUpdater != null) {
+                handler.post(fromSummaryUpdater);
+            }
         }
+        else {
+            onActivityUpdater = new StationDetailsValuesOnActivityUpdater(elements, handler, station.getSystemName(), station);
+
+            if (handler != null && onActivityUpdater != null) {
+                // start the handler to update the wind rose activity in background
+                handler.post(onActivityUpdater);
+            }
+        }
+
 
     }
 
@@ -72,8 +94,8 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
     protected void onStop() {
 
         // remove and stop background callback
-        if (handler != null && updater != null) {
-            handler.removeCallbacks(updater);
+        if (handler != null && onActivityUpdater != null) {
+            handler.removeCallbacks(onActivityUpdater);
         }
 
         super.onStop();

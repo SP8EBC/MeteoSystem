@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.TypedValue;
 
+import cc.pogoda.mobile.meteosystem.Main;
 import cc.pogoda.mobile.meteosystem.R;
-import cc.pogoda.mobile.meteosystem.activity.updater.StationDetailsValuesUpdater;
+import cc.pogoda.mobile.meteosystem.activity.updater.StationDetailsValuesOnActivityFromSummaryUpdater;
+import cc.pogoda.mobile.meteosystem.activity.updater.StationDetailsValuesOnActivityUpdater;
 import cc.pogoda.mobile.meteosystem.dao.SummaryDao;
 import cc.pogoda.mobile.meteosystem.type.StationSummaryActElements;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
@@ -21,12 +23,18 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
 
     WeatherStation station = null;
 
-    StationDetailsValuesUpdater updater = null;
+    StationDetailsValuesOnActivityUpdater valuesOnActUpdater = null;
+
+    StationDetailsValuesOnActivityFromSummaryUpdater valuesFromSummaryUpdater = null;
 
     Handler handler = null;
 
+    Main main = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        main = (Main)getApplication();
 
         elems = new StationSummaryActElements();
 
@@ -69,12 +77,26 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
         // create a handler to update station data in background
         handler = new Handler();
 
-        // create a copy of updater class for this tation
-        updater = new StationDetailsValuesUpdater(elems, handler, station.getSystemName(), station);
+        // check if this station is on favourites list
+        boolean onFavs = main.checkIsOnFavsList(station.getSystemName());
 
-        if (handler != null && updater != null) {
-            handler.post(updater);
+        if (onFavs) {
+            valuesFromSummaryUpdater = new StationDetailsValuesOnActivityFromSummaryUpdater(elems, handler, station, main.getStationSystemNameToSummary());
+
+            if (handler != null && valuesFromSummaryUpdater != null) {
+                handler.post(valuesFromSummaryUpdater);
+            }
         }
+        else {
+            // create a copy of updater class for this station
+            valuesOnActUpdater = new StationDetailsValuesOnActivityUpdater(elems, handler, station.getSystemName(), station);
+
+            if (handler != null && valuesOnActUpdater != null) {
+                handler.post(valuesOnActUpdater);
+            }
+        }
+
+
 
 
     }
@@ -82,8 +104,8 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
 
-        if (handler != null && updater != null) {
-            handler.removeCallbacks(updater);
+        if (handler != null && valuesOnActUpdater != null) {
+            handler.removeCallbacks(valuesOnActUpdater);
         }
 
         super.onStop();

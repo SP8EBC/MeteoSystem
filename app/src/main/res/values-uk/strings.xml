@@ -113,4 +113,5 @@
     <string name="knots_long">kn (вузли)</string>
     <string name="export_decimation">Децимація експортованих даних</string>
     <string name="export_decimation_minutes">Мінімальний крок у хвилинах</string>
+    <string name="www_link">URL to more information</string>
 </resources>

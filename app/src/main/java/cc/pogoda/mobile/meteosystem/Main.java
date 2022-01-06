@@ -4,11 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.StrictMode;
-import android.os.strictmode.Violation;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -24,17 +19,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import cc.pogoda.mobile.meteosystem.activity.handler.MainActImageButtonFavouritesClickEvent;
-import cc.pogoda.mobile.meteosystem.activity.updater.FavouritesStationDetailsUpdater;
 import cc.pogoda.mobile.meteosystem.activity.updater.FavouritesStationSummaryUpdater;
-import cc.pogoda.mobile.meteosystem.activity.view.AllStationsActRecyclerViewHolder;
 import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.dao.AllStationsDao;
 import cc.pogoda.mobile.meteosystem.file.ConfigurationFile;
 import cc.pogoda.mobile.meteosystem.file.FavouritiesFile;
 import cc.pogoda.mobile.meteosystem.file.FileNames;
-import cc.pogoda.mobile.meteosystem.type.ParceableFavsCallReason;
-import cc.pogoda.mobile.meteosystem.type.ParceableStationsList;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 import cc.pogoda.mobile.meteosystem.type.WeatherStationListEvent;
 import cc.pogoda.mobile.meteosystem.type.web.Summary;

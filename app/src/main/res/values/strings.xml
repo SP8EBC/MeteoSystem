@@ -71,7 +71,7 @@
     <string name="station_doesnt_measure">The station doesn\'t measure this parameter</string>
     <string name="meters_per_second" translatable="false">m/s</string>
     <string name="knots" translatable="false">kn</string>
-    <string name="click_on_plot">Click on point on the plot</string>
+    <string name="click_on_plot">Click on the plot</string>
     <string name="sort_alphabetical">Sort in alphabetical order</string>
     <string name="sort_in_adding_order">Sort in adding order</string>
     <string name="clear_from_non_existent">Clear removed stations</string>
@@ -143,4 +143,5 @@
         <item>Deutsch</item>
     </string-array>
     <string name="lang_change_req_restart" translatable="false">Changing language requires app restart after making a choose in this window.</string>
+    <string name="www_link">URL to more information</string>
 </resources>

@@ -8,6 +8,8 @@ import android.widget.TextView;
 import org.threeten.bp.Duration;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.ZonedDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
+import org.tinylog.Logger;
 
 import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.type.web.QualityFactor;
@@ -85,6 +87,8 @@ public class StationWindRoseActElements implements StationActivityElements {
             // current date and time (in current time zone set in system configuration)
             LocalDateTime current = LocalDateTime.now();
 
+            Logger.debug("[StationWindRoseActElements][updateFromSummary][last_station_data = " + last_station_data.format(DateTimeFormatter. ISO_LOCAL_DATE_TIME) +"]");
+
             // calculate the duration between
             Duration duration = Duration.between(last_station_data, current);
 
@@ -93,6 +97,8 @@ public class StationWindRoseActElements implements StationActivityElements {
                 old_data = true;
             }
         }
+
+        Logger.debug("[StationWindRoseActElements][updateFromSummary][no_data = " + no_data +"][old_data = " + old_data+"]");
 
         // create strings with wind speed, gusts etc
         String average_speed = String.format("%s", data.getWindspeedStr(true));

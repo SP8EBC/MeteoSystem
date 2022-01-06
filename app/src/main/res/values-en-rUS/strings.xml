@@ -65,7 +65,7 @@
     <string name="temperature_plot">Temperature Plot</string>
     <string name="humidity_plot">Humidity Plot</string>
     <string name="station_doesnt_measure">The station doesn\'t measure this parameter</string>
-    <string name="click_on_plot">Click on point on the plot</string>
+    <string name="click_on_plot">Click on the plot</string>
     <string name="sort_alphabetical">Sort in alphabetical order</string>
     <string name="sort_in_adding_order">Sort in adding order</string>
     <string name="clear_from_non_existent">Clear removed stations</string>
@@ -113,4 +113,5 @@
     <string name="knots_long">kn (knots)</string>
     <string name="export_decimation">Export data decimation</string>
     <string name="export_decimation_minutes">Minimum time resolution</string>
+    <string name="www_link">URL to more information</string>
 </resources>

@@ -111,7 +111,7 @@
     <string name="humidity_plot">Vlhkost vzduchu</string>
 
     <string name="station_doesnt_measure">Stanice tento parametr neměří</string>
-    <string name="click_on_plot">Klikněte na bod na grafu</string>
+    <string name="click_on_plot">Klikněte na graf</string>
     <string name="sort_alphabetical">Seřadit podle abecedy</string>
 
     <string name="sort_in_adding_order">Seřadit podle pořadí přidávání</string>
@@ -186,5 +186,6 @@
     <string name="knots_long">kn (Uzly)</string>
     <string name="export_decimation">Decimace eskportovaných údajov</string>
     <string name="export_decimation_minutes">Minimální krok v minutách</string>
+    <string name="www_link">URL pro více informací</string>
 
 </resources>
