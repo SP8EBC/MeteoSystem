@@ -3,13 +3,16 @@ package cc.pogoda.mobile.meteosystem.activity;
 // https://www.softicons.com/web-icons/vector-stylish-weather-icons-by-bartosz-kaszubowski/sun-rays-cloud-icon#google_vignette
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -23,8 +26,11 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
 import org.tinylog.Logger;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +45,7 @@ import cc.pogoda.mobile.meteosystem.activity.handler.MainActImageButtonSettingsC
 import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.dao.AllStationsDao;
 import cc.pogoda.mobile.meteosystem.file.ConfigurationFile;
+import cc.pogoda.mobile.meteosystem.file.CopyLog;
 import cc.pogoda.mobile.meteosystem.file.FavouritiesFile;
 import cc.pogoda.mobile.meteosystem.file.FileNames;
 import cc.pogoda.mobile.meteosystem.type.ParceableStationsList;
@@ -118,6 +125,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (requestCode == 123 && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+
+            Logger.debug("[MainActivity][onActivityResult][requestCode = 123][uri.getPath() = " + uri.getPath() +"]");
+
+            grantUriPermission(getPackageName(), uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            getContentResolver().takePersistableUriPermission(uri, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+
+            try {
+                CopyLog.forDay(main.getFileNames(), LocalDateTime.now(), getContentResolver().openOutputStream(uri));
+            } catch (FileNotFoundException e) {
+                Logger.error("[MainActivity][onActivityResult][FileNotFoundException]");
+            }
+
+            // getContentResolver().openOutputStream(exportUri)
+
+            //exportUri = uri;
+
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_activity_menu, menu);
         return true;
@@ -140,6 +173,19 @@ public class MainActivity extends AppCompatActivity {
                 });
                 builder.create();
                 builder.show();
+
+                break;
+            }
+
+            case (R.id.menu_item_log_export) : {
+                Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TITLE, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE) + ".log");
+
+                startActivityForResult(intent, 123);
+
+                break;
             }
         }
 

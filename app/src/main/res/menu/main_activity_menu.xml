@@ -4,4 +4,7 @@
     <item
         android:id="@+id/menu_item_translation_authors"
         android:title="@string/translation_authors" />
+    <item
+        android:id="@+id/menu_item_log_export"
+        android:title="Log file export" />
 </menu>

@@ -39,6 +39,10 @@ public class Main extends Application {
 
     private ConfigurationFile confFile;
 
+    public FileNames getFileNames() {
+        return fileNames;
+    }
+
     private FileNames fileNames;
 
     private FavouritiesFile favouritiesFile;
