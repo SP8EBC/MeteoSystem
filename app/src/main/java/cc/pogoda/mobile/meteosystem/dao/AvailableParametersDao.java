@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.meteosystem.dao;
 
+import org.tinylog.Logger;
+
 import cc.pogoda.mobile.meteosystem.type.web.AvailableParametersWeb;
 import cc.pogoda.mobile.meteosystem.web.AvailableParametersConsumer;
 import cc.pogoda.mobile.meteosystem.web.RestClientConfig;
@@ -24,6 +26,8 @@ public class AvailableParametersDao {
             try {
                 response = consumer.getParametersForStation(stationName).execute();
             } catch (Exception e) {
+                Logger.error("[AvailableParametersDao][Worker][Exception][e = " + e.getLocalizedMessage() +"]");
+
                 e.printStackTrace();
             }
         }

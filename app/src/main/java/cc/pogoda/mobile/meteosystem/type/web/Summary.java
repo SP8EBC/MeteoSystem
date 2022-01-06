@@ -232,7 +232,7 @@ public class Summary {
     public String getWindDirStr() {
         String out;
 
-        if (direction <= 11 && direction >= 349) {
+        if (direction <= 11 || direction >= 349) {
             out = String.format("%5s", "N");
         }
         else if (direction <= 34 && direction > 11) {

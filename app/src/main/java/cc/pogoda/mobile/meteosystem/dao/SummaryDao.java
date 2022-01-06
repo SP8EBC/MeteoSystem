@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.meteosystem.dao;
 
+import org.tinylog.Logger;
+
 import java.io.IOException;
 
 import cc.pogoda.mobile.meteosystem.type.web.QualityFactor;
@@ -32,6 +34,8 @@ public class SummaryDao {
             try {
                 response = consumer.getSummaryForStation(station).execute();
             } catch (IOException e) {
+                Logger.error("[SummaryDao][Worker][Exception][e = " + e.getLocalizedMessage() +"]");
+
                 e.printStackTrace();
             }
         }

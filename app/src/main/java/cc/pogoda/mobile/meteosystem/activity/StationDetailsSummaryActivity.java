@@ -3,15 +3,22 @@ package cc.pogoda.mobile.meteosystem.activity;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.TypedValue;
 
+import org.tinylog.Logger;
+
+import java.util.Locale;
+
 import cc.pogoda.mobile.meteosystem.Main;
 import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.activity.updater.StationDetailsValuesOnActivityFromSummaryUpdater;
 import cc.pogoda.mobile.meteosystem.activity.updater.StationDetailsValuesOnActivityUpdater;
+import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.dao.SummaryDao;
 import cc.pogoda.mobile.meteosystem.type.StationSummaryActElements;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
@@ -44,9 +51,22 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
         SummaryDao summary_dao = new SummaryDao();
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_station_details_summary);
 
         station = (WeatherStation) getIntent().getSerializableExtra("station");
+
+        Logger.info("[StationDetailsSummaryActivity][onCreate][station.getSystemName() = " + station.getSystemName() +"]");
+
+        if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default") ) {
+            Logger.debug("[StationDetailsPlotsHumidity][onCreate][AppConfiguration.locale = " + AppConfiguration.locale +  "]");
+            Locale locale = new Locale(AppConfiguration.locale);
+            Locale.setDefault(locale);
+            Resources resources = this.getResources();
+            Configuration config = resources.getConfiguration();
+            config.setLocale(locale);
+            resources.updateConfiguration(config, resources.getDisplayMetrics());
+        }
+
+        setContentView(R.layout.activity_station_details_summary);
 
         elems.title = findViewById(R.id.textViewStationDetailsSummaryTitle);
         elems.title.setText(station.getDisplayedName());

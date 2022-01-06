@@ -101,11 +101,12 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
             textView.setText(station.getDisplayedName());
             button.setText(R.string.select_station);
 
-            if (station.getDisplayedName().length() > 24) {
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16.0f);
-            }
-            else {
-                textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20.0f);
+            if (!reason.equals(ParceableFavsCallReason.Reason.FAVOURITES)) {
+                if (station.getDisplayedName().length() > 22) {
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.0f);
+                } else {
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22.0f);
+                }
             }
 
             button.setOnClickListener(new AllStationsActRecyclerViewButtonClickEvent(station, activity, reason));

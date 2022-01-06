@@ -137,16 +137,16 @@ public class Main extends Application {
 
         favsSummaryUpdater.start(100);
 
-        if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default") ) {
-            Logger.debug("[Main][onCreate][AppConfiguration.locale = " + AppConfiguration.locale +  "]");
-            Locale locale = new Locale(AppConfiguration.locale);
-            Locale.setDefault(locale);
-            Resources resources = this.getResources();
-            Configuration config = resources.getConfiguration();
-            config.setLocale(locale);
-            Logger.debug("[Main][onCreate][locale = " + locale.toLanguageTag() +  "]");
-            resources.updateConfiguration(config, resources.getDisplayMetrics());
-        }
+//        if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default") ) {
+//            Logger.debug("[Main][onCreate][AppConfiguration.locale = " + AppConfiguration.locale +  "]");
+//            Locale locale = new Locale(AppConfiguration.locale);
+//            Locale.setDefault(locale);
+//            Resources resources = this.getResources();
+//            Configuration config = resources.getConfiguration();
+//            config.setLocale(locale);
+//            Logger.debug("[Main][onCreate][locale = " + locale.toLanguageTag() +  "]");
+//            resources.updateConfiguration(config, resources.getDisplayMetrics());
+//        }
     }
 
     private void recreateListOfFavs() {

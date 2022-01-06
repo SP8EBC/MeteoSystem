@@ -2,6 +2,8 @@ package cc.pogoda.mobile.meteosystem.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -22,8 +24,10 @@ import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
+import org.tinylog.Logger;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.activity.handler.PlotClickEvent;
@@ -95,12 +99,25 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
         int lastDataIndex = 0;
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_station_details_plots);
 
         // get data length for this plot
         dataLn = (int)getIntent().getExtras().get("data_ln");
 
         station = (WeatherStation) getIntent().getSerializableExtra("station");
+
+        Logger.info("[StationDetailsPlotsWind][onCreate][station.getSystemName() = " + station.getSystemName() +"][dataLn = " + dataLn +"]");
+
+        if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default") ) {
+            Logger.debug("[StationDetailsPlotsHumidity][onCreate][AppConfiguration.locale = " + AppConfiguration.locale +  "]");
+            Locale locale = new Locale(AppConfiguration.locale);
+            Locale.setDefault(locale);
+            Resources resources = this.getResources();
+            Configuration config = resources.getConfiguration();
+            config.setLocale(locale);
+            resources.updateConfiguration(config, resources.getDisplayMetrics());
+        }
+
+        setContentView(R.layout.activity_station_details_plots);
 
         // download data from web service
         this.downloadDataFromWebservice();
@@ -201,6 +218,8 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
         // utc timestamp
         long utcTimestamp = utcTime.toEpochSecond();
 
+        Logger.debug("[StationDetailsPlotsWind][downloadDataFromWebservice][station.getSystemName() = " + station.getSystemName() +"]");
+
         if (this.dataLn < 0 || this.dataLn > 2) {
             // last 2000 points of data, regardless the timescale
             data = lastStationDataDao.getLastStationData(station.getSystemName());
@@ -222,6 +241,9 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
         valuesWindGusts = new ArrayList<>();
 
         if (data instanceof  ListOfStationData) {
+
+            Logger.debug("[StationDetailsPlotsWind][downloadDataFromWebservice][data.list_of_station_data.length = " + data.list_of_station_data.length +"]");
+
             for (StationData d : data.list_of_station_data) {
                 valuesWindSpeed.add(new Entry(d.epoch * 1000, d.windspeed));
                 valuesWindGusts.add(new Entry(d.epoch * 1000, d.windgusts));

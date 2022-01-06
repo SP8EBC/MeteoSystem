@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
 
+import org.tinylog.Logger;
+
 import cc.pogoda.mobile.meteosystem.Main;
 import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.activity.updater.StationDetailsValuesOnActivityFromSummaryUpdater;
@@ -40,6 +42,8 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_station_details_wind_rose);
 
         station = (WeatherStation) getIntent().getSerializableExtra("station");
+
+        Logger.info("[StationDetailsWindRoseActivity][onCreate][station.getSystemName() = " + station.getSystemName() +"]");
 
         main = (Main)getApplication();
 

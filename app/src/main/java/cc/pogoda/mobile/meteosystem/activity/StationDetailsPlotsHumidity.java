@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.meteosystem.activity;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -21,11 +23,14 @@ import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
+import org.tinylog.Logger;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.activity.handler.PlotClickEvent;
+import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.dao.LastStationDataDao;
 import cc.pogoda.mobile.meteosystem.dao.StationDataDao;
 import cc.pogoda.mobile.meteosystem.type.StationDetailsPlot;
@@ -146,6 +151,16 @@ public class StationDetailsPlotsHumidity extends AppCompatActivity implements Se
 
         // get data length for this plot
         dataLn = (int)getIntent().getExtras().get("data_ln");
+
+        if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default") ) {
+            Logger.debug("[StationDetailsPlotsHumidity][onCreate][AppConfiguration.locale = " + AppConfiguration.locale +  "]");
+            Locale locale = new Locale(AppConfiguration.locale);
+            Locale.setDefault(locale);
+            Resources resources = this.getResources();
+            Configuration config = resources.getConfiguration();
+            config.setLocale(locale);
+            resources.updateConfiguration(config, resources.getDisplayMetrics());
+        }
 
         setContentView(R.layout.activity_station_details_plots);
 

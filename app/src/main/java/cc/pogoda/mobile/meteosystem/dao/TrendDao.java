@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.meteosystem.dao;
 
+import org.tinylog.Logger;
+
 import java.io.IOException;
 
 import cc.pogoda.mobile.meteosystem.type.web.Trend;
@@ -28,6 +30,8 @@ public class TrendDao {
                 trend = trendConsumer.getTrendForStation(station).execute();
             }
             catch (IOException e) {
+                Logger.error("[TrendDao][Worker][Exception][e = " + e.getLocalizedMessage() +"]");
+
                 e.printStackTrace();
             }
         }

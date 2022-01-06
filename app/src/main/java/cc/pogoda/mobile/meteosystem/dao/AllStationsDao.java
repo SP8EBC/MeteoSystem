@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.meteosystem.dao;
 
+import org.tinylog.Logger;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,6 +32,7 @@ public class AllStationsDao {
             try {
                 resp = consumer.getAllStations().execute();
             } catch (Exception e) {
+                Logger.error("[AllStationsDao][Worker][Exception][e = " + e.getLocalizedMessage() +"]");
                 e.printStackTrace();
             }
         }

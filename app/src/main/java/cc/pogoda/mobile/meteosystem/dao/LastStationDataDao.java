@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.meteosystem.dao;
 
+import org.tinylog.Logger;
+
 import cc.pogoda.mobile.meteosystem.type.web.ListOfStationData;
 import cc.pogoda.mobile.meteosystem.web.LastStationDataConsumer;
 import cc.pogoda.mobile.meteosystem.web.RestClientConfig;
@@ -23,6 +25,8 @@ public class LastStationDataDao {
             try {
                 response = consumer.getLastDataForStation(station, true, true).execute();
             } catch (Exception e) {
+                Logger.error("[LastStationDataDao][Worker][Exception][e = " + e.getLocalizedMessage() +"]");
+
                 e.printStackTrace();
             }
         }

@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import org.tinylog.Logger;
+
 import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.file.ConfigurationFile;
@@ -35,6 +37,9 @@ public class SettingsActivity extends AppCompatActivity {
     AppCompatActivity act;
 
     private static String languageNameFromShort(String shortName) {
+
+        Logger.info("[SettingsActivity][languageNameFromShort][shortName = " + shortName +"]");
+
         switch (shortName) {
             case "en-rUS": return "English";
             case "pl": return "Polski";
@@ -64,6 +69,8 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        Logger.info("[SettingsActivity][onCreate]");
 
         confFile = new ConfigurationFile(getBaseContext());
 
@@ -140,6 +147,8 @@ public class SettingsActivity extends AppCompatActivity {
                 @Override
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     String languageSelected = adapterView.getItemAtPosition(i).toString();
+
+                    Logger.debug("[SettingsActivity][onCreate][AdapterView.OnItemSelectedListener()][languageSelected = " + languageSelected +"]");
 
                     switch (languageSelected) {
                         case "English": AppConfiguration.locale = "en-rUS"; break;

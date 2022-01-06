@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.meteosystem.activity;
 
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -21,11 +23,14 @@ import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
+import org.tinylog.Logger;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.activity.handler.PlotClickEvent;
+import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.dao.LastStationDataDao;
 import cc.pogoda.mobile.meteosystem.dao.StationDataDao;
 import cc.pogoda.mobile.meteosystem.type.StationDetailsPlot;
@@ -91,6 +96,8 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
         // utc timestamp
         long utcTimestamp = utcTime.toEpochSecond();
 
+        Logger.debug("[StationDetailsPlotsTemperature][downloadDataFromWebservice][station.getSystemName() = " + station.getSystemName() +"]");
+
         if (this.dataLn < 0 || this.dataLn > 2) {
             // last 2000 points of data, regardless the timescale
             data = lastStationDataDao.getLastStationData(station.getSystemName());
@@ -109,6 +116,9 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
         }
 
         if (data instanceof  ListOfStationData) {
+
+            Logger.debug("[StationDetailsPlotsTemperature][downloadDataFromWebservice][data.list_of_station_data.length = " + data.list_of_station_data.length +"]");
+
             for (StationData d : data.list_of_station_data) {
                 valuesTemperature.add(new Entry(d.epoch * 1000, d.temperature));
             }
@@ -241,13 +251,25 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // this activity layout is common for all plots
-        setContentView(R.layout.activity_station_details_plots);
-
         // get data length for this plot
         dataLn = (int)getIntent().getExtras().get("data_ln");
 
         station = (WeatherStation) getIntent().getSerializableExtra("station");
+
+        Logger.info("[StationDetailsPlotsTemperature][onCreate][station.getSystemName() = " + station.getSystemName() +"][dataLn = " + dataLn +"]");
+
+        if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default") ) {
+            Logger.debug("[StationDetailsPlotsHumidity][onCreate][AppConfiguration.locale = " + AppConfiguration.locale +  "]");
+            Locale locale = new Locale(AppConfiguration.locale);
+            Locale.setDefault(locale);
+            Resources resources = this.getResources();
+            Configuration config = resources.getConfiguration();
+            config.setLocale(locale);
+            resources.updateConfiguration(config, resources.getDisplayMetrics());
+        }
+
+        // this activity layout is common for all plots
+        setContentView(R.layout.activity_station_details_plots);
 
         // exit from the function if station object hasn't been added to the intent
         if (station == null) {

@@ -6,6 +6,8 @@ import androidx.core.text.HtmlCompat;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
@@ -19,6 +21,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.greenrobot.eventbus.EventBus;
+import org.tinylog.Logger;
+
+import java.util.Locale;
 
 import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.activity.handler.StationDetailsActHumidityPlotButtonClickEvent;
@@ -29,6 +34,7 @@ import cc.pogoda.mobile.meteosystem.activity.handler.StationDetailsActWindSpeedP
 import cc.pogoda.mobile.meteosystem.activity.handler.StationDetailsActSummaryButtonClickEvent;
 import cc.pogoda.mobile.meteosystem.activity.handler.StationDetailsActWindRoseButtonClickEvent;
 import cc.pogoda.mobile.meteosystem.activity.updater.StationBackgroundImageUpdater;
+import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.type.AvailableParameters;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 import cc.pogoda.mobile.meteosystem.type.WeatherStationListEvent;
@@ -159,10 +165,21 @@ public class StationDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         act = this;
+        station = (WeatherStation) getIntent().getSerializableExtra("station");
+
+        Logger.info("[StationDetailsActivity][onCreate][station.getSystemName() = " + station.getSystemName() +"]");
+
+        if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default") ) {
+            Logger.debug("[StationDetailsActivity][onCreate][AppConfiguration.locale = " + AppConfiguration.locale +  "]");
+            Locale locale = new Locale(AppConfiguration.locale);
+            Locale.setDefault(locale);
+            Resources resources = this.getResources();
+            Configuration config = resources.getConfiguration();
+            config.setLocale(locale);
+            resources.updateConfiguration(config, resources.getDisplayMetrics());
+        }
 
         setContentView(R.layout.activity_station_details);
-
-        station = (WeatherStation) getIntent().getSerializableExtra("station");
 
         AvailableParameters parameters = station.getAvailableParameters();
 
@@ -312,13 +329,28 @@ public class StationDetailsActivity extends AppCompatActivity {
             station_lat = station.getLat();
             station_lon = station.getLon();
 
+            stationSponsorUrl.setAutoLinkMask(0);
+            stationSponsorUrl.setMovementMethod(LinkMovementMethod.getInstance());
+            String anchorText;
+            if (station.getSponsorUrl().length() > 32) {
+                anchorText = getString(R.string.www_link);
+            } else {
+                anchorText = station.getSponsorUrl();
+            }
+            stationSponsorUrl.setMovementMethod(LinkMovementMethod.getInstance());
+            stationSponsorUrl.setText(
+                    HtmlCompat.fromHtml(
+                            "<a href=\"" + station.getSponsorUrl() + "\">" + anchorText + "</a>\n", HtmlCompat.FROM_HTML_MODE_LEGACY
+                    )
+            );
+
 //            if (station.getSponsorUrl().length() > 32) {
 //                stationSponsorUrl.setClickable(true);
 //                stationSponsorUrl.setMovementMethod(LinkMovementMethod.getInstance());
 //                stationSponsorUrl.setText(Html.fromHtml("<a href=\"" + station.getSponsorUrl() +"\">" + getString(R.string.www_link) + "</a>\n", HtmlCompat.FROM_HTML_MODE_LEGACY));
 //            }
 //            else {
-                stationSponsorUrl.setText(station.getSponsorUrl());
+//                stationSponsorUrl.setText(station.getSponsorUrl());
 //            }
 
             stationMoreInfo.setText(station.getMoreInfo());
