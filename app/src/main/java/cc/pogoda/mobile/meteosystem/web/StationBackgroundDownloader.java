@@ -3,8 +3,11 @@ package cc.pogoda.mobile.meteosystem.web;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
+import org.tinylog.Logger;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 
@@ -28,10 +31,17 @@ public class StationBackgroundDownloader implements Runnable {
     public void run() {
         InputStream in = null;
         try {
-            in = new java.net.URL(station.getImageUrl()).openStream();
+            URL url = new java.net.URL(station.getImageUrl());
+
+            Logger.debug("[StationBackgroundDownloader][run][url = " + url.toString() +"]");
+
+            in = url.openStream();
             bitmap = BitmapFactory.decodeStream(in);
 
+            in.close();
+
         } catch (IOException e) {
+            Logger.error("[StationBackgroundDownloader][run][IOException][e = " + e.getLocalizedMessage() +"]");
             e.printStackTrace();
             bitmap = null;
         }

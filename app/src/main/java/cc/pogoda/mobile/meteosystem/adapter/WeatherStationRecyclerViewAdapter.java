@@ -103,7 +103,14 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<AllS
 
             if (!reason.equals(ParceableFavsCallReason.Reason.FAVOURITES)) {
                 if (station.getDisplayedName().length() > 22) {
-                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 18.0f);
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20.0f);
+                } else {
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22.0f);
+                }
+            }
+            else {
+                if (station.getDisplayedName().length() > 22) {
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20.0f);
                 } else {
                     textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22.0f);
                 }

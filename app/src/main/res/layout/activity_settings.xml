@@ -9,7 +9,7 @@
     <Switch
         android:id="@+id/switchKnots"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:minWidth="48dp"
@@ -35,7 +35,7 @@
     <TextView
         android:id="@+id/textViewSettingsWindspeedUnitDisp"
         android:layout_width="118dp"
-        android:layout_height="48dp"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/alegreya_sans_sc_medium"
@@ -62,7 +62,7 @@
     <Spinner
         android:id="@+id/spinnerSettingsLanguage"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -87,7 +87,7 @@
     <TextView
         android:id="@+id/textViewSettingsLabelDecimationTimeStep"
         android:layout_width="wrap_content"
-        android:layout_height="41dp"
+        android:layout_height="50dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/alegreya_sans_sc_medium"
@@ -102,7 +102,7 @@
     <EditText
         android:id="@+id/editTextNumberSettingsMinTimeRes"
         android:layout_width="93dp"
-        android:layout_height="41dp"
+        android:layout_height="50dp"
         android:layout_marginTop="16dp"
         android:ems="10"
         android:inputType="number"

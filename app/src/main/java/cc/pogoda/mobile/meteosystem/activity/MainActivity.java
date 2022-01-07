@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
                 builder.setMessage("ENG: Mateusz Lubecki\r\n" +
                         "CZE: Sylwiusz Pachel\r\n" +
                         "GER: Jakub Fiałek\r\n" +
-                        "LAT: Andris Stikáns\r\n" +
+                        "LAT: Andris Stikāns\r\n" +
                         "UKR, RUS: Влад Поливач \r\n(Wład Polywacz)\r\n\r\nProgram Icon: Bartosz Kaszubowski");
                 builder.setPositiveButton(R.string.ok, (DialogInterface var1, int var2) -> {
                     var1.dismiss();
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT);
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
                 intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_TITLE, LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE) + ".log");
+                intent.putExtra(Intent.EXTRA_TITLE, "meteosystem_" +LocalDateTime.now().format(DateTimeFormatter.ISO_LOCAL_DATE) + ".log");
 
                 startActivityForResult(intent, 123);
 
