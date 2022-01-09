@@ -18,3 +18,8 @@ A list of currently avaliable weather stations (with APRS callsign in brackets) 
 - Markowe Szczawiny (SR9WXM)
 - Jezioro Żywieckie (SR9WXZ)
 - Międzybrodzie Żywieckie
+
+This application is a part of bigger weather station system. The rest of it is formed by:
+API: https://github.com/SP8EBC/meteo_backend
+Receiving data from stations via APRS and storing in DB: https://github.com/SP8EBC/aprs2rrd-se
+Firmware for APRS weather station controller and it's design: https://github.com/SP8EBC/ParaTNC
