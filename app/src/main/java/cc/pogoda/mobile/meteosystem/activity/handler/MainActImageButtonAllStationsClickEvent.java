@@ -12,27 +12,15 @@ import cc.pogoda.mobile.meteosystem.type.ParceableStationsList;
 public class MainActImageButtonAllStationsClickEvent implements View.OnClickListener {
 
     MainActivity parent;
-
     Intent intent;
 
     public MainActImageButtonAllStationsClickEvent(MainActivity parent) {
         this.parent = parent;
-
         intent = new Intent(this.parent, AllStationsActivity.class);
-
-
     }
 
     @Override
     public void onClick(View v) {
-        if (parent.listOfAllStationsReady()) {
-            launchActivity();
-        }
-
-        return;
-    }
-
-    private void launchActivity() {
         parent.startActivity(intent);
     }
 }

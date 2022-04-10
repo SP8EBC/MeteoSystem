@@ -2,8 +2,9 @@ package cc.pogoda.mobile.meteosystem;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
+import android.content.Intent;
+
+import androidx.annotation.NonNull;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
@@ -17,19 +18,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 
 import cc.pogoda.mobile.meteosystem.activity.updater.FavouritesStationSummaryUpdater;
-import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
-import cc.pogoda.mobile.meteosystem.dao.AllStationsDao;
 import cc.pogoda.mobile.meteosystem.file.ConfigurationFile;
 import cc.pogoda.mobile.meteosystem.file.FavouritiesFile;
 import cc.pogoda.mobile.meteosystem.file.FileNames;
+import cc.pogoda.mobile.meteosystem.service.GetAllStationsService;
+import cc.pogoda.mobile.meteosystem.type.AllStationsReceivedEvent;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 import cc.pogoda.mobile.meteosystem.type.WeatherStationListEvent;
 import cc.pogoda.mobile.meteosystem.type.web.Summary;
 
 public class Main extends Application {
+    private static String TAG = Main.class.getSimpleName();
 
     private File directory;
 
@@ -125,10 +126,9 @@ public class Main extends Application {
 
         favouritiesFile = new FavouritiesFile(fileNames);
 
-        // download all stations from API
-        listOfAllStations = new AllStationsDao().getAllStations();
-
-        Logger.info("[Main][onCreate][listOfAllStations.size() = " + listOfAllStations.size() +  "]");
+        // Download all stations from API in background via JobIntentService. Results are send
+        //back with Broadcast receiver.
+        startGetAllStationsService();
 
         // recreate list of favorites
         recreateListOfFavs();
@@ -149,7 +149,19 @@ public class Main extends Application {
 //        }
     }
 
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        EventBus.getDefault().unregister(this);
+    }
+
     private void recreateListOfFavs() {
+
+        if(listOfAllStations == null) {
+            Logger.debug(TAG, "recreateListOfFavs, listOfAllStations=null");
+            return;
+        }
 
         // check if this is a first call after application start
         if (favs == null) {
@@ -243,22 +255,18 @@ public class Main extends Application {
 
     }
 
+    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    public void allStationsEventHandler(@NonNull AllStationsReceivedEvent event) {
+        this.listOfAllStations = event.getStations();
+    }
+
     public boolean listOfAllStationsReady() {
-        if (listOfAllStations != null && listOfAllStations.size() > 0) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return listOfAllStations != null && listOfAllStations.size() > 0;
     }
 
     public boolean listOfFavsReady() {
-        if (favs != null/* && favs.size() > 0*/) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        /* && favs.size() > 0*/
+        return favs != null;
     }
 
     public boolean checkIsOnFavsList(String _system_name) {
@@ -272,6 +280,12 @@ public class Main extends Application {
         }
 
         return out;
+    }
+
+
+    public void startGetAllStationsService () {
+        Intent mIntent = new Intent(this, GetAllStationsService.class);
+        GetAllStationsService.enqueueWork(this, mIntent);
     }
 
 }

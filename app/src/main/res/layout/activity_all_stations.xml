@@ -5,11 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.AllStationsActivity">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewAllStations"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/refreshAllStationsView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="83dp"
-        tools:layout_editor_absoluteY="95dp" />
+        android:layout_height="match_parent">
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewAllStations"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="83dp"
+            tools:layout_editor_absoluteY="95dp" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,7 +18,6 @@ import cc.pogoda.mobile.meteosystem.Main;
 import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.adapter.WeatherStationRecyclerViewAdapter;
 import cc.pogoda.mobile.meteosystem.type.ParceableFavsCallReason;
-import cc.pogoda.mobile.meteosystem.type.ParceableStationsList;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 
 public class FavouritesActivity extends AppCompatActivity {
@@ -35,14 +34,11 @@ public class FavouritesActivity extends AppCompatActivity {
 
     ParceableFavsCallReason callReason;
 
-    private class WxStationComparator implements Comparator<WeatherStation> {
+    private static class WxStationComparator implements Comparator<WeatherStation> {
 
         @Override
         public int compare(WeatherStation station, WeatherStation t1) {
-            String name = station.getDisplayedName();
-            String name1 = t1.getDisplayedName();
-
-            return (name.compareTo(name1));
+            return (station.getDisplayedName().compareTo(t1.getDisplayedName()));
         }
     }
 
@@ -93,11 +89,13 @@ public class FavouritesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        //favourites = getIntent().getParcelableExtra("favs");
         main = (Main)getApplication();
 
         favourites = main.getFavs();
+        if(favourites == null){
+            return;
+        }
+
         sortedFavourites = new ArrayList<>(favourites);
 
         sortedFavourites.sort(new WxStationComparator());
