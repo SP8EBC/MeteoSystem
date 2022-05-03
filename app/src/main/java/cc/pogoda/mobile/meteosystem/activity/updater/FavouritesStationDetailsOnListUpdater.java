@@ -74,6 +74,8 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
     @Override
     public void run() {
 
+        int nextExecutionDelay = 45000;
+
         if (stationNameSummary != null && enabled && stationsToUpdate != null && stationsToUpdate.size() > 0) {
 
             // get a set of all elements stored in the map
@@ -137,10 +139,11 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                 }
                 else {
                     Logger.error("[FavouritesStationDetailsOnListUpdater][run][summary object is null!! Maybe the API responds exeptionally slow?]");
+                    nextExecutionDelay = 3000;
                 }
             }
 
-            handler.postDelayed(this, 3000);
+            handler.postDelayed(this, nextExecutionDelay);
         }
     }
 }
