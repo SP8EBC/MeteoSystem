@@ -92,13 +92,13 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                 // query web service for station data
                 Summary summary = stationNameSummary.get(stationSystemName);
 
-                Logger.debug("[FavouritesStationDetailsOnListUpdater][run][stationSystemName = " + stationSystemName +"][summary.last_timestamp = " + summary.last_timestamp +"]");
-
                 // query for available parameters
                 AvailableParametersWeb params = availableParametersDao.getAvaliableParamsByStationName(stationSystemName);
 
                 // if data has been collected
-                if (summary != null) {
+                if (summary != null && params != null) {
+                    Logger.debug("[FavouritesStationDetailsOnListUpdater][run][stationSystemName = " + stationSystemName +"][summary.last_timestamp = " + summary.last_timestamp +"]");
+
                     String str;
 
                     // check if this station transmits wind information
@@ -135,9 +135,12 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                         toUpdate.setTextColor(androidx.activity.R.color.secondary_text_default_material_light);
                     }
                 }
+                else {
+                    Logger.error("[FavouritesStationDetailsOnListUpdater][run][summary object is null!! Maybe the API responds exeptionally slow?]");
+                }
             }
 
-            handler.postDelayed(this, 60000);
+            handler.postDelayed(this, 3000);
         }
     }
 }
