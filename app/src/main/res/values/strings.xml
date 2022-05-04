@@ -144,4 +144,7 @@
     </string-array>
     <string name="lang_change_req_restart" translatable="false">Changing language requires app restart after making a choose in this window.</string>
     <string name="www_link">URL to more information</string>
+    <string name="refreshing_station_list">Refreshing station list</string>
+    <string name="all_stations_empty_list1">There are no stations on this list.</string>
+    <string name="all_station_empty_list2">Please wait or pull down to refresh list.</string>
 </resources>

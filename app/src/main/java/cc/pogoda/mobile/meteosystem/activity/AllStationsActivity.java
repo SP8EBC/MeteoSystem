@@ -21,6 +21,7 @@ import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.adapter.WeatherStationRecyclerViewAdapter;
 import cc.pogoda.mobile.meteosystem.type.AllStationsReceivedEvent;
 import cc.pogoda.mobile.meteosystem.type.ParceableFavsCallReason;
+import cc.pogoda.mobile.meteosystem.type.StartStationsRefreshEvent;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 
 public class AllStationsActivity extends AppCompatActivity {
@@ -35,15 +36,9 @@ public class AllStationsActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_all_stations);
 
-
         refreshLayout = findViewById(R.id.refreshAllStationsView);
         refreshLayout.setOnRefreshListener(
-                new SwipeRefreshLayout.OnRefreshListener() {
-                    @Override
-                    public void onRefresh() {
-                        ((Main) getApplication()).startGetAllStationsService();
-                    }
-                }
+                () -> ((Main) getApplication()).startGetAllStationsService()
         );
 
         RecyclerView recyclerViewAllStations = findViewById(R.id.recyclerViewAllStations);
@@ -51,14 +46,13 @@ public class AllStationsActivity extends AppCompatActivity {
                 allStationsList, this, ParceableFavsCallReason.Reason.ALL_STATIONS);
         recyclerViewAllStations.setAdapter(adapter);
         recyclerViewAllStations.setLayoutManager(new LinearLayoutManager(this));
-
-        updateStationList(((Main) getApplication()).getListOfAllStations());
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         EventBus.getDefault().register(this);
+        updateStationList(((Main) getApplication()).getListOfAllStations());
     }
 
     @Override
@@ -67,20 +61,25 @@ public class AllStationsActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    private void updateStationList(List<WeatherStation> stations){
+    private void updateStationList(List<WeatherStation> stations) {
         if (stations != null) {
             allStationsList.clear();
             allStationsList.addAll(stations);
             refreshLayout.setRefreshing(false);
             adapter.notifyDataSetChanged();
         } else {
-            refreshLayout.setRefreshing(true);
-            Toast.makeText(this,"Odświeżanie listy stacji", Toast.LENGTH_SHORT).show();
+            EventBus.getDefault().post(new StartStationsRefreshEvent());
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void allStationsEventHandler(@NonNull AllStationsReceivedEvent event) {
         updateStationList(event.getStations());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void startStationsRefreshEventHandler(@NonNull StartStationsRefreshEvent event) {
+        refreshLayout.setRefreshing(true);
+        Toast.makeText(this, R.string.refreshing_station_list, Toast.LENGTH_SHORT).show();
     }
 }

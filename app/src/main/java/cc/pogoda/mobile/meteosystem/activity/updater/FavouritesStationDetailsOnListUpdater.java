@@ -92,14 +92,16 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                 // query web service for station data
                 Summary summary = stationNameSummary.get(stationSystemName);
 
-                Logger.debug("[FavouritesStationDetailsOnListUpdater][run][stationSystemName = " + stationSystemName +"][summary.last_timestamp = " + summary.last_timestamp +"]");
-
                 // query for available parameters
-                AvailableParametersWeb params = availableParametersDao.getAvaliableParamsByStationName(stationSystemName);
+                AvailableParametersWeb params
+                        = availableParametersDao.getAvaliableParamsByStationName(stationSystemName);
 
                 // if data has been collected
                 if (summary != null) {
                     String str;
+
+                    Logger.debug("[FavouritesStationDetailsOnListUpdater][run][stationSystemName = " +
+                            "" + stationSystemName +"][summary.last_timestamp = " + summary.last_timestamp +"]");
 
                     // check if this station transmits wind information
                     if (params.hasWind) {

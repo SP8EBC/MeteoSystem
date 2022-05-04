@@ -114,4 +114,5 @@
     <string name="export_decimation">Decymacja eskportowanych danych</string>
     <string name="export_decimation_minutes">Minimalny krok w minutach</string>
     <string name="www_link">Więcej informacji</string>
+    <string name="refreshing_station_list">Odświeżanie listy stacji</string>
 </resources>
