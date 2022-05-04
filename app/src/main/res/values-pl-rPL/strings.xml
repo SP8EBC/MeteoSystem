@@ -115,4 +115,6 @@
     <string name="export_decimation_minutes">Minimalny krok w minutach</string>
     <string name="www_link">Więcej informacji</string>
     <string name="refreshing_station_list">Odświeżanie listy stacji</string>
+    <string name="all_stations_empty_list1">Brak stacji na liście.</string>
+    <string name="all_station_empty_list2">Proszę poczekać lub pociągnąć w dół aby odświeżyć.</string>
 </resources>
