@@ -165,7 +165,7 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<Recy
         }
 
         handler = new Handler(Looper.getMainLooper());
-        favsUpdater = new FavouritesStationDetailsOnListUpdater(handler, main.getStationSystemNameToSummary());
+        favsUpdater = new FavouritesStationDetailsOnListUpdater(handler, main.getHashmapStationSystemNameToSummary());
 
         handler.postDelayed(favsUpdater, 100);
         favsUpdater.setEnabled(true);

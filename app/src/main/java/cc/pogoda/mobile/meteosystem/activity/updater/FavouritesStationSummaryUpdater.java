@@ -51,6 +51,8 @@ public class FavouritesStationSummaryUpdater implements Runnable {
         // check if map was set so something
         if (map != null && map.size() > 0) {
 
+            Logger.debug("[FavouritesStationSummaryUpdater][run][map.size() = " + map.size() +"]");
+
             // get a set of all stations from favourites
             Set<Map.Entry<String, Summary>> _set_of_stations_names = map.entrySet();
 
@@ -66,10 +68,13 @@ public class FavouritesStationSummaryUpdater implements Runnable {
 
                 Summary summary = summaryDao.getStationSummary(station_name);
 
-                Logger.debug("[FavouritesStationSummaryUpdater][run][station_name = " + station_name +"][summary.last_timestamp = " + summary.last_timestamp +"]");
+                // check if summary was returned (as it will not in case on HTTP 500 or something else)
+                if (summary != null) {
+                    Logger.debug("[FavouritesStationSummaryUpdater][run][station_name = " + station_name + "][summary.last_timestamp = " + summary.last_timestamp + "]");
 
-                // put the summary back into the map
-                map.put(station_name, summary);
+                    // put the summary back into the map
+                    map.put(station_name, summary);
+                }
             }
 
 

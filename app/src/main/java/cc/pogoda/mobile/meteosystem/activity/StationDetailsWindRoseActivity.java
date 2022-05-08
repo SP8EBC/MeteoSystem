@@ -76,7 +76,7 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
         boolean onFavs = main.checkIsOnFavsList(station.getSystemName());
 
         if (onFavs) {
-            fromSummaryUpdater = new StationDetailsValuesOnActivityFromSummaryUpdater(elements, handler, station, main.getStationSystemNameToSummary());
+            fromSummaryUpdater = new StationDetailsValuesOnActivityFromSummaryUpdater(elements, handler, station, main.getHashmapStationSystemNameToSummary());
 
             if (handler != null && fromSummaryUpdater != null) {
                 handler.post(fromSummaryUpdater);

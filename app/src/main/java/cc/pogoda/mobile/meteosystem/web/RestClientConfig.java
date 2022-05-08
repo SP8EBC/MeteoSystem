@@ -8,6 +8,7 @@ import java.util.concurrent.TimeUnit;
 import cc.pogoda.mobile.meteosystem.type.CustomLocalDateTime;
 import cc.pogoda.mobile.meteosystem.web.deserializer.CustomLocalDateTimeDeserializer;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -25,7 +26,10 @@ public class RestClientConfig {
         builder.connectTimeout(20, TimeUnit.SECONDS);
         builder.callTimeout(20, TimeUnit.SECONDS);
 
-        OkHttpClient client = builder.build();//new OkHttpClient(builder);
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
+
+        OkHttpClient client = builder.addInterceptor(loggingInterceptor).build();//new OkHttpClient(builder);
 
         out = new Retrofit.Builder().baseUrl("http://pogoda.cc:8080/").addConverterFactory(GsonConverterFactory.create(gson)).client(client).build();
 

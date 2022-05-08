@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
-
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.greenrobot.eventbus.EventBus;
@@ -20,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import cc.pogoda.mobile.meteosystem.activity.updater.FavouritesStationSummaryUpdater;
+
+import cc.pogoda.mobile.meteosystem.dao.AllStationsDao;
 import cc.pogoda.mobile.meteosystem.file.ConfigurationFile;
 import cc.pogoda.mobile.meteosystem.file.FavouritiesFile;
 import cc.pogoda.mobile.meteosystem.file.FileNames;
@@ -69,7 +70,7 @@ public class Main extends Application {
     /**
      * This map stores summary for all favourites station
      */
-    private HashMap<String, Summary> stationSystemNameToSummary = null;
+    private HashMap<String, Summary> hashmapStationSystemNameToSummary = null;
 
     public File getDirectory() {
         return directory;
@@ -83,8 +84,8 @@ public class Main extends Application {
         return confFile;
     }
 
-    public HashMap<String, Summary> getStationSystemNameToSummary() {
-        return stationSystemNameToSummary;
+    public HashMap<String, Summary> getHashmapStationSystemNameToSummary() {
+        return hashmapStationSystemNameToSummary;
     }
 
     @Override
@@ -120,7 +121,7 @@ public class Main extends Application {
 
         confFile.restoreFromFile();
 
-        stationSystemNameToSummary = new HashMap<>();
+        hashmapStationSystemNameToSummary = new HashMap<>();
 
         fileNames = new FileNames(ctx);
 
@@ -133,7 +134,7 @@ public class Main extends Application {
         // recreate list of favorites
         recreateListOfFavs();
 
-        favsSummaryUpdater = new FavouritesStationSummaryUpdater(stationSystemNameToSummary);
+        favsSummaryUpdater = new FavouritesStationSummaryUpdater(hashmapStationSystemNameToSummary);
 
         favsSummaryUpdater.start(100);
 
@@ -206,7 +207,7 @@ public class Main extends Application {
                 // as a list does not make a copy of the object. It (ArrayList) keeps
                 // only a reference to an object
 
-                stationSystemNameToSummary.put(fromAllStations.getSystemName(), null);
+                hashmapStationSystemNameToSummary.put(fromAllStations.getSystemName(), null);
 
             }
         }

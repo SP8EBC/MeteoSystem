@@ -74,6 +74,8 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
     @Override
     public void run() {
 
+        int nextExecutionDelay = 45000;
+
         if (stationNameSummary != null && enabled && stationsToUpdate != null && stationsToUpdate.size() > 0) {
 
             // get a set of all elements stored in the map
@@ -97,7 +99,9 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                         = availableParametersDao.getAvaliableParamsByStationName(stationSystemName);
 
                 // if data has been collected
-                if (summary != null) {
+                if (summary != null && params != null) {
+                    Logger.debug("[FavouritesStationDetailsOnListUpdater][run][stationSystemName = " + stationSystemName +"][summary.last_timestamp = " + summary.last_timestamp +"]");
+
                     String str;
 
                     Logger.debug("[FavouritesStationDetailsOnListUpdater][run][stationSystemName = " +
@@ -137,9 +141,13 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                         toUpdate.setTextColor(androidx.activity.R.color.secondary_text_default_material_light);
                     }
                 }
+                else {
+                    Logger.error("[FavouritesStationDetailsOnListUpdater][run][summary object is null!! Maybe the API responds exeptionally slow?]");
+                    nextExecutionDelay = 3000;
+                }
             }
 
-            handler.postDelayed(this, 60000);
+            handler.postDelayed(this, nextExecutionDelay);
         }
     }
 }

@@ -101,7 +101,7 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
         boolean onFavs = main.checkIsOnFavsList(station.getSystemName());
 
         if (onFavs) {
-            valuesFromSummaryUpdater = new StationDetailsValuesOnActivityFromSummaryUpdater(elems, handler, station, main.getStationSystemNameToSummary());
+            valuesFromSummaryUpdater = new StationDetailsValuesOnActivityFromSummaryUpdater(elems, handler, station, main.getHashmapStationSystemNameToSummary());
 
             if (handler != null && valuesFromSummaryUpdater != null) {
                 handler.post(valuesFromSummaryUpdater);

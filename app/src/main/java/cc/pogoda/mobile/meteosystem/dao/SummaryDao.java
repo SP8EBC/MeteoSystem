@@ -32,11 +32,29 @@ public class SummaryDao {
             SummaryConsumer consumer = restClient.getWeatherStationClient().create(SummaryConsumer.class);
 
             try {
+                Logger.debug("[SummaryDao][Worker][station = " + station +"]");
+
                 response = consumer.getSummaryForStation(station).execute();
             } catch (IOException e) {
+                Logger.error("[SummaryDao][Worker][IOException][e = " + e.getLocalizedMessage() +"]");
+
+                e.printStackTrace();
+            } catch (RuntimeException e) {
+                Logger.error("[SummaryDao][Worker][RuntimeException][e = " + e.getLocalizedMessage() +"]");
+
+                e.printStackTrace();
+            }
+            catch (Exception e) {
                 Logger.error("[SummaryDao][Worker][Exception][e = " + e.getLocalizedMessage() +"]");
 
                 e.printStackTrace();
+            }
+
+            if (response == null) {
+                Logger.error("[SummaryDao][Worker][worker is done, response is null]");
+            }
+            else {
+                Logger.debug("[SummaryDao][Worker][worker is done][response.code() = " + response.code() +"]");
             }
         }
     }
@@ -53,7 +71,7 @@ public class SummaryDao {
 
         try {
             // wait for the web service response
-            worker.join();
+            worker.join(11000);
 
             // check if web service returned anything
             if (response != null) {
@@ -67,9 +85,17 @@ public class SummaryDao {
                     out.humidity_qf_native = QualityFactor.valueOf(out.humidity_qf);
                     out.qnh_qf_native = QualityFactor.valueOf(out.qnh_qf);
                 }
+                else {
+                    Logger.error("[SummaryDao][getStationSummary][station = " + station +"][response.code() = " + response.code() +"][response body is nulll, probably HTTP error" +
+                            "]");
+                }
+            }
+            else {
+                Logger.error("[SummaryDao][getStationSummary][station = " + station +"][response is null!!]");
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
+            Logger.error("[SummaryDao][getStationSummary][station = " + station +"][InterruptedException]");
         }
 
         return out;
