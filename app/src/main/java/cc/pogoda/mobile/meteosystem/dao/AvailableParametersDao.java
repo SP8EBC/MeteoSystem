@@ -46,7 +46,7 @@ public class AvailableParametersDao {
                 Logger.error("[AvailableParametersDao][Worker][worker is done, response is null]");
             }
             else {
-                Logger.debug("[AvailableParametersDao][Worker][worker is done][response.code() = " + response.code() +"]");
+                Logger.info("[AvailableParametersDao][Worker][worker is done][response.code() = " + response.code() +"]");
             }
         }
     }

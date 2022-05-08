@@ -32,7 +32,7 @@ public class SummaryDao {
             SummaryConsumer consumer = restClient.getWeatherStationClient().create(SummaryConsumer.class);
 
             try {
-                Logger.debug("[SummaryDao][Worker][station = " + station +"]");
+                Logger.info("[SummaryDao][Worker][station = " + station +"]");
 
                 response = consumer.getSummaryForStation(station).execute();
             } catch (IOException e) {
@@ -54,7 +54,7 @@ public class SummaryDao {
                 Logger.error("[SummaryDao][Worker][worker is done, response is null]");
             }
             else {
-                Logger.debug("[SummaryDao][Worker][worker is done][response.code() = " + response.code() +"]");
+                Logger.info("[SummaryDao][Worker][worker is done][response.code() = " + response.code() +"]");
             }
         }
     }

@@ -17,6 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.tinylog.Logger;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -117,6 +118,8 @@ public class FavouritesActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+        Logger.debug("[FavouritesActivity][onResume]");
+
         super.onResume();
         EventBus.getDefault().register(this);
         updateStationList();
@@ -153,6 +156,7 @@ public class FavouritesActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void allStationsEventHandler(@NonNull AllStationsReceivedEvent event) {
+        Logger.info("[allStationsEventHandler][event = " + event.toString() +"]");
         updateStationList();
     }
 
