@@ -27,9 +27,6 @@ public class MainActImageButtonFavouritesClickEvent implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        if (parent.listOfAllFavsReady()) {
-            parent.startActivity(intent);
-
-        }
+        parent.startActivity(intent);
     }
 }

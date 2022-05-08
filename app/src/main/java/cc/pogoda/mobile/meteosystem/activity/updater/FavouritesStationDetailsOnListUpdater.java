@@ -95,13 +95,17 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                 Summary summary = stationNameSummary.get(stationSystemName);
 
                 // query for available parameters
-                AvailableParametersWeb params = availableParametersDao.getAvaliableParamsByStationName(stationSystemName);
+                AvailableParametersWeb params
+                        = availableParametersDao.getAvaliableParamsByStationName(stationSystemName);
 
                 // if data has been collected
                 if (summary != null && params != null) {
                     Logger.debug("[FavouritesStationDetailsOnListUpdater][run][stationSystemName = " + stationSystemName +"][summary.last_timestamp = " + summary.last_timestamp +"]");
 
                     String str;
+
+                    Logger.debug("[FavouritesStationDetailsOnListUpdater][run][stationSystemName = " +
+                            "" + stationSystemName +"][summary.last_timestamp = " + summary.last_timestamp +"]");
 
                     // check if this station transmits wind information
                     if (params.hasWind) {
@@ -138,7 +142,7 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                     }
                 }
                 else {
-                    Logger.error("[FavouritesStationDetailsOnListUpdater][run][summary object is null!! Maybe the API responds exeptionally slow?]");
+                    Logger.error("[FavouritesStationDetailsOnListUpdater][run][summary object is null!! Maybe the API responds exceptionally slow?]");
                     nextExecutionDelay = 3000;
                 }
             }

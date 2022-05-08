@@ -63,7 +63,9 @@ public class AvailableParametersDao {
         try {
             t.join();
 
-            out = response.body();
+            if (response != null) {
+                out = response.body();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

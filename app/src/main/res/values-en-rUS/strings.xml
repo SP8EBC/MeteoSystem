@@ -70,7 +70,7 @@
     <string name="sort_in_adding_order">Sort in adding order</string>
     <string name="clear_from_non_existent">Clear removed stations</string>
     <string name="days_3">Three days</string>
-    <string name="plot_data_lenght">Plots data lenght</string>
+    <string name="plot_data_lenght">Plots data length</string>
     <string name="pressure">Pressure</string>
     <string name="wind">Wind</string>
     <string name="current_value">Current Value</string>
@@ -90,7 +90,7 @@
     <string name="forecast">Weather forecast</string>
     <string name="from">From</string>
     <string name="to">To</string>
-    <string name="language">Laguage</string>
+    <string name="language">Language</string>
     <string name="unit_of_measure">Unit of measure</string>
     <string name="wind_unit_of_measure">Windspeed unit</string>
     <string name="filter">Filter</string>
@@ -114,4 +114,6 @@
     <string name="export_decimation">Export data decimation</string>
     <string name="export_decimation_minutes">Minimum time resolution</string>
     <string name="www_link">URL to more information</string>
+    <string name="refreshing_station_list">Refreshing station list</string>
+
 </resources>
