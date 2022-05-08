@@ -17,7 +17,6 @@ import cc.pogoda.mobile.meteosystem.type.StartStationsRefreshEvent;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 
 public class GetAllStationsService extends JobIntentService {
-    private static final String TAG = GetAllStationsService.class.getSimpleName();
     private static final int JOB_ID = 1;
 
     public static void enqueueWork(@NonNull Context context, @NonNull Intent intent) {
@@ -30,7 +29,7 @@ public class GetAllStationsService extends JobIntentService {
         List<WeatherStation> allStations = new AllStationsDao().getAllStations();
         if (allStations != null){
             EventBus.getDefault().post(new AllStationsReceivedEvent(allStations));
-            Logger.debug(TAG + "onHandleWork done. allStations size:" + allStations.size());
+            Logger.debug("onHandleWork done. allStations size:" + allStations.size());
         }
     }
 

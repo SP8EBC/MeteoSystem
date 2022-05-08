@@ -79,6 +79,9 @@ public class FavouritesStationSummaryUpdater implements Runnable {
 
 
         }
+        else {
+            Logger.info("[FavouritesStationSummaryUpdater][run][no station to update]");
+        }
 
         if (forceUpdate) {
             forceUpdate = false;

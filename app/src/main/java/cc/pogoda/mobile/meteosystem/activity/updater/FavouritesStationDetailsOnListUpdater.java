@@ -142,7 +142,7 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                     }
                 }
                 else {
-                    Logger.error("[FavouritesStationDetailsOnListUpdater][run][summary object is null!! Maybe the API responds exeptionally slow?]");
+                    Logger.error("[FavouritesStationDetailsOnListUpdater][run][summary object is null!! Maybe the API responds exceptionally slow?]");
                     nextExecutionDelay = 3000;
                 }
             }

@@ -160,7 +160,7 @@ public class Main extends Application {
     private void recreateListOfFavs() {
 
         if(listOfAllStations == null) {
-            Logger.debug(TAG, "recreateListOfFavs, listOfAllStations=null");
+            Logger.info("[recreateListOfFavs]listOfAllStations=null]");
             return;
         }
 
