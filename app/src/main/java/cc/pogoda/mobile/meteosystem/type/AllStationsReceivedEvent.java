@@ -15,4 +15,10 @@ public class AllStationsReceivedEvent {
     public List<WeatherStation> getStations(){
         return this.stations;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "[AllStationsReceivedEvent][stations.size() = " + stations.size() +"]";
+    }
 }

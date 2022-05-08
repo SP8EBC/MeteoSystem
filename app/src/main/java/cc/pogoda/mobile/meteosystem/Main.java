@@ -258,6 +258,7 @@ public class Main extends Application {
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void allStationsEventHandler(@NonNull AllStationsReceivedEvent event) {
+        Logger.info("[allStationsEventHandler][event = " + event.toString() +"]");
         this.listOfAllStations = event.getStations();
         recreateListOfFavs();
     }
