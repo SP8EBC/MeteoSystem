@@ -1,5 +1,8 @@
 package cc.pogoda.mobile.meteosystem.activity.updater;
 
+import static cc.pogoda.mobile.meteosystem.config.ConstAppConfiguration.DETAILS_ON_FAVS_LIST_DEFAULT_UPDATE;
+import static cc.pogoda.mobile.meteosystem.config.ConstAppConfiguration.DETAILS_ON_FAVS_LIST_REUPDATE;
+
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Handler;
@@ -76,7 +79,7 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
     @Override
     public void run() {
 
-        int nextExecutionDelay = 45000;
+        int nextExecutionDelay = DETAILS_ON_FAVS_LIST_DEFAULT_UPDATE;
 
         if (stationNameSummary != null && enabled && stationsToUpdate != null && stationsToUpdate.size() > 0) {
 
@@ -104,9 +107,6 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                     Logger.debug("[stationSystemName = " + stationSystemName +"][summary.last_timestamp = " + summary.last_timestamp +"]");
 
                     String str;
-
-                    Logger.debug("[stationSystemName = " +
-                            "" + stationSystemName +"][summary.last_timestamp = " + summary.last_timestamp +"]");
 
                     // check if this station transmits wind information
                     if (params.windSpeed) {
@@ -143,8 +143,8 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                     }
                 }
                 else {
-                    Logger.error("[summary object is null!! Maybe the API responds exceptionally slow?]");
-                    nextExecutionDelay = 3000;
+                    Logger.error("[stationSystemName = " + stationSystemName + "][summary object is null!! Maybe the API responds exceptionally slow?]");
+                    nextExecutionDelay = DETAILS_ON_FAVS_LIST_REUPDATE;
                 }
             }
 
