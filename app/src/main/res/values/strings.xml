@@ -147,4 +147,5 @@
     <string name="refreshing_station_list">Refreshing station list</string>
     <string name="all_stations_empty_list1">There are no stations on this list.</string>
     <string name="all_station_empty_list2">Please wait or pull down to refresh list.</string>
+    <string name="please_wait">Please Wait</string>
 </resources>

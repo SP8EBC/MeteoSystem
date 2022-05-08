@@ -145,7 +145,7 @@ public class Main extends Application {
         // recreate list of favorites
         recreateListOfFavs();
 
-        favsSummaryUpdater = new FavouritesStationSummaryUpdaterThread(hashmapFavStationSystemNameToSummary);
+        favsSummaryUpdater = new FavouritesStationSummaryUpdaterThread(hashmapFavStationSystemNameToSummary, hashmapAllStationSystemNameToAvailParameters);
 
         favsSummaryUpdater.start(100);
 
@@ -271,7 +271,6 @@ public class Main extends Application {
     public void allStationsEventHandler(@NonNull AllStationsReceivedEvent event) {
         Logger.info("[event = " + event.toString() +"]");
         this.listOfAllStations = event.getStations();
-        this.hashmapAllStationSystemNameToAvailParameters = event.getAvailableParameters();
         recreateListOfFavs();
     }
 

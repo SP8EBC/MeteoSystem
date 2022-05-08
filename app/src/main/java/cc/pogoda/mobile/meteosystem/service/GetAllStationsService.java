@@ -30,21 +30,11 @@ public class GetAllStationsService extends JobIntentService {
     protected void onHandleWork(@NonNull Intent intent) {
         EventBus.getDefault().post(new StartStationsRefreshEvent());
 
-        AvailableParametersDao availableParametersDao = new AvailableParametersDao();
-
         // download all stations
         List<WeatherStation> allStations = new AllStationsDao().getAllStations();
         if (allStations != null){
-            HashMap<String, AvailableParameters> availableParametersHashMap = new HashMap<>();
 
-            // download available parameters for all stations
-            for (WeatherStation w : allStations) {
-                String systemName = w.getSystemName();
-
-                availableParametersHashMap.put(systemName, AvailableParameters.fromWebData(availableParametersDao.getAvaliableParamsByStationName(systemName)));
-            }
-
-            EventBus.getDefault().post(new AllStationsReceivedEvent(allStations, availableParametersHashMap));
+            EventBus.getDefault().post(new AllStationsReceivedEvent(allStations));
             Logger.debug("onHandleWork done. allStations size:" + allStations.size());
         }
     }

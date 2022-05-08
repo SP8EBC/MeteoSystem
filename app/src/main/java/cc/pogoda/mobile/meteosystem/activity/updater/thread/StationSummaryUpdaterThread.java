@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.meteosystem.activity.updater.thread;
 
+import static cc.pogoda.mobile.meteosystem.config.ConstAppConfiguration.REUPDATE_VALUES_ON_ACTIVITY_ON_FAIL;
+
 import androidx.annotation.NonNull;
 
 import org.tinylog.Logger;
@@ -60,7 +62,7 @@ public class StationSummaryUpdaterThread implements Runnable {
                 Logger.info("[no station to update]");
 
                 stop();
-                start(5000);
+                start(REUPDATE_VALUES_ON_ACTIVITY_ON_FAIL);
             }
         }
     }

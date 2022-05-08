@@ -33,7 +33,7 @@
         android:id="@+id/textViewTemperatureValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="---"
+        android:text="@string/please_wait"
         android:textAlignment="center"
         android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"
