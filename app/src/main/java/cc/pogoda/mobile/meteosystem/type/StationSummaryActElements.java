@@ -94,7 +94,7 @@ public class StationSummaryActElements implements StationActivityElements {
 
         long minutes_difference = last_station_data.until(current, ChronoUnit.MINUTES);
 
-        Logger.debug("[StationSummaryActElements][updateFromSummary][last_station_data = " + last_station_data.format(DateTimeFormatter. ISO_LOCAL_DATE_TIME) +"]");
+        Logger.debug("[last_station_data = " + last_station_data.format(DateTimeFormatter. ISO_LOCAL_DATE_TIME) +"]");
 
         // calculate the duration between
         Duration duration = Duration.between(last_station_data, current);

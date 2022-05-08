@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.meteosystem.dao;
 
+import static cc.pogoda.mobile.meteosystem.config.WebIoConfig.TIMEOUT_SECOND;
+
 import org.tinylog.Logger;
 
 import java.io.IOException;
@@ -28,25 +30,25 @@ public class AvailableParametersDao {
             try {
                 response = consumer.getParametersForStation(stationName).execute();
             } catch (IOException e) {
-                Logger.error("[AvailableParametersDao][Worker][IOException][e = " + e.getLocalizedMessage() +"]");
+                Logger.error("[IOException][e = " + e.getLocalizedMessage() +"]");
 
                 e.printStackTrace();
             } catch (RuntimeException e) {
-                Logger.error("[AvailableParametersDao][Worker][RuntimeException][e = " + e.getLocalizedMessage() +"]");
+                Logger.error("[RuntimeException][e = " + e.getLocalizedMessage() +"]");
 
                 e.printStackTrace();
             }
             catch (Exception e) {
-                Logger.error("[AvailableParametersDao][Worker][Exception][e = " + e.getLocalizedMessage() +"]");
+                Logger.error("[Exception][e = " + e.getLocalizedMessage() +"]");
 
                 e.printStackTrace();
             }
 
             if (response == null) {
-                Logger.error("[AvailableParametersDao][Worker][worker is done, response is null]");
+                Logger.error("[worker is done, response is null]");
             }
             else {
-                Logger.info("[AvailableParametersDao][Worker][worker is done][response.code() = " + response.code() +"]");
+                Logger.info("[worker is done][response.code() = " + response.code() +"]");
             }
         }
     }

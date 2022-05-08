@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.meteosystem.dao;
 
+import static cc.pogoda.mobile.meteosystem.config.WebIoConfig.TIMEOUT_SECOND;
+
 import org.tinylog.Logger;
 
 import java.io.IOException;
@@ -32,29 +34,29 @@ public class SummaryDao {
             SummaryConsumer consumer = restClient.getWeatherStationClient().create(SummaryConsumer.class);
 
             try {
-                Logger.info("[SummaryDao][Worker][station = " + station +"]");
+                Logger.info("[station = " + station +"]");
 
                 response = consumer.getSummaryForStation(station).execute();
             } catch (IOException e) {
-                Logger.error("[SummaryDao][Worker][IOException][e = " + e.getLocalizedMessage() +"]");
+                Logger.error("[station = " + station + "][IOException][e = " + e.getLocalizedMessage() +"]");
 
                 e.printStackTrace();
             } catch (RuntimeException e) {
-                Logger.error("[SummaryDao][Worker][RuntimeException][e = " + e.getLocalizedMessage() +"]");
+                Logger.error("[station = " + station + "][RuntimeException][e = " + e.getLocalizedMessage() +"]");
 
                 e.printStackTrace();
             }
             catch (Exception e) {
-                Logger.error("[SummaryDao][Worker][Exception][e = " + e.getLocalizedMessage() +"]");
+                Logger.error("[station = " + station + "][Exception][e = " + e.getLocalizedMessage() +"]");
 
                 e.printStackTrace();
             }
 
             if (response == null) {
-                Logger.error("[SummaryDao][Worker][worker is done, response is null]");
+                Logger.error("[station = " + station + "][worker is done, response is null]");
             }
             else {
-                Logger.info("[SummaryDao][Worker][worker is done][response.code() = " + response.code() +"]");
+                Logger.info("[station = " + station + "][worker is done][response.code() = " + response.code() +"]");
             }
         }
     }
@@ -71,7 +73,7 @@ public class SummaryDao {
 
         try {
             // wait for the web service response
-            worker.join(11000);
+            worker.join();
 
             // check if web service returned anything
             if (response != null) {
@@ -86,16 +88,16 @@ public class SummaryDao {
                     out.qnh_qf_native = QualityFactor.valueOf(out.qnh_qf);
                 }
                 else {
-                    Logger.error("[SummaryDao][getStationSummary][station = " + station +"][response.code() = " + response.code() +"][response body is nulll, probably HTTP error" +
+                    Logger.error("[station = " + station +"][response.code() = " + response.code() +"][response body is nulll, probably HTTP error" +
                             "]");
                 }
             }
             else {
-                Logger.error("[SummaryDao][getStationSummary][station = " + station +"][response is null!!]");
+                Logger.error("[station = " + station +"][response is null!!]");
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
-            Logger.error("[SummaryDao][getStationSummary][station = " + station +"][InterruptedException]");
+            Logger.error("[station = " + station +"][InterruptedException]");
         }
 
         return out;

@@ -25,7 +25,7 @@ public class MainActImageButtonExportClickEvent implements View.OnClickListener{
     @Override
     public void onClick(View view) {
 
-        Logger.info("[MainActImageButtonExportClickEvent][onClick]");
+        Logger.info("[onClick]");
 
         parent.startActivity(intent);
     }

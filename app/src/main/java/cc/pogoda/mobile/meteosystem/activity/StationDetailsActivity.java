@@ -167,10 +167,10 @@ public class StationDetailsActivity extends AppCompatActivity {
         act = this;
         station = (WeatherStation) getIntent().getSerializableExtra("station");
 
-        Logger.info("[StationDetailsActivity][onCreate][station.getSystemName() = " + station.getSystemName() +"]");
+        Logger.info("[station.getSystemName() = " + station.getSystemName() +"]");
 
         if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default") ) {
-            Logger.debug("[StationDetailsActivity][onCreate][AppConfiguration.locale = " + AppConfiguration.locale +  "]");
+            Logger.debug("[AppConfiguration.locale = " + AppConfiguration.locale +  "]");
             Locale locale = new Locale(AppConfiguration.locale);
             Locale.setDefault(locale);
             Resources resources = this.getResources();

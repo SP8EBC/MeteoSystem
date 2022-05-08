@@ -105,10 +105,10 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
 
         station = (WeatherStation) getIntent().getSerializableExtra("station");
 
-        Logger.info("[StationDetailsPlotsWind][onCreate][station.getSystemName() = " + station.getSystemName() +"][dataLn = " + dataLn +"]");
+        Logger.info("[station.getSystemName() = " + station.getSystemName() +"][dataLn = " + dataLn +"]");
 
         if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default") ) {
-            Logger.debug("[StationDetailsPlotsHumidity][onCreate][AppConfiguration.locale = " + AppConfiguration.locale +  "]");
+            Logger.debug("[AppConfiguration.locale = " + AppConfiguration.locale +  "]");
             Locale locale = new Locale(AppConfiguration.locale);
             Locale.setDefault(locale);
             Resources resources = this.getResources();
@@ -218,7 +218,7 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
         // utc timestamp
         long utcTimestamp = utcTime.toEpochSecond();
 
-        Logger.debug("[StationDetailsPlotsWind][downloadDataFromWebservice][station.getSystemName() = " + station.getSystemName() +"]");
+        Logger.debug("[station.getSystemName() = " + station.getSystemName() +"]");
 
         if (this.dataLn < 0 || this.dataLn > 2) {
             // last 2000 points of data, regardless the timescale
@@ -242,7 +242,7 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
 
         if (data instanceof  ListOfStationData) {
 
-            Logger.debug("[StationDetailsPlotsWind][downloadDataFromWebservice][data.list_of_station_data.length = " + data.list_of_station_data.length +"]");
+            Logger.debug("[data.list_of_station_data.length = " + data.list_of_station_data.length +"]");
 
             for (StationData d : data.list_of_station_data) {
                 valuesWindSpeed.add(new Entry(d.epoch * 1000, d.windspeed));

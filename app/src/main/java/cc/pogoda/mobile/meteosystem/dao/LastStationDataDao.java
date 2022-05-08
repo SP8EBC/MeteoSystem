@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.meteosystem.dao;
 
+import static cc.pogoda.mobile.meteosystem.config.WebIoConfig.TIMEOUT_SECOND;
+
 import org.tinylog.Logger;
 
 import cc.pogoda.mobile.meteosystem.type.web.ListOfStationData;
@@ -25,7 +27,7 @@ public class LastStationDataDao {
             try {
                 response = consumer.getLastDataForStation(station, true, true).execute();
             } catch (Exception e) {
-                Logger.error("[LastStationDataDao][Worker][Exception][e = " + e.getLocalizedMessage() +"]");
+                Logger.error("[Exception][e = " + e.getLocalizedMessage() +"]");
 
                 e.printStackTrace();
             }

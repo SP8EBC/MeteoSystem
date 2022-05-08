@@ -118,7 +118,7 @@ public class FavouritesActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        Logger.debug("[FavouritesActivity][onResume]");
+        Logger.debug("[onResume]");
 
         super.onResume();
         EventBus.getDefault().register(this);
@@ -156,7 +156,7 @@ public class FavouritesActivity extends AppCompatActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void allStationsEventHandler(@NonNull AllStationsReceivedEvent event) {
-        Logger.info("[allStationsEventHandler][event = " + event.toString() +"]");
+        Logger.info("[event = " + event.toString() +"]");
         updateStationList();
     }
 

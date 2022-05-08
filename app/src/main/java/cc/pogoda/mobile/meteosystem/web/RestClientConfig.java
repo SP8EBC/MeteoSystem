@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.meteosystem.web;
 
+import static cc.pogoda.mobile.meteosystem.config.WebIoConfig.TIMEOUT_SECOND;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -21,10 +23,10 @@ public class RestClientConfig {
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
-        builder.readTimeout(20, TimeUnit.SECONDS);
-        builder.writeTimeout(20, TimeUnit.SECONDS);
-        builder.connectTimeout(20, TimeUnit.SECONDS);
-        builder.callTimeout(20, TimeUnit.SECONDS);
+        builder.readTimeout(TIMEOUT_SECOND, TimeUnit.SECONDS);
+        builder.writeTimeout(TIMEOUT_SECOND, TimeUnit.SECONDS);
+        builder.connectTimeout(TIMEOUT_SECOND, TimeUnit.SECONDS);
+        builder.callTimeout(TIMEOUT_SECOND, TimeUnit.SECONDS);
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);

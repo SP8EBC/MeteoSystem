@@ -9,10 +9,13 @@ import androidx.core.app.JobIntentService;
 import org.greenrobot.eventbus.EventBus;
 import org.tinylog.Logger;
 
+import java.util.HashMap;
 import java.util.List;
 
 import cc.pogoda.mobile.meteosystem.dao.AllStationsDao;
+import cc.pogoda.mobile.meteosystem.dao.AvailableParametersDao;
 import cc.pogoda.mobile.meteosystem.type.AllStationsReceivedEvent;
+import cc.pogoda.mobile.meteosystem.type.AvailableParameters;
 import cc.pogoda.mobile.meteosystem.type.StartStationsRefreshEvent;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 
@@ -26,9 +29,22 @@ public class GetAllStationsService extends JobIntentService {
     @Override
     protected void onHandleWork(@NonNull Intent intent) {
         EventBus.getDefault().post(new StartStationsRefreshEvent());
+
+        AvailableParametersDao availableParametersDao = new AvailableParametersDao();
+
+        // download all stations
         List<WeatherStation> allStations = new AllStationsDao().getAllStations();
         if (allStations != null){
-            EventBus.getDefault().post(new AllStationsReceivedEvent(allStations));
+            HashMap<String, AvailableParameters> availableParametersHashMap = new HashMap<>();
+
+            // download available parameters for all stations
+            for (WeatherStation w : allStations) {
+                String systemName = w.getSystemName();
+
+                availableParametersHashMap.put(systemName, AvailableParameters.fromWebData(availableParametersDao.getAvaliableParamsByStationName(systemName)));
+            }
+
+            EventBus.getDefault().post(new AllStationsReceivedEvent(allStations, availableParametersHashMap));
             Logger.debug("onHandleWork done. allStations size:" + allStations.size());
         }
     }
