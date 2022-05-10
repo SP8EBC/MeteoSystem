@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../../layout/custom_preview.xml" value="0.2171875" />
+        <entry key="app/src/main/res/drawable/button_border.xml" value="0.38125" />
         <entry key="app/src/main/res/layout/activity_all_stations.xml" value="0.3651041666666667" />
         <entry key="app/src/main/res/layout/activity_all_stations_linear_layout.xml" value="0.3651041666666667" />
         <entry key="app/src/main/res/layout/activity_export_data.xml" value="0.25" />
@@ -11,12 +12,16 @@
         <entry key="app/src/main/res/layout/activity_favourites_empty.xml" value="0.3651041666666667" />
         <entry key="app/src/main/res/layout/activity_favourites_linear_layout.xml" value="0.3651041666666667" />
         <entry key="app/src/main/res/layout/activity_favourites_linear_layout_data.xml" value="0.5" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.3651041666666667" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.5451010886469674" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.67" />
-        <entry key="app/src/main/res/layout/activity_station_details.xml" value="0.3651041666666667" />
+        <entry key="app/src/main/res/layout/activity_station_details.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_station_details_plots.xml" value="0.3651041666666667" />
         <entry key="app/src/main/res/layout/activity_station_details_summary.xml" value="0.3651041666666667" />
         <entry key="app/src/main/res/layout/activity_station_details_wind_rose.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/activity_trend.xml" value="0.3645833333333333" />
+        <entry key="app/src/main/res/layout/fragment_pressure.xml" value="0.3645833333333333" />
+        <entry key="app/src/main/res/layout/fragment_temperature.xml" value="0.3645833333333333" />
+        <entry key="app/src/main/res/layout/fragment_wind.xml" value="0.3645833333333333" />
         <entry key="app/src/main/res/layout/spinner_item.xml" value="0.28306159420289856" />
         <entry key="app/src/main/res/menu/main_activity_menu.xml" value="0.3651041666666667" />
       </map>
