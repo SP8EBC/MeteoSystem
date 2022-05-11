@@ -38,7 +38,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private static String languageNameFromShort(String shortName) {
 
-        Logger.info("[SettingsActivity][languageNameFromShort][shortName = " + shortName +"]");
+        Logger.info("[shortName = " + shortName +"]");
 
         switch (shortName) {
             case "en-rUS": return "English";
@@ -70,7 +70,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        Logger.info("[SettingsActivity][onCreate]");
+        Logger.info("[onCreate]");
 
         confFile = new ConfigurationFile(getBaseContext());
 
@@ -148,7 +148,7 @@ public class SettingsActivity extends AppCompatActivity {
                 public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                     String languageSelected = adapterView.getItemAtPosition(i).toString();
 
-                    Logger.debug("[SettingsActivity][onCreate][AdapterView.OnItemSelectedListener()][languageSelected = " + languageSelected +"]");
+                    Logger.debug("[AdapterView.OnItemSelectedListener()][languageSelected = " + languageSelected +"]");
 
                     switch (languageSelected) {
                         case "English": AppConfiguration.locale = "en-rUS"; break;

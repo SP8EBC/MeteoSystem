@@ -9,8 +9,9 @@ import org.tinylog.Logger;
 
 import cc.pogoda.mobile.meteosystem.Main;
 import cc.pogoda.mobile.meteosystem.R;
-import cc.pogoda.mobile.meteosystem.activity.updater.StationDetailsValuesOnActivityFromSummaryUpdater;
+import cc.pogoda.mobile.meteosystem.activity.updater.StationDetailsValuesOnActivityFromFavsUpdater;
 import cc.pogoda.mobile.meteosystem.activity.updater.StationDetailsValuesOnActivityUpdater;
+import cc.pogoda.mobile.meteosystem.activity.updater.thread.StationSummaryUpdaterThread;
 import cc.pogoda.mobile.meteosystem.dao.SummaryDao;
 import cc.pogoda.mobile.meteosystem.type.StationWindRoseActElements;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
@@ -22,9 +23,11 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
 
     Summary summary;
 
+    StationSummaryUpdaterThread updaterThread = null;
+
     StationDetailsValuesOnActivityUpdater onActivityUpdater = null;
 
-    StationDetailsValuesOnActivityFromSummaryUpdater fromSummaryUpdater = null;
+    StationDetailsValuesOnActivityFromFavsUpdater fromSummaryUpdater = null;
 
     Handler handler = null;
 
@@ -43,7 +46,7 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
 
         station = (WeatherStation) getIntent().getSerializableExtra("station");
 
-        Logger.info("[StationDetailsWindRoseActivity][onCreate][station.getSystemName() = " + station.getSystemName() +"]");
+        Logger.info("[station.getSystemName() = " + station.getSystemName() +"]");
 
         main = (Main)getApplication();
 
@@ -64,11 +67,11 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
 
         SummaryDao summary_dao = new SummaryDao();
 
-        // get the set of current values to preconfigure all elements on this activity
-        summary = summary_dao.getStationSummary(station.getSystemName());
-
-        // update parameters (like turn the wind direction arrow)
-        elements.updateFromSummary(summary, station.getAvailableParameters());
+//        // get the set of current values to preconfigure all elements on this activity
+//        summary = summary_dao.getStationSummary(station.getSystemName());
+//
+//        // update parameters (like turn the wind direction arrow)
+//        elements.updateFromSummary(summary, station.getAvailableParameters());
 
         handler = new Handler();
 
@@ -76,22 +79,44 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
         boolean onFavs = main.checkIsOnFavsList(station.getSystemName());
 
         if (onFavs) {
-            fromSummaryUpdater = new StationDetailsValuesOnActivityFromSummaryUpdater(elements, handler, station, main.getHashmapStationSystemNameToSummary());
+            fromSummaryUpdater = new StationDetailsValuesOnActivityFromFavsUpdater(elements, handler, station, main.getHashmapFavStationSystemNameToSummary());
 
             if (handler != null && fromSummaryUpdater != null) {
                 handler.post(fromSummaryUpdater);
             }
         }
         else {
-            onActivityUpdater = new StationDetailsValuesOnActivityUpdater(elements, handler, station.getSystemName(), station);
+            updaterThread = new StationSummaryUpdaterThread(station.getSystemName());
+
+            onActivityUpdater = new StationDetailsValuesOnActivityUpdater(elements, handler, updaterThread, station);
 
             if (handler != null && onActivityUpdater != null) {
+                updaterThread.start(50);
+
                 // start the handler to update the wind rose activity in background
-                handler.post(onActivityUpdater);
+                handler.postDelayed(onActivityUpdater, 500);
             }
         }
 
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (updaterThread != null) {
+            updaterThread.stop();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (updaterThread != null && updaterThread.isEnabled() == false) {
+            updaterThread.start(50);
+        }
     }
 
     @Override
@@ -102,6 +127,19 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
             handler.removeCallbacks(onActivityUpdater);
         }
 
+        if (updaterThread != null) {
+            updaterThread.stop();
+        }
+
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (updaterThread != null) {
+            updaterThread.stop();
+        }
+
+        super.onDestroy();
     }
 }

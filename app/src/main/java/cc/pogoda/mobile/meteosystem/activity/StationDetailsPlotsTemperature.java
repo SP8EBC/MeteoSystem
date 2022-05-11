@@ -96,7 +96,7 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
         // utc timestamp
         long utcTimestamp = utcTime.toEpochSecond();
 
-        Logger.debug("[StationDetailsPlotsTemperature][downloadDataFromWebservice][station.getSystemName() = " + station.getSystemName() +"]");
+        Logger.debug("[station.getSystemName() = " + station.getSystemName() +"]");
 
         if (this.dataLn < 0 || this.dataLn > 2) {
             // last 2000 points of data, regardless the timescale
@@ -117,7 +117,7 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
 
         if (data instanceof  ListOfStationData) {
 
-            Logger.debug("[StationDetailsPlotsTemperature][downloadDataFromWebservice][data.list_of_station_data.length = " + data.list_of_station_data.length +"]");
+            Logger.debug("[data.list_of_station_data.length = " + data.list_of_station_data.length +"]");
 
             for (StationData d : data.list_of_station_data) {
                 valuesTemperature.add(new Entry(d.epoch * 1000, d.temperature));

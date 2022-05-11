@@ -2,6 +2,7 @@ package cc.pogoda.mobile.meteosystem.type;
 
 import androidx.annotation.NonNull;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class AllStationsReceivedEvent {

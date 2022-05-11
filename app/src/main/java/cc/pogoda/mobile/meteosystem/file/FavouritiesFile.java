@@ -30,7 +30,7 @@ public class FavouritiesFile {
 
         File file = fileNames.getFavJsonFile();
 
-        Logger.info("[FavouritiesFile][loadFavourites][file = " + file +  "]");
+        Logger.info("[file = " + file +  "]");
 
         try {
             // create an input stream to load file content
@@ -60,7 +60,7 @@ public class FavouritiesFile {
 
                         out.add(station);
 
-                        Logger.debug("[FavouritiesFile][loadFavourites][i = " + i +"][station.getSystemName() = " + station.getSystemName() +  "]");
+                        Logger.debug("[i = " + i +"][station.getSystemName() = " + station.getSystemName() +  "]");
                     }
                 }
             } catch (IOException e) {
@@ -86,7 +86,7 @@ public class FavouritiesFile {
         // main array for all stations
         JSONArray mainArray = new JSONArray();
 
-        Logger.info("[FavouritiesFile][persistFavourities][favourites.size() = " + favourites.size() +  "]");
+        Logger.info("[favourites.size() = " + favourites.size() +  "]");
 
         for (WeatherStation wx : favourites) {
             JSONObject obj = new JSONObject();
@@ -103,7 +103,7 @@ public class FavouritiesFile {
 
                 mainArray.put(obj);
 
-                Logger.debug("[FavouritiesFile][persistFavourities][wx.getSystemName() = " + wx.getSystemName() +  "]");
+                Logger.debug("[wx.getSystemName() = " + wx.getSystemName() +  "]");
             } catch (JSONException e) {
                 e.printStackTrace();
             }

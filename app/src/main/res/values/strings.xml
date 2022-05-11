@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MeteoSystem</string>
+    <string name="app_name" translatable="false">Meteo System</string>
     <string name="select_station">SELECT</string>
     <string name="all_stations">All Stations</string>
     <string name="fav_stations">Favourities</string>
@@ -94,7 +94,7 @@
     <string name="test_warning">Warning! This is a test version of the application!</string>
     <string name="credits_1">Developed by:</string>
     <string name="credits_2" translatable="false">Mateusz Lubecki</string>
-    <string name="credits_3" translatable="false">Bielsko - Biała 2020, 2021</string>
+    <string name="credits_3" translatable="false">Bielsko - Biała 2020, 2021, 2022</string>
     <string name="credits_4" translatable="false">sp8ebc@gmail.com</string>
     <string name="credits_5" translatable="false">tel: +48 660 43 44 46</string>
     <string name="camera">Online Camera</string>
@@ -147,4 +147,7 @@
     <string name="refreshing_station_list">Refreshing station list</string>
     <string name="all_stations_empty_list1">There are no stations on this list.</string>
     <string name="all_station_empty_list2">Please wait or pull down to refresh list.</string>
+    <string name="please_wait">Please Wait</string>
+    <string name="loading">Loading...</string>
+    <string name="credits_2_rafal" translatable="false">Rafał Woloszyn</string>
 </resources>

@@ -1,5 +1,8 @@
 package cc.pogoda.mobile.meteosystem.activity.updater;
 
+import static cc.pogoda.mobile.meteosystem.config.ConstAppConfiguration.DETAILS_ON_FAVS_LIST_DEFAULT_UPDATE;
+import static cc.pogoda.mobile.meteosystem.config.ConstAppConfiguration.DETAILS_ON_FAVS_LIST_REUPDATE;
+
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Handler;
@@ -12,15 +15,16 @@ import java.util.Map;
 import java.util.Set;
 import java.util.Vector;
 
+import cc.pogoda.mobile.meteosystem.activity.updater.thread.FavouritesStationSummaryUpdaterThread;
 import cc.pogoda.mobile.meteosystem.dao.AvailableParametersDao;
-import cc.pogoda.mobile.meteosystem.dao.SummaryDao;
+import cc.pogoda.mobile.meteosystem.type.AvailableParameters;
 import cc.pogoda.mobile.meteosystem.type.web.AvailableParametersWeb;
 import cc.pogoda.mobile.meteosystem.type.web.QualityFactor;
 import cc.pogoda.mobile.meteosystem.type.web.Summary;
 
 /**
  * This class is used to update entries (TextView) on Favourites list using HashMap
- * which is updated by {@link FavouritesStationSummaryUpdater}
+ * which is updated by {@link FavouritesStationSummaryUpdaterThread}
  */
 public class FavouritesStationDetailsOnListUpdater implements Runnable {
 
@@ -38,10 +42,11 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
     /**
      *
      */
-    private AvailableParametersDao availableParametersDao = null;
+    //private AvailableParametersDao availableParametersDao = null;
+    private HashMap<String, AvailableParameters> availParams;
 
     /**
-     * This map comes from 'Main' class and it is shared with @link{{@link FavouritesStationSummaryUpdater}}
+     * This map comes from 'Main' class and it is shared with @link{{@link FavouritesStationSummaryUpdaterThread}}
      */
     HashMap<String, Summary> stationNameSummary = null;
 
@@ -51,10 +56,10 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
      */
     private boolean enabled;
 
-    public FavouritesStationDetailsOnListUpdater(Handler _handler, HashMap<String, Summary> _station_system_name_to_summary) {
+    public FavouritesStationDetailsOnListUpdater(Handler _handler, HashMap<String, Summary> _station_system_name_to_summary, HashMap<String, AvailableParameters> _avail_params) {
         handler = _handler;
         stationsToUpdate = new HashMap<>();
-        availableParametersDao = new AvailableParametersDao();
+        availParams = _avail_params;
         stationNameSummary = _station_system_name_to_summary;
     }
 
@@ -74,7 +79,7 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
     @Override
     public void run() {
 
-        int nextExecutionDelay = 45000;
+        int nextExecutionDelay = DETAILS_ON_FAVS_LIST_DEFAULT_UPDATE;
 
         if (stationNameSummary != null && enabled && stationsToUpdate != null && stationsToUpdate.size() > 0) {
 
@@ -95,23 +100,19 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                 Summary summary = stationNameSummary.get(stationSystemName);
 
                 // query for available parameters
-                AvailableParametersWeb params
-                        = availableParametersDao.getAvaliableParamsByStationName(stationSystemName);
+                AvailableParameters params = availParams.get(stationSystemName);
 
                 // if data has been collected
                 if (summary != null && params != null) {
-                    Logger.debug("[FavouritesStationDetailsOnListUpdater][run][stationSystemName = " + stationSystemName +"][summary.last_timestamp = " + summary.last_timestamp +"]");
+                    Logger.debug("[stationSystemName = " + stationSystemName +"][summary.last_timestamp = " + summary.last_timestamp +"]");
 
                     String str;
 
-                    Logger.debug("[FavouritesStationDetailsOnListUpdater][run][stationSystemName = " +
-                            "" + stationSystemName +"][summary.last_timestamp = " + summary.last_timestamp +"]");
-
                     // check if this station transmits wind information
-                    if (params.hasWind) {
+                    if (params.windSpeed) {
 
                         // check if station transmits humidity
-                        if (params.hasHumidity) {
+                        if (params.humidity) {
                             str = String.format("%s  %d%%  %s  %s max %s", summary.getTemperatureStr(false, true), summary.humidity, summary.getWindDirStr(), summary.getWindspeedStr(false), summary.getWindgustsStr(false));
                         }
                         else {
@@ -119,7 +120,7 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                         }
                     }
                     else {
-                        if (params.hasHumidity) {
+                        if (params.humidity) {
                             str = String.format("%s  %d%%", summary.getTemperatureStr(false, true), summary.humidity);
                         }
                         else {
@@ -131,9 +132,9 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                     // update text view on the favourites list
                     toUpdate.setText(str);
 
-                    if (    (params.hasHumidity && summary.humidity_qf_native.equals(QualityFactor.NOT_AVALIABLE)) ||
+                    if (    (params.humidity && summary.humidity_qf_native.equals(QualityFactor.NOT_AVALIABLE)) ||
                             (summary.temperature_qf_native.equals(QualityFactor.NOT_AVALIABLE)) ||
-                            (params.hasWind && summary.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)))
+                            (params.windSpeed && summary.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)))
                     {
                         toUpdate.setTextColor(Color.RED);
                     }
@@ -142,8 +143,8 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                     }
                 }
                 else {
-                    Logger.error("[FavouritesStationDetailsOnListUpdater][run][summary object is null!! Maybe the API responds exceptionally slow?]");
-                    nextExecutionDelay = 3000;
+                    Logger.error("[stationSystemName = " + stationSystemName + "][summary object is null!! Maybe the API responds exceptionally slow?]");
+                    nextExecutionDelay = DETAILS_ON_FAVS_LIST_REUPDATE;
                 }
             }
 

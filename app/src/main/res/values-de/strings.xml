@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
     <resources>
-        <string name="app_name">MeteoSystem</string>
-        <string name="select_station">Auswählen</string>
+    <string name="select_station">Auswählen</string>
         <string name="all_stations">Alle Stationen</string>
         <string name="fav_stations">Favoriten  </string>
         <string name="station_summary">Akutelle Werte</string>
@@ -116,6 +115,11 @@
         <string name="export_decimation">Dezimierung exportierten Dateien </string>
         <string name="export_decimation_minutes">Minimaler Schritt in Minuten </string>
     <string name="www_link">URL to more information</string>
+    <string name="please_wait">Warten Sie bitte</string>
+    <string name="refreshing_station_list">Refreshing station list</string>
+    <string name="all_stations_empty_list1">There are no stations on this list.</string>
+    <string name="all_station_empty_list2">Please wait or pull down to refresh list.</string>
+    <string name="loading">Wird geladen...</string>
 </resources>
 
 

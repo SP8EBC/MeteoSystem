@@ -33,7 +33,7 @@ public class StationBackgroundDownloader implements Runnable {
         try {
             URL url = new java.net.URL(station.getImageUrl());
 
-            Logger.debug("[StationBackgroundDownloader][run][url = " + url.toString() +"]");
+            Logger.debug("[url = " + url.toString() +"]");
 
             in = url.openStream();
             bitmap = BitmapFactory.decodeStream(in);
@@ -41,7 +41,7 @@ public class StationBackgroundDownloader implements Runnable {
             in.close();
 
         } catch (IOException e) {
-            Logger.error("[StationBackgroundDownloader][run][IOException][e = " + e.getLocalizedMessage() +"]");
+            Logger.error("[IOException][e = " + e.getLocalizedMessage() +"]");
             e.printStackTrace();
             bitmap = null;
         }

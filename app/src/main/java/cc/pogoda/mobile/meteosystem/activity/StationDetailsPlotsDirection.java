@@ -132,10 +132,10 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
 
         station = (WeatherStation) getIntent().getSerializableExtra("station");
 
-        Logger.info("[StationDetailsPlotsDirection][onCreate][station.getSystemName() = " + station.getSystemName() +"][dataLn = " + dataLn +"]");
+        Logger.info("[station.getSystemName() = " + station.getSystemName() +"][dataLn = " + dataLn +"]");
 
         if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default") ) {
-            Logger.debug("[StationDetailsActivity][onCreate][AppConfiguration.locale = " + AppConfiguration.locale +  "]");
+            Logger.debug("[AppConfiguration.locale = " + AppConfiguration.locale +  "]");
             Locale locale = new Locale(AppConfiguration.locale);
             Locale.setDefault(locale);
             Resources resources = this.getResources();
@@ -342,7 +342,7 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
         // utc timestamp
         long utcTimestamp = utcTime.toEpochSecond();
 
-        Logger.debug("[StationDetailsPlotsDirection][downloadDataFromWebservice][station.getSystemName() = " + station.getSystemName() +"]");
+        Logger.debug("[station.getSystemName() = " + station.getSystemName() +"]");
 
         if (this.dataLn < 0 || this.dataLn > 2) {
             // last 2000 points of data, regardless the timescale
@@ -365,7 +365,7 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
 
         if (data != null) {
 
-            Logger.debug("[StationDetailsPlotsDirection][downloadDataFromWebservice][data.list_of_station_data.length = " + data.list_of_station_data.length +"]");
+            Logger.debug("[data.list_of_station_data.length = " + data.list_of_station_data.length +"]");
 
             for (StationData d : data.list_of_station_data) {
                 valuesWindDirection.add(new Entry(d.epoch * 1000, d.winddir));

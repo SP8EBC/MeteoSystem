@@ -34,10 +34,6 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<Recy
 
     ParceableFavsCallReason.Reason reason;
 
-    SummaryDao summaryDao;
-    
-    AvailableParametersDao paramsDao;
-
     /**
      * This updater takes data stored in the hashmap and then updates TextViews on View Holders on
      * Favourites list
@@ -61,8 +57,6 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<Recy
         this.stations = stations;
         this.activity = parentActivity;
         this.reason = callReason;
-        this.summaryDao = new SummaryDao();
-        this.paramsDao = new AvailableParametersDao();
         this.main = (Main) parentActivity.getApplication();
     }
 
@@ -165,7 +159,7 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<Recy
         }
 
         handler = new Handler(Looper.getMainLooper());
-        favsUpdater = new FavouritesStationDetailsOnListUpdater(handler, main.getHashmapStationSystemNameToSummary());
+        favsUpdater = new FavouritesStationDetailsOnListUpdater(handler, main.getHashmapFavStationSystemNameToSummary(), main.getHashmapAllStationSystemNameToAvailParameters());
 
         handler.postDelayed(favsUpdater, 100);
         favsUpdater.setEnabled(true);

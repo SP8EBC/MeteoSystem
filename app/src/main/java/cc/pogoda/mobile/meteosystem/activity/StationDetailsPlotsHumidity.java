@@ -153,7 +153,7 @@ public class StationDetailsPlotsHumidity extends AppCompatActivity implements Se
         dataLn = (int)getIntent().getExtras().get("data_ln");
 
         if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default") ) {
-            Logger.debug("[StationDetailsPlotsHumidity][onCreate][AppConfiguration.locale = " + AppConfiguration.locale +  "]");
+            Logger.debug("[AppConfiguration.locale = " + AppConfiguration.locale +  "]");
             Locale locale = new Locale(AppConfiguration.locale);
             Locale.setDefault(locale);
             Resources resources = this.getResources();

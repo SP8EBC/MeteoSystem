@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MeteoSystem</string>
 
     <string name="select_station">VYBRAT</string>
 
@@ -187,5 +186,10 @@
     <string name="export_decimation">Decimace eskportovaných údajov</string>
     <string name="export_decimation_minutes">Minimální krok v minutách</string>
     <string name="www_link">URL pro více informací</string>
+    <string name="please_wait">Please Wait</string>
+    <string name="refreshing_station_list">Refreshing station list</string>
+    <string name="all_stations_empty_list1">There are no stations on this list.</string>
+    <string name="all_station_empty_list2">Please wait or pull down to refresh list.</string>
+    <string name="loading">Načítání...</string>
 
 </resources>

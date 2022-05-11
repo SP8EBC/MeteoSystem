@@ -39,10 +39,10 @@ public class CopyLog {
                 streamWriter.flush();
                 streamWriter.close();
 
-                Logger.info("[CopyLog][CopyLogRunner][run][log file copied succesfully]");
+                Logger.info("[log file copied succesfully]");
             }
             catch (IOException e) {
-                Logger.error("[CopyLog][CopyLogRunner][run][IOException e = " + e.getLocalizedMessage() +"]");
+                Logger.error("[IOException e = " + e.getLocalizedMessage() +"]");
             }
         }
     }
@@ -55,7 +55,7 @@ public class CopyLog {
 
         File logfile = new File(baseDir.getAbsolutePath() + "/logs/log_" + _date.format(formatter) + ".txt");
 
-        Logger.debug("[CopyLog][forDay][logfile.getAbsolutePath() = " + logfile.getAbsolutePath() +"][logfile.length() = " + logfile.length() +"]");
+        Logger.debug("[logfile.getAbsolutePath() = " + logfile.getAbsolutePath() +"][logfile.length() = " + logfile.length() +"]");
 
         try {
             // create an input stream to load log file
@@ -74,7 +74,7 @@ public class CopyLog {
 
         }
         catch (IOException e) {
-            Logger.error("[CopyLog][forDay][IOException e = " + e.getLocalizedMessage() +"]");
+            Logger.error("[IOException e = " + e.getLocalizedMessage() +"]");
         }
 
         // log_{date:yyyy-MM-dd}.txt

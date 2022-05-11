@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.meteosystem.dao;
 
+import static cc.pogoda.mobile.meteosystem.config.WebIoConfig.TIMEOUT_SECOND;
+
 import org.tinylog.Logger;
 
 import java.util.LinkedList;
@@ -32,7 +34,7 @@ public class AllStationsDao {
             try {
                 resp = consumer.getAllStations().execute();
             } catch (Exception e) {
-                Logger.error("[AllStationsDao][Worker][Exception][e = " + e.getLocalizedMessage() +"]");
+                Logger.error("[Exception][e = " + e.getLocalizedMessage() +"]");
                 e.printStackTrace();
             }
         }

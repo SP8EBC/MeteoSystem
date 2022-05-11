@@ -1,4 +1,6 @@
-package cc.pogoda.mobile.meteosystem.activity.updater;
+package cc.pogoda.mobile.meteosystem.activity.updater.thread;
+
+import static cc.pogoda.mobile.meteosystem.config.ConstAppConfiguration.REUPDATE_VALUES_ON_ACTIVITY_ON_FAIL;
 
 import android.os.Handler;
 import android.telephony.SubscriptionManager;
@@ -15,18 +17,25 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import cc.pogoda.mobile.meteosystem.dao.AvailableParametersDao;
 import cc.pogoda.mobile.meteosystem.dao.SummaryDao;
+import cc.pogoda.mobile.meteosystem.type.AvailableParameters;
+import cc.pogoda.mobile.meteosystem.type.web.AvailableParametersWeb;
 import cc.pogoda.mobile.meteosystem.type.web.Summary;
 
 /**
  * This class is a runnable executed from background Thread by ScheduledExecuter
  * which periodically download current Summary for all stations stored on favourites list
  */
-public class FavouritesStationSummaryUpdater implements Runnable {
+public class FavouritesStationSummaryUpdaterThread implements Runnable {
 
     private HashMap<String, Summary> map;
 
+    private HashMap<String, AvailableParameters> availableParametersHashMap;
+
     private SummaryDao summaryDao;
+
+    private AvailableParametersDao availableParametersDao;
 
     private ScheduledExecutorService executor;
 
@@ -39,9 +48,12 @@ public class FavouritesStationSummaryUpdater implements Runnable {
      */
     private boolean forceUpdate = false;
 
-    public FavouritesStationSummaryUpdater(HashMap<String, Summary> _out_map) {
+    public FavouritesStationSummaryUpdaterThread(HashMap<String, Summary> _out_map, HashMap<String, AvailableParameters> _avail_params_map) {
         map = _out_map;
+        availableParametersHashMap = _avail_params_map;
+
         summaryDao = new SummaryDao();
+        availableParametersDao = new AvailableParametersDao();
 
         executor = Executors.newScheduledThreadPool(5);
     }
@@ -51,7 +63,7 @@ public class FavouritesStationSummaryUpdater implements Runnable {
         // check if map was set so something
         if (map != null && map.size() > 0) {
 
-            Logger.info("[FavouritesStationSummaryUpdater][run][map.size() = " + map.size() +"]");
+            Logger.info("[map.size() = " + map.size() +"]");
 
             // get a set of all stations from favourites
             Set<Map.Entry<String, Summary>> _set_of_stations_names = map.entrySet();
@@ -70,10 +82,16 @@ public class FavouritesStationSummaryUpdater implements Runnable {
 
                 // check if summary was returned (as it will not in case on HTTP 500 or something else)
                 if (summary != null) {
-                    Logger.info("[FavouritesStationSummaryUpdater][run][station_name = " + station_name + "][summary.last_timestamp = " + summary.last_timestamp + "]");
+                    Logger.info("[station_name = " + station_name + "][summary.last_timestamp = " + summary.last_timestamp + "]");
 
                     // put the summary back into the map
                     map.put(station_name, summary);
+                }
+
+                AvailableParameters parameters = AvailableParameters.fromWebData(availableParametersDao.getAvaliableParamsByStationName(station_name));
+
+                if (parameters != null) {
+                    availableParametersHashMap.put(station_name, parameters);
                 }
             }
 
@@ -83,10 +101,10 @@ public class FavouritesStationSummaryUpdater implements Runnable {
             // no station to update may be caused by two reasons
             //  1. there is no weather station to update
             //  2. API responds very slow or there is a problem with internet connection
-            Logger.info("[FavouritesStationSummaryUpdater][run][no station to update]");
+            Logger.info("[no station to update]");
 
             stop();
-            start(5000);
+            start(REUPDATE_VALUES_ON_ACTIVITY_ON_FAIL);
         }
 
         if (forceUpdate) {
@@ -106,7 +124,7 @@ public class FavouritesStationSummaryUpdater implements Runnable {
 
     public void start(int _initial_delay) {
 
-        Logger.debug("[FavouritesStationSummaryUpdater][start][_initial_delay = " + _initial_delay +"]");
+        Logger.debug("[_initial_delay = " + _initial_delay +"]");
 
         if (enabled) {
             stop();

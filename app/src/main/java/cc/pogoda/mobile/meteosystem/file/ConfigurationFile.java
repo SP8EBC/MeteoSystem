@@ -50,7 +50,7 @@ public class ConfigurationFile {
         } catch (IOException | JSONException e) {
             e.printStackTrace();
 
-            Logger.error("[ConfigurationFile][restoreFromFile][e = " + e.getLocalizedMessage() +"]");
+            Logger.error("[e = " + e.getLocalizedMessage() +"]");
 
             AppConfiguration.locale = "default";
             AppConfiguration.replaceMsWithKnots = false;

@@ -18,14 +18,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import cc.pogoda.mobile.meteosystem.activity.updater.FavouritesStationSummaryUpdater;
+import cc.pogoda.mobile.meteosystem.activity.updater.thread.FavouritesStationSummaryUpdaterThread;
 
-import cc.pogoda.mobile.meteosystem.dao.AllStationsDao;
 import cc.pogoda.mobile.meteosystem.file.ConfigurationFile;
 import cc.pogoda.mobile.meteosystem.file.FavouritiesFile;
 import cc.pogoda.mobile.meteosystem.file.FileNames;
 import cc.pogoda.mobile.meteosystem.service.GetAllStationsService;
 import cc.pogoda.mobile.meteosystem.type.AllStationsReceivedEvent;
+import cc.pogoda.mobile.meteosystem.type.AvailableParameters;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 import cc.pogoda.mobile.meteosystem.type.WeatherStationListEvent;
 import cc.pogoda.mobile.meteosystem.type.web.Summary;
@@ -65,12 +65,17 @@ public class Main extends Application {
      * This download summary for all stations stored on favourites list and stores results
      * in 'HashMap<String, Summary> stationSystemNameToSummary'
      */
-    private FavouritesStationSummaryUpdater favsSummaryUpdater = null;
+    private FavouritesStationSummaryUpdaterThread favsSummaryUpdater = null;
 
     /**
      * This map stores summary for all favourites station
      */
-    private HashMap<String, Summary> hashmapStationSystemNameToSummary = null;
+    private HashMap<String, Summary> hashmapFavStationSystemNameToSummary = null;
+
+    /**
+     * This hash map stores available parameters for all stations defined in the system
+     */
+    private HashMap<String, AvailableParameters> hashmapAllStationSystemNameToAvailParameters = null;
 
     public File getDirectory() {
         return directory;
@@ -84,8 +89,12 @@ public class Main extends Application {
         return confFile;
     }
 
-    public HashMap<String, Summary> getHashmapStationSystemNameToSummary() {
-        return hashmapStationSystemNameToSummary;
+    public HashMap<String, Summary> getHashmapFavStationSystemNameToSummary() {
+        return hashmapFavStationSystemNameToSummary;
+    }
+
+    public HashMap<String, AvailableParameters> getHashmapAllStationSystemNameToAvailParameters() {
+        return hashmapAllStationSystemNameToAvailParameters;
     }
 
     @Override
@@ -121,7 +130,9 @@ public class Main extends Application {
 
         confFile.restoreFromFile();
 
-        hashmapStationSystemNameToSummary = new HashMap<>();
+        hashmapFavStationSystemNameToSummary = new HashMap<>();
+
+        hashmapAllStationSystemNameToAvailParameters = new HashMap<>();
 
         fileNames = new FileNames(ctx);
 
@@ -134,7 +145,7 @@ public class Main extends Application {
         // recreate list of favorites
         recreateListOfFavs();
 
-        favsSummaryUpdater = new FavouritesStationSummaryUpdater(hashmapStationSystemNameToSummary);
+        favsSummaryUpdater = new FavouritesStationSummaryUpdaterThread(hashmapFavStationSystemNameToSummary, hashmapAllStationSystemNameToAvailParameters);
 
         favsSummaryUpdater.start(100);
 
@@ -160,7 +171,7 @@ public class Main extends Application {
     private void recreateListOfFavs() {
 
         if(listOfAllStations == null) {
-            Logger.info("[recreateListOfFavs]listOfAllStations=null]");
+            Logger.info("[listOfAllStations=null]");
             return;
         }
 
@@ -207,7 +218,7 @@ public class Main extends Application {
                 // as a list does not make a copy of the object. It (ArrayList) keeps
                 // only a reference to an object
 
-                hashmapStationSystemNameToSummary.put(fromAllStations.getSystemName(), null);
+                hashmapFavStationSystemNameToSummary.put(fromAllStations.getSystemName(), null);
 
             }
         }
@@ -215,7 +226,7 @@ public class Main extends Application {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void weatherStationListHandler(WeatherStationListEvent serviceEvent) {
-        Logger.info("[Main][weatherStationListHandler][serviceEvent = " + serviceEvent +  "]");
+        Logger.info("[serviceEvent = " + serviceEvent +  "]");
 
         switch (serviceEvent.getEventReason()) {
 
@@ -258,7 +269,7 @@ public class Main extends Application {
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void allStationsEventHandler(@NonNull AllStationsReceivedEvent event) {
-        Logger.info("[allStationsEventHandler][event = " + event.toString() +"]");
+        Logger.info("[event = " + event.toString() +"]");
         this.listOfAllStations = event.getStations();
         recreateListOfFavs();
     }

@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-        Logger.info("[MainActivity][onDestroy]");
+        Logger.info("[onDestroy]");
     }
 
     /**
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Logger.info("[MainActivity][onResume]");
+        Logger.info("[onResume]");
 
     }
 
@@ -60,19 +60,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Logger.info("[MainActivity][onCreate]");
+        Logger.info("[onCreate]");
 
         main = (Main) getApplication();
 
         if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default")) {
-            Logger.debug("[MainActivity][onCreate][AppConfiguration.locale = "
+            Logger.debug("[AppConfiguration.locale = "
                     + AppConfiguration.locale + "]");
             Locale locale = new Locale(AppConfiguration.locale);
             Locale.setDefault(locale);
             Resources resources = this.getResources();
             Configuration config = resources.getConfiguration();
             config.setLocale(locale);
-            Logger.debug("[MainActivity][onCreate][locale = " + locale.toLanguageTag() + "]");
+            Logger.debug("[locale = " + locale.toLanguageTag() + "]");
             resources.updateConfiguration(config, resources.getDisplayMetrics());
         }
 
@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 123 && resultCode == RESULT_OK) {
             Uri uri = data.getData();
 
-            Logger.debug("[MainActivity][onActivityResult][requestCode = 123][uri.getPath() = "
+            Logger.debug("[requestCode = 123][uri.getPath() = "
                     + uri.getPath() + "]");
 
             grantUriPermission(getPackageName(), uri,
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 CopyLog.forDay(main.getFileNames(), LocalDateTime.now(),
                         getContentResolver().openOutputStream(uri));
             } catch (FileNotFoundException e) {
-                Logger.error("[MainActivity][onActivityResult][FileNotFoundException]");
+                Logger.error("[FileNotFoundException][e = " + e.toString() +"]");
             }
 
         }

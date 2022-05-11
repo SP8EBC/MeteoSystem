@@ -28,7 +28,7 @@ public class StationDataDao {
             try {
                 response = consumer.getDataForStation(station, from, to).execute();
             } catch (Exception e) {
-                Logger.error("[StationDataDao][Worker][Exception][e = " + e.getLocalizedMessage() +"]");
+                Logger.error("[Exception][e = " + e.getLocalizedMessage() +"]");
 
                 e.printStackTrace();
             }
@@ -52,7 +52,9 @@ public class StationDataDao {
             thread.start();
             thread.join();
 
-            out = response.body();
+            if (response != null) {
+                out = response.body();
+            }
         }
         catch (InterruptedException ex) {
 

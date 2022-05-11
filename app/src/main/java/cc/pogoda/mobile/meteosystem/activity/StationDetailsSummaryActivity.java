@@ -16,8 +16,9 @@ import java.util.Locale;
 
 import cc.pogoda.mobile.meteosystem.Main;
 import cc.pogoda.mobile.meteosystem.R;
-import cc.pogoda.mobile.meteosystem.activity.updater.StationDetailsValuesOnActivityFromSummaryUpdater;
+import cc.pogoda.mobile.meteosystem.activity.updater.StationDetailsValuesOnActivityFromFavsUpdater;
 import cc.pogoda.mobile.meteosystem.activity.updater.StationDetailsValuesOnActivityUpdater;
+import cc.pogoda.mobile.meteosystem.activity.updater.thread.StationSummaryUpdaterThread;
 import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.dao.SummaryDao;
 import cc.pogoda.mobile.meteosystem.type.StationSummaryActElements;
@@ -30,9 +31,11 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
 
     WeatherStation station = null;
 
+    StationSummaryUpdaterThread updaterThread = null;
+
     StationDetailsValuesOnActivityUpdater valuesOnActUpdater = null;
 
-    StationDetailsValuesOnActivityFromSummaryUpdater valuesFromSummaryUpdater = null;
+    StationDetailsValuesOnActivityFromFavsUpdater valuesFromFavsSummaryUpdater = null;
 
     Handler handler = null;
 
@@ -54,10 +57,10 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
 
         station = (WeatherStation) getIntent().getSerializableExtra("station");
 
-        Logger.info("[StationDetailsSummaryActivity][onCreate][station.getSystemName() = " + station.getSystemName() +"]");
+        Logger.info("[station.getSystemName() = " + station.getSystemName() +"]");
 
         if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default") ) {
-            Logger.debug("[StationDetailsPlotsHumidity][onCreate][AppConfiguration.locale = " + AppConfiguration.locale +  "]");
+            Logger.debug("[AppConfiguration.locale = " + AppConfiguration.locale +  "]");
             Locale locale = new Locale(AppConfiguration.locale);
             Locale.setDefault(locale);
             Resources resources = this.getResources();
@@ -89,11 +92,6 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
         elems.goodColor = color;
         elems.badColor = Color.RED;
 
-        // get the summary data for this station
-        summary = summary_dao.getStationSummary(station.getSystemName());
-
-        elems.updateFromSummary(summary, station.getAvailableParameters());
-
         // create a handler to update station data in background
         handler = new Handler();
 
@@ -101,24 +99,42 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
         boolean onFavs = main.checkIsOnFavsList(station.getSystemName());
 
         if (onFavs) {
-            valuesFromSummaryUpdater = new StationDetailsValuesOnActivityFromSummaryUpdater(elems, handler, station, main.getHashmapStationSystemNameToSummary());
+            valuesFromFavsSummaryUpdater = new StationDetailsValuesOnActivityFromFavsUpdater(elems, handler, station, main.getHashmapFavStationSystemNameToSummary());
 
-            if (handler != null && valuesFromSummaryUpdater != null) {
-                handler.post(valuesFromSummaryUpdater);
+            if (handler != null && valuesFromFavsSummaryUpdater != null) {
+                handler.post(valuesFromFavsSummaryUpdater);
             }
         }
         else {
+            updaterThread = new StationSummaryUpdaterThread(station.getSystemName());
+
             // create a copy of updater class for this station
-            valuesOnActUpdater = new StationDetailsValuesOnActivityUpdater(elems, handler, station.getSystemName(), station);
+            valuesOnActUpdater = new StationDetailsValuesOnActivityUpdater(elems, handler, updaterThread, station);
 
             if (handler != null && valuesOnActUpdater != null) {
-                handler.post(valuesOnActUpdater);
+                updaterThread.start(50);
+
+                handler.postDelayed(valuesOnActUpdater, 500);
             }
         }
+    }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
 
+        if (updaterThread != null) {
+            updaterThread.stop();
+        }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
 
+        if (updaterThread != null) {
+            updaterThread.start(50);
+        }
     }
 
     @Override
@@ -128,6 +144,20 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
             handler.removeCallbacks(valuesOnActUpdater);
         }
 
+        if (updaterThread != null) {
+            updaterThread.stop();
+        }
+
         super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+
+        if (updaterThread != null) {
+            updaterThread.stop();
+        }
+
+        super.onDestroy();
     }
 }

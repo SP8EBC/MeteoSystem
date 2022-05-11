@@ -300,7 +300,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:fontFamily="@font/alegreya_sans_sc_medium"
-                android:text="Rafał Woloszyn"
+                android:text="@string/credits_2_rafal"
                 android:textSize="28sp"
                 app:layout_constraintBottom_toTopOf="@+id/textViewCredits3"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -1,5 +1,7 @@
 package cc.pogoda.mobile.meteosystem.dao;
 
+import static cc.pogoda.mobile.meteosystem.config.WebIoConfig.TIMEOUT_SECOND;
+
 import org.tinylog.Logger;
 
 import java.io.IOException;
@@ -48,7 +50,9 @@ public class TrendDao {
         try {
             thread.join();
 
-            out = trend.body();
+            if (trend != null) {
+                out = trend.body();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
