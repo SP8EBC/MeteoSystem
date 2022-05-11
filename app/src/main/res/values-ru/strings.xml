@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MeteoSystem</string>
     <string name="select_station">Выбрать</string>
     <string name="all_stations">Все станции</string>
     <string name="fav_stations">Избранные</string>

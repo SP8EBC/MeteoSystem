@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">MeteoSystem</string>
     <string name="select_station">ATLASĪT</string>
     <string name="all_stations">Visas stacijas</string>
     <string name="fav_stations">Izlase</string>
