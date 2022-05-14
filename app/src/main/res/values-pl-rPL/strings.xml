@@ -118,4 +118,6 @@
     <string name="all_station_empty_list2">Proszę poczekać lub pociągnąć w dół aby odświeżyć.</string>
     <string name="please_wait">Proszę czekać</string>
     <string name="loading">Ładowanie...</string>
+    <string name="search_for_station">Wyszukaj stacji</string>
+    <string name="search_bar">Wyszukaj</string>
 </resources>

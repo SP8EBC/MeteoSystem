@@ -1,6 +1,12 @@
 package cc.pogoda.mobile.meteosystem.activity;
 
+import android.app.SearchManager;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,6 +21,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 import cc.pogoda.mobile.meteosystem.Main;
 import cc.pogoda.mobile.meteosystem.R;
@@ -26,7 +34,7 @@ import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 
 public class AllStationsActivity extends AppCompatActivity {
 
-    private final List<WeatherStation> allStationsList = new LinkedList<>();
+    private List<WeatherStation> allStationsList;
     private SwipeRefreshLayout refreshLayout;
     private WeatherStationRecyclerViewAdapter adapter;
 
@@ -43,9 +51,33 @@ public class AllStationsActivity extends AppCompatActivity {
 
         RecyclerView recyclerViewAllStations = findViewById(R.id.recyclerViewAllStations);
         adapter = new WeatherStationRecyclerViewAdapter(
-                allStationsList, this, ParceableFavsCallReason.Reason.ALL_STATIONS);
+                new LinkedList<>(), this, ParceableFavsCallReason.Reason.ALL_STATIONS);
         recyclerViewAllStations.setAdapter(adapter);
         recyclerViewAllStations.setLayoutManager(new LinearLayoutManager(this));
+
+        handleIntent(getIntent());
+    }
+
+
+    private void handleIntent(Intent intent) {
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            filterStationList(query);
+        }
+    }
+
+    private void filterStationList(String searchQuery) {
+        if (allStationsList == null || allStationsList.isEmpty())
+            return;
+
+        if(searchQuery.isEmpty())
+            adapter.update(allStationsList);
+
+        List<WeatherStation> newList = allStationsList.stream()
+                .filter(station -> station.getDisplayedName()
+                        .toLowerCase(Locale.ROOT).contains(searchQuery.toLowerCase(Locale.ROOT)))
+                .collect(Collectors.toList());
+        adapter.update(newList);
     }
 
     @Override
@@ -61,12 +93,46 @@ public class AllStationsActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_activity_all_stations, menu);
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager =
+                (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        SearchView searchView =
+                (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(
+                searchManager.getSearchableInfo(getComponentName()));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener(){
+
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                filterStationList(s);
+                return false;
+            }
+        });
+
+        searchView.setOnCloseListener(() -> {
+            adapter.update(allStationsList);
+            return false;
+        });
+
+        return true;
+    }
+
     private void updateStationList(List<WeatherStation> stations) {
         if (stations != null) {
-            allStationsList.clear();
-            allStationsList.addAll(stations);
             refreshLayout.setRefreshing(false);
-            adapter.notifyDataSetChanged();
+            allStationsList = stations;
+            adapter.update(stations);
         } else {
             EventBus.getDefault().post(new StartStationsRefreshEvent());
         }

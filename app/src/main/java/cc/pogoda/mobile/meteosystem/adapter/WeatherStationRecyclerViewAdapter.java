@@ -21,8 +21,6 @@ import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.activity.handler.AllStationsActRecyclerViewButtonClickEvent;
 import cc.pogoda.mobile.meteosystem.activity.updater.FavouritesStationDetailsOnListUpdater;
 import cc.pogoda.mobile.meteosystem.activity.view.AllStationsActRecyclerViewHolder;
-import cc.pogoda.mobile.meteosystem.dao.AvailableParametersDao;
-import cc.pogoda.mobile.meteosystem.dao.SummaryDao;
 import cc.pogoda.mobile.meteosystem.type.ParceableFavsCallReason;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 
@@ -142,6 +140,12 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<Recy
                 favsUpdater.addNewStation(station.getSystemName(), textViewData);
             }
         }
+    }
+
+    public void update(@NonNull List<WeatherStation> updatedStations) {
+        stations.clear();
+        stations.addAll(updatedStations);
+        notifyDataSetChanged();
     }
 
     @Override

@@ -118,4 +118,6 @@
     <string name="all_stations_empty_list1">There are no stations on this list.</string>
     <string name="all_station_empty_list2">Please wait or pull down to refresh list.</string>
     <string name="loading">Ładowanie...</string>
+    <string name="search_for_station">Wyszukaj stacji</string>
+    <string name="search_bar">Wyszukaj</string>
 </resources>

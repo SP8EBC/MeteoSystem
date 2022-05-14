@@ -150,4 +150,6 @@
     <string name="please_wait">Please Wait</string>
     <string name="loading">Loading...</string>
     <string name="credits_2_rafal" translatable="false">Rafał Woloszyn</string>
+    <string name="search_for_station">Search for station</string>
+    <string name="search_bar">Search</string>
 </resources>
