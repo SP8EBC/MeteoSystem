@@ -40,12 +40,19 @@
         <activity android:name=".activity.StationDetailsPlotsHumidity" />
         <activity android:name=".activity.StationDetailsSummaryActivity" />
         <activity android:name=".activity.StationDetailsActivity" />
-        <activity android:name=".activity.AllStationsActivity" />
+        <activity
+            android:name=".activity.AllStationsActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity android:name=".activity.FavouritesActivity" />
         <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
