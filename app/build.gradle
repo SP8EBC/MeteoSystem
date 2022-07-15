@@ -12,8 +12,8 @@ android {
         applicationId "cc.pogoda.mobile.meteosystem"
         minSdkVersion 24
         targetSdkVersion 30
-        versionCode 16
-        versionName "0.16-beta"
+        versionCode 17
+        versionName "0.17-beta"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
