@@ -32,25 +32,45 @@
             android:exported="true" />
         <activity
             android:name=".activity.TrendActivity"
+            android:exported="true"
             android:label="@string/title_activity_trend" />
-        <activity android:name=".activity.StationDetailsWindRoseActivity" />
-        <activity android:name=".activity.StationDetailsPlotsWind" />
-        <activity android:name=".activity.StationDetailsPlotsDirection" />
-        <activity android:name=".activity.StationDetailsPlotsTemperature" />
-        <activity android:name=".activity.StationDetailsPlotsHumidity" />
-        <activity android:name=".activity.StationDetailsSummaryActivity" />
-        <activity android:name=".activity.StationDetailsActivity" />
+        <activity
+            android:name=".activity.StationDetailsWindRoseActivity"
+            android:exported="true"  />
+        <activity
+            android:name=".activity.StationDetailsPlotsWind"
+            android:exported="true" />
+        <activity
+            android:name=".activity.StationDetailsPlotsDirection"
+            android:exported="true" />
+        <activity
+            android:name=".activity.StationDetailsPlotsTemperature"
+            android:exported="true" />
+        <activity
+            android:name=".activity.StationDetailsPlotsHumidity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.StationDetailsSummaryActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.StationDetailsActivity"
+            android:exported="true" />
         <activity
             android:name=".activity.AllStationsActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
             <meta-data android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-        <activity android:name=".activity.FavouritesActivity" />
-        <activity android:name=".activity.MainActivity">
+        <activity
+            android:name=".activity.FavouritesActivity"
+            android:exported="true" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

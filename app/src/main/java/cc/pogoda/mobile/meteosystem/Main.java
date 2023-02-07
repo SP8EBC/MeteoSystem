@@ -147,7 +147,7 @@ public class Main extends Application {
 
         favsSummaryUpdater = new FavouritesStationSummaryUpdaterThread(hashmapFavStationSystemNameToSummary, hashmapAllStationSystemNameToAvailParameters);
 
-        favsSummaryUpdater.start(100);
+        favsSummaryUpdater.start(50);
 
 //        if (AppConfiguration.locale != null && !AppConfiguration.locale.equals("default") ) {
 //            Logger.debug("[Main][onCreate][AppConfiguration.locale = " + AppConfiguration.locale +  "]");
