@@ -115,12 +115,14 @@ public class StationWindRoseActElements implements StationActivityElements {
 
         if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
             windSpeed.setText(average_speed);
+            windSpeed.setTextColor(goodColor);
         } else {
             windSpeed.setText("---");
         }
 
         if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
             windGusts.setText(gusts_speed);
+            windGusts.setTextColor(goodColor);
         } else {
             windGusts.setText("---");
 
@@ -128,6 +130,7 @@ public class StationWindRoseActElements implements StationActivityElements {
 
         if (!no_data && !data.wind_qf_native.equals(QualityFactor.NOT_AVALIABLE)) {
             windDirection.setText(String.valueOf(data.direction) + activity.getResources().getString(R.string.degrees_sign));
+            windDirection.setTextColor(goodColor);
         } else {
             windDirection.setText("---");
         }

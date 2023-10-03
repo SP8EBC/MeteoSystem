@@ -163,7 +163,11 @@ public class WeatherStationRecyclerViewAdapter extends RecyclerView.Adapter<Recy
         }
 
         handler = new Handler(Looper.getMainLooper());
-        favsUpdater = new FavouritesStationDetailsOnListUpdater(handler, main.getHashmapFavStationSystemNameToSummary(), main.getHashmapAllStationSystemNameToAvailParameters());
+        favsUpdater = new FavouritesStationDetailsOnListUpdater(
+                handler,
+                main.getHashmapFavStationSystemNameToSummary(),
+                main.getHashmapAllStationSystemNameToAvailParameters(),
+                main.getThemeColours());
 
         handler.postDelayed(favsUpdater, 100);
         favsUpdater.setEnabled(true);

@@ -26,6 +26,7 @@ import cc.pogoda.mobile.meteosystem.file.FileNames;
 import cc.pogoda.mobile.meteosystem.service.GetAllStationsService;
 import cc.pogoda.mobile.meteosystem.type.AllStationsReceivedEvent;
 import cc.pogoda.mobile.meteosystem.type.AvailableParameters;
+import cc.pogoda.mobile.meteosystem.type.ThemeColours;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 import cc.pogoda.mobile.meteosystem.type.WeatherStationListEvent;
 import cc.pogoda.mobile.meteosystem.type.web.Summary;
@@ -76,6 +77,15 @@ public class Main extends Application {
      * This hash map stores available parameters for all stations defined in the system
      */
     private HashMap<String, AvailableParameters> hashmapAllStationSystemNameToAvailParameters = null;
+
+    public ThemeColours getThemeColours() {
+        return themeColours;
+    }
+
+    /**
+     * Used everywhere, where a colour of any element is set programatically (not globally from the theme)
+     */
+    private ThemeColours themeColours;
 
     public File getDirectory() {
         return directory;
@@ -137,6 +147,8 @@ public class Main extends Application {
         fileNames = new FileNames(ctx);
 
         favouritiesFile = new FavouritiesFile(fileNames);
+
+        themeColours = new ThemeColours();
 
         // Download all stations from API in background via JobIntentService. Results are send
         //back with Broadcast receiver.

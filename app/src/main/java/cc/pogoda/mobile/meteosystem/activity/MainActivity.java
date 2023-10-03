@@ -8,8 +8,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageButton;
@@ -17,6 +19,8 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.color.MaterialColors;
 
 import org.greenrobot.eventbus.EventBus;
 import org.threeten.bp.LocalDateTime;
@@ -34,6 +38,7 @@ import cc.pogoda.mobile.meteosystem.activity.handler.MainActImageButtonFavourite
 import cc.pogoda.mobile.meteosystem.activity.handler.MainActImageButtonSettingsClickEvent;
 import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.file.CopyLog;
+import cc.pogoda.mobile.meteosystem.type.ThemeColours;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -93,6 +98,42 @@ public class MainActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(
                 new MainActImageButtonSettingsClickEvent(this, main.getConfFile()));
 
+        ThemeColours colours = ((Main) getApplication()).getThemeColours();
+
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getTheme();
+
+        //MaterialColors.getColor(, R.attr.colorOnPrimary);
+
+        theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        TypedArray arr = obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorPrimary});
+        colours.colorPrimary = arr.getColor(0, -1);
+        arr.recycle();
+
+        theme.resolveAttribute(R.attr.colorPrimaryVariant, typedValue, true);
+        arr = obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorPrimaryVariant});
+        colours.colorPrimaryVariant = arr.getColor(0, -1);
+        arr.recycle();
+
+        theme.resolveAttribute(R.attr.colorOnPrimary, typedValue, true);
+        arr = obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorOnPrimary});
+        colours.colorOnPrimary = arr.getColor(0, -1);
+        arr.recycle();
+
+        theme.resolveAttribute(R.attr.colorSecondary, typedValue, true);
+        arr = obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorSecondary});
+        colours.colorSecondary = arr.getColor(0, -1);
+        arr.recycle();
+
+        theme.resolveAttribute(R.attr.colorSecondaryVariant, typedValue, true);
+        arr = obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorSecondaryVariant});
+        colours.colorSecondaryVariant = arr.getColor(0, -1);
+        arr.recycle();
+
+        theme.resolveAttribute(R.attr.colorOnSecondary, typedValue, true);
+        arr = obtainStyledAttributes(typedValue.data, new int[]{R.attr.colorOnSecondary});
+        colours.colorOnSecondary = arr.getColor(0, -1);
+        arr.recycle();
     }
 
     @Override

@@ -1,6 +1,10 @@
 package cc.pogoda.mobile.meteosystem.activity;
 
+import android.app.PendingIntent;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;

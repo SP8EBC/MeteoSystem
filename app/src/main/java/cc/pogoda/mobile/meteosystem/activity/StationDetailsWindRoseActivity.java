@@ -2,6 +2,7 @@ package cc.pogoda.mobile.meteosystem.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -60,18 +61,14 @@ public class StationDetailsWindRoseActivity extends AppCompatActivity {
         elements.maxGust = findViewById(R.id.textViewWindRoseMaxHourGust);
         elements.minAverage = findViewById(R.id.textViewWindRoseMinHourSpeed);
         elements.pressure = findViewById(R.id.textViewWindRosePressure);
+        elements.goodColor = ((Main) getApplication()).getThemeColours().colorOnSecondary;
+        elements.badColor = Color.RED;
         elements.setActivity(this);
 
         // create the handler which will update the screen in background
         handler = new Handler();
 
         SummaryDao summary_dao = new SummaryDao();
-
-//        // get the set of current values to preconfigure all elements on this activity
-//        summary = summary_dao.getStationSummary(station.getSystemName());
-//
-//        // update parameters (like turn the wind direction arrow)
-//        elements.updateFromSummary(summary, station.getAvailableParameters());
 
         handler = new Handler();
 

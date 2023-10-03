@@ -18,6 +18,7 @@ import java.util.Vector;
 import cc.pogoda.mobile.meteosystem.activity.updater.thread.FavouritesStationSummaryUpdaterThread;
 import cc.pogoda.mobile.meteosystem.dao.AvailableParametersDao;
 import cc.pogoda.mobile.meteosystem.type.AvailableParameters;
+import cc.pogoda.mobile.meteosystem.type.ThemeColours;
 import cc.pogoda.mobile.meteosystem.type.web.AvailableParametersWeb;
 import cc.pogoda.mobile.meteosystem.type.web.QualityFactor;
 import cc.pogoda.mobile.meteosystem.type.web.Summary;
@@ -56,11 +57,17 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
      */
     private boolean enabled;
 
-    public FavouritesStationDetailsOnListUpdater(Handler _handler, HashMap<String, Summary> _station_system_name_to_summary, HashMap<String, AvailableParameters> _avail_params) {
+    /**
+     * Used everywhere, where a colour of any element is set programatically (not globally from the theme)
+     */
+    private ThemeColours themeColours;
+
+    public FavouritesStationDetailsOnListUpdater(Handler _handler, HashMap<String, Summary> _station_system_name_to_summary, HashMap<String, AvailableParameters> _avail_params, ThemeColours _themeColours) {
         handler = _handler;
         stationsToUpdate = new HashMap<>();
         availParams = _avail_params;
         stationNameSummary = _station_system_name_to_summary;
+        themeColours = _themeColours;
     }
 
     public boolean isEnabled() {
@@ -139,7 +146,7 @@ public class FavouritesStationDetailsOnListUpdater implements Runnable {
                         toUpdate.setTextColor(Color.RED);
                     }
                     else {
-                        toUpdate.setTextColor(androidx.activity.R.color.secondary_text_default_material_light);
+                        toUpdate.setTextColor(themeColours.colorPrimary);
                     }
                 }
                 else {

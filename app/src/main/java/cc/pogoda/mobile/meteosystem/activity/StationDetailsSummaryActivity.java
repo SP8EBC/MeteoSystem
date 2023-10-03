@@ -48,7 +48,7 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
 
         elems = new StationSummaryActElements();
 
-        int color = ContextCompat.getColor(this, android.R.color.secondary_text_light);
+        int color = main.getThemeColours().colorOnSecondary;
 
         Summary summary = null;
         SummaryDao summary_dao = new SummaryDao();
