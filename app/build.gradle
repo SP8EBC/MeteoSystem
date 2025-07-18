@@ -3,17 +3,17 @@ plugins {
 }
 
 android {
-    compileSdkVersion 33
-    buildToolsVersion "30.0.3"
+    compileSdk 35
+    buildToolsVersion '35.0.0'
 
     apply plugin: "androidx.navigation.safeargs"
 
     defaultConfig {
         applicationId "cc.pogoda.mobile.meteosystem"
         minSdkVersion 24
-        targetSdkVersion 33
-        versionCode 19
-        versionName "0.19"
+        targetSdk 35
+        versionCode 20
+        versionName "0.20"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -28,6 +28,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'cc.pogoda.mobile.meteosystem'
 }
 
 repositories {
