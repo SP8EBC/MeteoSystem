@@ -94,7 +94,7 @@
     <string name="test_warning">Warning! This is a test version of the application!</string>
     <string name="credits_1">Developed by:</string>
     <string name="credits_2" translatable="false">Mateusz Lubecki</string>
-    <string name="credits_3" translatable="false">Bielsko - Biała 2020, 2021, 2022</string>
+    <string name="credits_3" translatable="false">Bielsko - Biała 2020...2025</string>
     <string name="credits_4" translatable="false">sp8ebc@gmail.com</string>
     <string name="credits_5" translatable="false">tel: +48 660 43 44 46</string>
     <string name="camera">Online Camera</string>
