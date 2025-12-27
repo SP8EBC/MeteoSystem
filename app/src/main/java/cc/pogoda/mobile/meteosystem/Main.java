@@ -298,13 +298,16 @@ public class Main extends Application {
     public boolean checkIsOnFavsList(String _system_name) {
         boolean out = false;
 
-        for (WeatherStation wx : favs) {
-            if (wx.getSystemName().equals(_system_name)) {
-                out = true;
-                break;
+        if (favs != null) {
+            if (!favs.isEmpty()) {
+                for (WeatherStation wx : favs) {
+                    if (wx.getSystemName().equals(_system_name)) {
+                        out = true;
+                        break;
+                    }
+                }
             }
         }
-
         return out;
     }
 

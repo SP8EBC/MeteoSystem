@@ -131,7 +131,7 @@ public class StationSummaryActElements implements StationActivityElements {
                 wind_gusts_val.setTextColor(goodColor);
             }
             else if (badColor != 0) {
-                wind_gusts_val.setText(badColor);
+                wind_gusts_val.setTextColor(badColor);
             }
         }
         else {
