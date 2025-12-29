@@ -6,11 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.ViewGroup;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -54,6 +59,22 @@ public class AllStationsActivity extends AppCompatActivity {
                 new LinkedList<>(), this, ParceableFavsCallReason.Reason.ALL_STATIONS);
         recyclerViewAllStations.setAdapter(adapter);
         recyclerViewAllStations.setLayoutManager(new LinearLayoutManager(this));
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), true);
+
+//        ViewCompat.setOnApplyWindowInsetsListener(recyclerViewAllStations,(v, windowInsets) -> {
+//            Insets insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            // Apply the insets as a margin to the view. Here the system is setting
+//            // only the bottom, left, and right dimensions, but apply whichever insets are
+//            // appropriate to your layout. You can also update the view padding
+//            // if that's more appropriate.
+//            RecyclerView.MarginLayoutParams mlp = (RecyclerView.MarginLayoutParams) v.getLayoutParams();
+//            mlp.leftMargin = insets.left;
+//            mlp.topMargin = insets.top;
+//            mlp.rightMargin = insets.right;
+//            v.setLayoutParams(mlp);
+//
+//            return WindowInsetsCompat.CONSUMED;}
+//        );
 
         handleIntent(getIntent());
     }
