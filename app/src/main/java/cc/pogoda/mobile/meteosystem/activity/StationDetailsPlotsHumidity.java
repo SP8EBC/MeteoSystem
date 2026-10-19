@@ -3,6 +3,7 @@ package cc.pogoda.mobile.meteosystem.activity;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.SeekBar;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import cc.pogoda.mobile.meteosystem.R;
+import cc.pogoda.mobile.meteosystem.activity.plot.HourlyXAxisRenderer;
 import cc.pogoda.mobile.meteosystem.activity.handler.PlotClickEvent;
 import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.dao.LastStationDataDao;
@@ -59,27 +61,6 @@ public class StationDetailsPlotsHumidity extends AppCompatActivity implements Se
     private static final int twelve_hours = 3600 * 12;
     private static final int twenty_four_hours = 3600 * 24;
     private static final int three_days = 3600 * 24 * 3;
-
-    private static class ValueFormatter extends com.github.mikephil.charting.formatter.ValueFormatter {
-
-        @Override
-        public String getFormattedValue(float value) {
-
-            long millis = (long) value;
-
-            // the web service and the plot always stores the entries as UTC. So first convert epoch timestamp to the LocalDateTime
-            LocalDateTime utcDateTime = LocalDateTime.ofEpochSecond(millis / 1000, 0, ZoneOffset.UTC);
-
-            // and then shift to the user timezone for convinient display
-            ZonedDateTime localDateTime = utcDateTime.atZone(ZoneOffset.UTC).withZoneSameInstant(ZoneId.systemDefault());
-
-            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm");
-
-            /* format only the time to keep X axis clean */
-            return fmt.format(localDateTime);
-        }
-
-    }
 
     public StationDetailsPlotsHumidity() {
         lastStationDataDao = new LastStationDataDao();
@@ -194,16 +175,16 @@ public class StationDetailsPlotsHumidity extends AppCompatActivity implements Se
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
-        xAxis.setTypeface(tfLight);
-        xAxis.setTextSize(10f);
+        xAxis.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.BOLD));
         xAxis.setTextColor(Color.WHITE);
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(true);
         xAxis.setTextColor(Color.rgb(255, 192, 56));
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setGranularity(1f); // one hour
-        xAxis.setValueFormatter(new StationDetailsPlotsHumidity.ValueFormatter());
-        xAxis.setLabelRotationAngle(45.0f);
+        xAxis.setTextSize(16.0f);    // library limits text size to 24dp
+        xAxis.setLabelRotationAngle(0.0f);
+
+        // major steps at the top of each hour
+        HourlyXAxisRenderer.install(chart, true);
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
@@ -336,13 +317,19 @@ public class StationDetailsPlotsHumidity extends AppCompatActivity implements Se
             set_humidity.setAxisDependency(YAxis.AxisDependency.LEFT);
             set_humidity.setColor(ColorTemplate.getHoloBlue());
             set_humidity.setValueTextColor(ColorTemplate.getHoloBlue());
-            set_humidity.setLineWidth(3.5f);
-            set_humidity.setDrawCircles(true);
+            set_humidity.setMode(LineDataSet.Mode.CUBIC_BEZIER);     // smooth line with slightly rounded corners
+            set_humidity.setCubicIntensity(0.15f);
+            set_humidity.setLineWidth(2.5f);
+            set_humidity.setDrawCircles(false);
             set_humidity.setDrawValues(true);
             set_humidity.setFillAlpha(65);
             set_humidity.setFillColor(ColorTemplate.getHoloBlue());
             set_humidity.setHighLightColor(Color.rgb(244, 117, 117));
             set_humidity.setDrawCircleHole(false);
+
+            // round line joins and caps, so the line has no sharp spikes and notches
+            chart.getRenderer().getPaintRender().setStrokeJoin(Paint.Join.ROUND);
+            chart.getRenderer().getPaintRender().setStrokeCap(Paint.Cap.ROUND);
 
             // create a data object with the data sets
             LineData line_data = new LineData();

@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
+    <!-- plot with its text overlays, takes all space above the seek bar -->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <com.github.mikephil.charting.charts.LineChart
             android:id="@+id/chartPlotsWind"
@@ -55,17 +58,16 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="30sp" />
 
-        <SeekBar
-            android:id="@+id/seekBarPlotsWind"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:max="100" />
-
-
     </FrameLayout>
 
-</FrameLayout>
+    <!-- below the plot, so it doesn't cover the X axis -->
+    <SeekBar
+        android:id="@+id/seekBarPlotsWind"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:max="100" />
+
+</LinearLayout>

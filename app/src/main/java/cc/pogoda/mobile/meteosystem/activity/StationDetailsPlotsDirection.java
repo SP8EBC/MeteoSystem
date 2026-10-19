@@ -15,6 +15,8 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
@@ -29,6 +31,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import cc.pogoda.mobile.meteosystem.R;
+import cc.pogoda.mobile.meteosystem.activity.plot.HourlyXAxisRenderer;
 import cc.pogoda.mobile.meteosystem.activity.handler.PlotClickEvent;
 import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.dao.LastStationDataDao;
@@ -61,29 +64,6 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
     private static final int twenty_four_hours = 3600 * 24;
     private static final int three_days = 3600 * 24 * 3;
 
-
-    private static class ValueFormatter extends com.github.mikephil.charting.formatter.ValueFormatter {
-
-        @Override
-        public String getFormattedValue(float value) {
-
-            long millis = (long) value;
-
-            // the web service and the plot always stores the entries as UTC. So first convert epoch timestamp to the LocalDateTime
-            LocalDateTime utcDateTime = LocalDateTime.ofEpochSecond(millis / 1000, 0, ZoneOffset.UTC);
-
-            // and then shift to the user timezone for convinient display
-            ZonedDateTime localDateTime = utcDateTime.atZone(ZoneOffset.UTC).withZoneSameInstant(ZoneId.systemDefault());
-
-            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm");
-
-            /* format only the time to keep X axis clean */
-            return fmt.format(localDateTime);
-
-            //return dt;
-        }
-
-    }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -175,18 +155,16 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
-        xAxis.setTypeface(tfLight);
-        xAxis.setTextSize(10f);
+        xAxis.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.BOLD));
         xAxis.setTextColor(Color.WHITE);
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(true);
         xAxis.setTextColor(R.color.design_default_color_primary_dark);
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setGranularity(100f); // one hour
-        xAxis.setLabelRotationAngle(45.0f);
-        xAxis.setValueFormatter(new StationDetailsPlotsDirection.ValueFormatter());
-        xAxis.setTextSize(123.0f);
-        xAxis.setCenterAxisLabels(true);
+        xAxis.setTextSize(16.0f);    // library limits text size to 24dp
+        xAxis.setLabelRotationAngle(0.0f);
+
+        // major steps at the top of each hour
+        HourlyXAxisRenderer.install(chart, true);
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
@@ -294,24 +272,31 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
 
                 }
                 // and generate the set from it
-                set_wind_direction = new LineDataSet(narrowed_set, "Wind Speed");
+                set_wind_direction = new LineDataSet(narrowed_set, getString(R.string.wind_direction));
             }
             else {
                 // use 'values_wind_speed' directly as a whole
-                set_wind_direction = new LineDataSet(valuesWindDirection, "Wind Speed");
+                set_wind_direction = new LineDataSet(valuesWindDirection, getString(R.string.wind_direction));
             }
 
             // create a dataset and give it a type
             set_wind_direction.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set_wind_direction.setColor(ColorTemplate.getHoloBlue());
+            set_wind_direction.setColor(Color.TRANSPARENT);                 // no line between points, only dots
+            set_wind_direction.setCircleColor(ColorTemplate.getHoloBlue());
+            set_wind_direction.setCircleRadius(2.5f);
             set_wind_direction.setValueTextColor(ColorTemplate.getHoloBlue());
-            set_wind_direction.setLineWidth(3.5f);
             set_wind_direction.setDrawCircles(true);
             set_wind_direction.setDrawValues(true);
             set_wind_direction.setFillAlpha(65);
             set_wind_direction.setFillColor(ColorTemplate.getHoloBlue());
             set_wind_direction.setHighLightColor(Color.rgb(244, 117, 117));
             set_wind_direction.setDrawCircleHole(false);
+
+            // legend takes its colour from the (transparent) line, so provide it explicitly
+            chart.getLegend().setCustom(new LegendEntry[] {
+                    new LegendEntry(set_wind_direction.getLabel(), Legend.LegendForm.CIRCLE,
+                            Float.NaN, Float.NaN, null, ColorTemplate.getHoloBlue())
+            });
 
             // create a data object with the data sets
             LineData line_data = new LineData();

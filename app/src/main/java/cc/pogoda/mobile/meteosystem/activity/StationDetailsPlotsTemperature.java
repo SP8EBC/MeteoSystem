@@ -3,6 +3,7 @@ package cc.pogoda.mobile.meteosystem.activity;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.SeekBar;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import cc.pogoda.mobile.meteosystem.R;
+import cc.pogoda.mobile.meteosystem.activity.plot.HourlyXAxisRenderer;
 import cc.pogoda.mobile.meteosystem.activity.handler.PlotClickEvent;
 import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.dao.LastStationDataDao;
@@ -59,27 +61,6 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
     private static final int twelve_hours = 3600 * 12;
     private static final int twenty_four_hours = 3600 * 24;
     private static final int three_days = 3600 * 24 * 3;
-
-    private class ValueFormatter extends com.github.mikephil.charting.formatter.ValueFormatter {
-
-        @Override
-        public String getFormattedValue(float value) {
-
-            long millis = (long) value;
-
-            // the web service and the plot always stores the entries as UTC. So first convert epoch timestamp to the LocalDateTime
-            LocalDateTime utcDateTime = LocalDateTime.ofEpochSecond(millis / 1000, 0, ZoneOffset.UTC);
-
-            // and then shift to the user timezone for convinient display
-            ZonedDateTime localDateTime = utcDateTime.atZone(ZoneOffset.UTC).withZoneSameInstant(ZoneId.systemDefault());
-
-            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm");
-
-            /* format only the time to keep X axis clean */
-            return fmt.format(localDateTime);
-        }
-
-    }
 
     public StationDetailsPlotsTemperature() {
         valuesTemperature = new ArrayList<Entry>();
@@ -217,12 +198,12 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
 
             // create a dataset and give it a type
             set_temperature.setMode(LineDataSet.Mode.CUBIC_BEZIER); // filled area instead of only line with points
-            set_temperature.setCubicIntensity(0.2f);
+            set_temperature.setCubicIntensity(0.15f);
             set_temperature.setDrawFilled(true);
             set_temperature.setAxisDependency(YAxis.AxisDependency.LEFT);
             set_temperature.setColor(ColorTemplate.getHoloBlue());
             set_temperature.setValueTextColor(ColorTemplate.getHoloBlue());
-            set_temperature.setLineWidth(3.5f);
+            set_temperature.setLineWidth(2.5f);
             set_temperature.setDrawCircles(false);
             set_temperature.setDrawValues(true);
             set_temperature.setFillAlpha(65);
@@ -232,6 +213,10 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
             set_temperature.setFillFormatter((dataSet, dataProvider) -> 0.0f);  // set this to draw an area between
                                                                                 // the line and zero axis
 
+
+            // round line joins and caps, so the line has no sharp spikes and notches
+            chart.getRenderer().getPaintRender().setStrokeJoin(Paint.Join.ROUND);
+            chart.getRenderer().getPaintRender().setStrokeCap(Paint.Cap.ROUND);
 
             // create a data object with the data sets
             LineData line_data = new LineData();
@@ -305,18 +290,16 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
-        xAxis.setTypeface(Typeface.MONOSPACE);
-        xAxis.setTextSize(10f);
+        xAxis.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.BOLD));
         xAxis.setTextColor(Color.WHITE);
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(true);
         xAxis.setTextColor(R.color.design_default_color_primary_dark);
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setGranularity(1f); // one hour
-        xAxis.setValueFormatter(new StationDetailsPlotsTemperature.ValueFormatter());
-        xAxis.setTextSize(123.0f);
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setLabelRotationAngle(45.0f);
+        xAxis.setTextSize(16.0f);    // library limits text size to 24dp
+        xAxis.setLabelRotationAngle(0.0f);
+
+        // major steps at the top of each hour
+        HourlyXAxisRenderer.install(chart, true);
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);

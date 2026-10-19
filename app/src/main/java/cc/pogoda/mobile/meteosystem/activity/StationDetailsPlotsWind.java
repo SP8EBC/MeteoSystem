@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -12,6 +13,8 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -30,6 +33,9 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import cc.pogoda.mobile.meteosystem.R;
+import cc.pogoda.mobile.meteosystem.activity.plot.CrossLineDataSet;
+import cc.pogoda.mobile.meteosystem.activity.plot.CrossMarkerLineChartRenderer;
+import cc.pogoda.mobile.meteosystem.activity.plot.HourlyXAxisRenderer;
 import cc.pogoda.mobile.meteosystem.activity.handler.PlotClickEvent;
 import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.dao.LastStationDataDao;
@@ -56,6 +62,13 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
     private ArrayList<Entry> valuesWindSpeed;
     private ArrayList<Entry> valuesWindGusts;
 
+    // moving average of 'valuesWindSpeed' and 'valuesWindGusts', one entry per each measurement
+    private ArrayList<Entry> trendWindSpeed;
+    private ArrayList<Entry> trendWindGusts;
+
+    // width of the time window used to calculate the trend, centered on each measurement
+    private static final long TREND_WINDOW_MILLIS = 3600 * 1000;
+
     private int dataLn = -2;
 
     private static final int twelve_hours = 3600 * 12;
@@ -64,27 +77,6 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
 
     public ArrayList<Entry> getValuesWindSpeed() {
         return valuesWindSpeed;
-    }
-
-    private class ValueFormatter extends com.github.mikephil.charting.formatter.ValueFormatter {
-
-        @Override
-        public String getFormattedValue(float value) {
-
-            long millis = (long) value;
-
-            // the web service and the plot always stores the entries as UTC. So first convert epoch timestamp to the LocalDateTime
-            LocalDateTime utcDateTime = LocalDateTime.ofEpochSecond(millis / 1000, 0, ZoneOffset.UTC);
-
-            // and then shift to the user timezone for convinient display
-            ZonedDateTime localDateTime = utcDateTime.atZone(ZoneOffset.UTC).withZoneSameInstant(ZoneId.systemDefault());
-
-            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("HH:mm");
-
-            /* format only the time to keep X axis clean */
-            return fmt.format(localDateTime);
-        }
-
     }
 
     public StationDetailsPlotsWind() {
@@ -148,19 +140,19 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
 
         XAxis xAxis = chart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM_INSIDE);
-        xAxis.setTypeface(tfLight);
-        xAxis.setTextSize(10f);
+        xAxis.setTypeface(Typeface.create(Typeface.MONOSPACE, Typeface.BOLD));
         xAxis.setTextColor(Color.WHITE);
         xAxis.setDrawAxisLine(false);
         xAxis.setDrawGridLines(true);
         xAxis.setTextColor(R.color.design_default_color_primary_dark);
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setGranularity(1f); // one hour
-        xAxis.setValueFormatter(new ValueFormatter());
-        xAxis.setLabelRotationAngle(45.0f);
-        xAxis.setTextSize(123.0f);
-        xAxis.setCenterAxisLabels(true);
-        xAxis.setLabelRotationAngle(45.0f);
+        xAxis.setTextSize(16.0f);    // library limits text size to 24dp
+        xAxis.setLabelRotationAngle(0.0f);
+
+        // major steps at the top of each hour
+        HourlyXAxisRenderer.install(chart, true);
+
+        // draws wind gusts as small crosses
+        CrossMarkerLineChartRenderer.install(chart);
 
         YAxis leftAxis = chart.getAxisLeft();
         leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
@@ -250,6 +242,39 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
             }
         }
 
+        trendWindSpeed = calculateTrend(valuesWindSpeed);
+        trendWindGusts = calculateTrend(valuesWindGusts);
+    }
+
+    /**
+     * Calculates the trend as a moving average over 'TREND_WINDOW_MILLIS' centered on each entry.
+     * @param values input entries, sorted by the timestamp
+     * @return list of the same size as the input, with the same X values
+     */
+    private static ArrayList<Entry> calculateTrend(ArrayList<Entry> values) {
+        ArrayList<Entry> out = new ArrayList<>(values.size());
+
+        // indexes of the first and one past the last entry within the window, and the sum of values between them
+        int windowStart = 0, windowEnd = 0;
+        double sum = 0.0;
+
+        for (Entry e : values) {
+            double x = e.getX();
+
+            while (windowEnd < values.size() && values.get(windowEnd).getX() <= x + TREND_WINDOW_MILLIS / 2.0) {
+                sum += values.get(windowEnd).getY();
+                windowEnd++;
+            }
+
+            while (values.get(windowStart).getX() < x - TREND_WINDOW_MILLIS / 2.0) {
+                sum -= values.get(windowStart).getY();
+                windowStart++;
+            }
+
+            out.add(new Entry(e.getX(), (float) (sum / (windowEnd - windowStart))));
+        }
+
+        return out;
     }
 
     /**
@@ -307,10 +332,10 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
     public void setData(long from, long to, boolean index_or_timestamp) {
 
         // if only some part of input set needs to be displayed use this intermediate buffer
-        ArrayList<Entry> narrowed_set, narrowed_set_gusts;
+        ArrayList<Entry> narrowed_set, narrowed_set_gusts, narrowed_trend, narrowed_trend_gusts;
 
-        // data set to be
-        LineDataSet set_windspeed, set_windgusts;
+        // data set to be: measurements displayed as dots and trends displayed as lines
+        LineDataSet set_windspeed, set_windgusts, set_windspeed_trend, set_windgusts_trend;
 
 
         if (valuesWindSpeed.size() > 0) {
@@ -322,6 +347,8 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
                     // make a sublist
                     narrowed_set = new ArrayList<>(valuesWindSpeed.subList((int)from, (int)to));
                     narrowed_set_gusts = new ArrayList<>(valuesWindGusts.subList((int)from, (int)to));
+                    narrowed_trend = new ArrayList<>(trendWindSpeed.subList((int)from, (int)to));
+                    narrowed_trend_gusts = new ArrayList<>(trendWindGusts.subList((int)from, (int)to));
 
                 }
                 else {
@@ -339,6 +366,8 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
                     else {
                         narrowed_set = new ArrayList<>();
                         narrowed_set_gusts = new ArrayList<>();
+                        narrowed_trend = new ArrayList<>();
+                        narrowed_trend_gusts = new ArrayList<>();
 
                         // if not copy matching elements to narrowed set
                         valuesWindSpeed.forEach((Entry e) -> {
@@ -355,48 +384,68 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
                             }
                         });
 
+                        trendWindSpeed.forEach((Entry e) -> {
+                            if (e.getX() > (from * 1000) &&
+                                    e.getX() < (to * 1000)) {
+                                narrowed_trend.add(e);
+                            }
+                        });
+
+                        trendWindGusts.forEach((Entry e) -> {
+                            if (e.getX() > (from * 1000) &&
+                                    e.getX() < (to * 1000)) {
+                                narrowed_trend_gusts.add(e);
+                            }
+                        });
+
 
                     }
 
                 }
                 // and generate the set from it
                 set_windspeed = new LineDataSet(narrowed_set, "Wind Speed");
-                set_windgusts = new LineDataSet(narrowed_set_gusts, "Wind Gusts");
+                set_windgusts = new CrossLineDataSet(narrowed_set_gusts, "Wind Gusts");
+                set_windspeed_trend = new LineDataSet(narrowed_trend, "Wind Speed trend");
+                set_windgusts_trend = new LineDataSet(narrowed_trend_gusts, "Wind Gusts trend");
             }
             else {
                 // use 'values_wind_speed' directly as a whole
                 set_windspeed = new LineDataSet(valuesWindSpeed, "Wind Speed");
-                set_windgusts = new LineDataSet(valuesWindGusts, "Wind Gusts");
+                set_windgusts = new CrossLineDataSet(valuesWindGusts, "Wind Gusts");
+                set_windspeed_trend = new LineDataSet(trendWindSpeed, "Wind Speed trend");
+                set_windgusts_trend = new LineDataSet(trendWindGusts, "Wind Gusts trend");
             }
 
-            // create a dataset and give it a type
-            set_windspeed.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set_windspeed.setColor(ColorTemplate.getHoloBlue());
-            set_windspeed.setValueTextColor(ColorTemplate.getHoloBlue());
-            set_windspeed.setLineWidth(3.5f);
-            set_windspeed.setDrawCircles(true);
-            set_windspeed.setDrawValues(true);
-            set_windspeed.setFillAlpha(65);
-            set_windspeed.setFillColor(ColorTemplate.getHoloBlue());
-            set_windspeed.setHighLightColor(Color.rgb(244, 117, 117));
-            set_windspeed.setDrawCircleHole(false);
+            // measurements as single, unconnected dots. The line itself is transparent
+            setupDots(set_windspeed, ColorTemplate.getHoloBlue(), Color.rgb(244, 117, 117));
+            setupDots(set_windgusts, ColorTemplate.rgb("#C70039"), ColorTemplate.rgb("#C70039"));
 
-            set_windgusts.setAxisDependency(YAxis.AxisDependency.LEFT);
-            set_windgusts.setColor(ColorTemplate.rgb("#C70039"));
-            set_windgusts.setCircleColor(ColorTemplate.rgb("#C70039"));
-            set_windgusts.setValueTextColor(ColorTemplate.getHoloBlue());
-            set_windgusts.setLineWidth(3.5f);
-            set_windgusts.setDrawCircles(true);
-            set_windgusts.setDrawValues(true);
-            set_windgusts.setFillAlpha(65);
-            set_windgusts.setFillColor(ColorTemplate.rgb("#C70039"));
-            set_windgusts.setHighLightColor(ColorTemplate.rgb("#C70039"));
-            set_windgusts.setDrawCircleHole(false);
+            // gusts as small crosses instead of dots, drawn by CrossMarkerLineChartRenderer
+            set_windgusts.setDrawCircles(false);
+            set_windgusts.setCircleRadius(3.0f);
 
-            // create a data object with the data sets
+            // trends as smooth lines
+            setupTrend(set_windspeed_trend, ColorTemplate.getHoloBlue(), Color.rgb(244, 117, 117));
+            setupTrend(set_windgusts_trend, ColorTemplate.rgb("#C70039"), ColorTemplate.rgb("#C70039"));
+
+            // round line joins and caps, so the line has no sharp spikes and notches
+            chart.getRenderer().getPaintRender().setStrokeJoin(Paint.Join.ROUND);
+            chart.getRenderer().getPaintRender().setStrokeCap(Paint.Cap.ROUND);
+
+            // legend would show four entries, two of them with the transparent colour
+            chart.getLegend().setCustom(new LegendEntry[] {
+                    new LegendEntry(set_windspeed.getLabel(), Legend.LegendForm.CIRCLE,
+                            Float.NaN, Float.NaN, null, ColorTemplate.getHoloBlue()),
+                    new LegendEntry(set_windgusts.getLabel(), Legend.LegendForm.CIRCLE,
+                            Float.NaN, Float.NaN, null, ColorTemplate.rgb("#C70039"))
+            });
+
+            // create a data object with the data sets, trend lines are drawn on top of the dots
             LineData line_data = new LineData();
             line_data.addDataSet(set_windspeed);
             line_data.addDataSet(set_windgusts);
+            line_data.addDataSet(set_windspeed_trend);
+            line_data.addDataSet(set_windgusts_trend);
             line_data.setValueTextColor(Color.WHITE);
             line_data.setValueTextSize(9f);
 
@@ -406,6 +455,35 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
             chart.setOnChartValueSelectedListener(plotClickEvent);
         }
 
+    }
+
+    /**
+     * Configures the data set to display measurements as single, unconnected dots
+     */
+    private static void setupDots(LineDataSet set, int color, int highlightColor) {
+        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        set.setColor(Color.TRANSPARENT);
+        set.setCircleColor(color);
+        set.setCircleRadius(2.5f);
+        set.setDrawCircles(true);
+        set.setDrawCircleHole(false);
+        set.setValueTextColor(ColorTemplate.getHoloBlue());
+        set.setDrawValues(true);
+        set.setHighLightColor(highlightColor);
+    }
+
+    /**
+     * Configures the data set to display the trend as a smooth line
+     */
+    private static void setupTrend(LineDataSet set, int color, int highlightColor) {
+        set.setAxisDependency(YAxis.AxisDependency.LEFT);
+        set.setMode(LineDataSet.Mode.CUBIC_BEZIER);     // smooth line with slightly rounded corners
+        set.setCubicIntensity(0.15f);
+        set.setColor(color);
+        set.setLineWidth(2.5f);
+        set.setDrawCircles(false);
+        set.setDrawValues(false);
+        set.setHighLightColor(highlightColor);
     }
 
     @Override
