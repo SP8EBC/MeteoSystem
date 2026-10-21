@@ -1,210 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/summary_screen_background"
+    android:fillViewport="true"
     tools:context=".activity.StationDetailsSummaryActivity">
 
-
-    <TextView
-        android:id="@+id/textViewStationDetailsSummaryTitle"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/alegreya_sans_sc_medium"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical"
+        android:padding="12dp">
 
+        <!-- station name and temperature -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/summary_box"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewTemperatureCaption"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:paddingTop="30dp"
-        android:text="@string/temperature"
-        android:textSize="18sp" />
+            <TextView
+                android:id="@+id/textViewStationDetailsSummaryTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alegreya_sans_sc_medium"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="@color/summary_text"
+                android:textSize="36sp" />
 
-    <TextView
-        android:id="@+id/textViewTemperatureValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/please_wait"
-        android:textAlignment="center"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewStationDetailsSummaryTitle" />
+            <TextView
+                android:id="@+id/textViewTemperatureValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/please_wait"
+                android:textAlignment="center"
+                android:textColor="@color/summary_text"
+                android:textSize="50sp" />
 
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewWinddirCaption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/alegreya_sans_sc_medium"
-        android:paddingTop="30dp"
-        android:scrollHorizontally="true"
-        android:text="@string/wind_direction"
-        android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/textViewWinddirValue"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/textViewTemperatureCaption"
-        app:layout_constraintTop_toTopOf="@+id/textViewWinddirValue" />
+        <!-- remaining parameters: captions in the left column, values in the right one -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/summary_box"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textViewWinddirValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="---"
-        android:textAlignment="center"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTemperatureValue" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
+                    <TextView
+                        android:id="@+id/textViewWinddirCaption"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/alegreya_sans_sc_medium"
+                        android:text="@string/wind_direction"
+                        android:textColor="@color/summary_text"
+                        android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/textViewWindSpeedCaption"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/alegreya_sans_sc_medium"
-        android:paddingTop="30dp"
-        android:scrollHorizontally="true"
-        android:text="@string/wind_speed"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/textViewWindSpeedValue"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewWindSpeedValue" />
+                    <TextView
+                        android:id="@+id/textViewWinddirValue"
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="---"
+                        android:textColor="@color/summary_text"
+                        app:autoSizeMaxTextSize="40sp"
+                        app:autoSizeMinTextSize="16sp"
+                        app:autoSizeTextType="uniform" />
 
-    <TextView
-        android:id="@+id/textViewWindSpeedValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="---"
-        android:textAlignment="center"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/textViewWindSpeedCaption"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWinddirValue" />
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewWindGusts"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/alegreya_sans_sc_medium"
-        android:paddingTop="30dp"
-        android:scrollHorizontally="true"
-        android:text="@string/wind_gusts"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/textViewWindGustsValue"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewWindGustsValue" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-    <TextView
-        android:id="@+id/textViewWindGustsValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="---"
-        android:textAlignment="center"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWindSpeedValue" />
+                    <TextView
+                        android:id="@+id/textViewWindSpeedCaption"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/alegreya_sans_sc_medium"
+                        android:text="@string/wind_speed"
+                        android:textColor="@color/summary_text"
+                        android:textSize="18sp" />
 
+                    <TextView
+                        android:id="@+id/textViewWindSpeedValue"
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="---"
+                        android:textColor="@color/summary_text"
+                        app:autoSizeMaxTextSize="40sp"
+                        app:autoSizeMinTextSize="16sp"
+                        app:autoSizeTextType="uniform" />
 
-    <TextView
-        android:id="@+id/textViewQnh"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/alegreya_sans_sc_medium"
-        android:paddingTop="30dp"
-        android:text="@string/qnh"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/textViewQnhVaue"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewQnhVaue" />
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/textViewQnhVaue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="---"
-        android:textAlignment="center"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWindGustsValue" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
+                    <TextView
+                        android:id="@+id/textViewWindGusts"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/alegreya_sans_sc_medium"
+                        android:text="@string/wind_gusts"
+                        android:textColor="@color/summary_text"
+                        android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/textViewHumidity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/alegreya_sans_sc_medium"
-        android:paddingTop="30dp"
-        android:text="@string/humidity"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toStartOf="@+id/textViewHumidityValue"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewHumidityValue" />
+                    <TextView
+                        android:id="@+id/textViewWindGustsValue"
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="---"
+                        android:textColor="@color/summary_text"
+                        app:autoSizeMaxTextSize="40sp"
+                        app:autoSizeMinTextSize="16sp"
+                        app:autoSizeTextType="uniform" />
 
-    <TextView
-        android:id="@+id/textViewHumidityValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="---"
-        android:textAlignment="center"
-        android:textSize="50sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewQnhVaue" />
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-    <TextView
-        android:id="@+id/textViewSummaryMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:scrollIndicators="right"
-        android:scrollHorizontally="true"
-        android:text="@string/auto_refresh"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewHumidityValue" />
+                    <TextView
+                        android:id="@+id/textViewQnh"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/alegreya_sans_sc_medium"
+                        android:text="@string/qnh"
+                        android:textColor="@color/summary_text"
+                        android:textSize="18sp" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="66dp"
-        app:layout_constraintEnd_toEndOf="@+id/textViewHumidityValue"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textViewHumidity">
+                    <TextView
+                        android:id="@+id/textViewQnhVaue"
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="---"
+                        android:textColor="@color/summary_text"
+                        app:autoSizeMaxTextSize="40sp"
+                        app:autoSizeMinTextSize="16sp"
+                        app:autoSizeTextType="uniform" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                    <TextView
+                        android:id="@+id/textViewHumidity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/alegreya_sans_sc_medium"
+                        android:text="@string/humidity"
+                        android:textColor="@color/summary_text"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textViewHumidityValue"
+                        android:layout_width="0dp"
+                        android:layout_height="56dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:maxLines="1"
+                        android:text="---"
+                        android:textColor="@color/summary_text"
+                        app:autoSizeMaxTextSize="40sp"
+                        app:autoSizeMinTextSize="16sp"
+                        app:autoSizeTextType="uniform" />
+
+                </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewSummaryMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/auto_refresh"
+            android:textAlignment="center"
+            android:textColor="@color/summary_text"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</ScrollView>

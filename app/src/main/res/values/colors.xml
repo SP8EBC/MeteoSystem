@@ -12,4 +12,9 @@
     <color name="blue">#56039BE5</color>
     <color name="dark_blue">#1E88E5</color>
     <color name="ic_launcher_icon_background">#FFFFFFFF</color>
+
+    <!-- station summary boxes, inverted in res/values-night -->
+    <color name="summary_screen_background">#ECEFF1</color>
+    <color name="summary_box_background">#FFFFFFFF</color>
+    <color name="summary_text">#FF000000</color>
 </resources>

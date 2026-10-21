@@ -48,7 +48,8 @@ public class StationDetailsSummaryActivity extends AppCompatActivity {
 
         elems = new StationSummaryActElements();
 
-        int color = main.getThemeColours().colorOnSecondary;
+        // values are displayed on boxes which are white, or black in the dark theme
+        int color = ContextCompat.getColor(this, R.color.summary_text);
 
         Summary summary = null;
         SummaryDao summary_dao = new SummaryDao();

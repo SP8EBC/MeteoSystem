@@ -103,7 +103,7 @@ public class StationSummaryActElements implements StationActivityElements {
         if (duration.getSeconds() < 7200) {
             // if the last data is no older than 2 hours
             message.setText(R.string.auto_refresh);
-            message.setTextColor(Color.BLACK);
+            message.setTextColor(goodColor != 0 ? goodColor : Color.BLACK);
         }
         else {
             message.setText(R.string.station_not_comm);

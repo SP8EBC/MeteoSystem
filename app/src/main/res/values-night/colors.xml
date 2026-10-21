@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- station summary boxes, inverted colours of these in res/values -->
+    <color name="summary_screen_background">#FF303030</color>
+    <color name="summary_box_background">#FF000000</color>
+    <color name="summary_text">#FFFFFFFF</color>
+</resources>
