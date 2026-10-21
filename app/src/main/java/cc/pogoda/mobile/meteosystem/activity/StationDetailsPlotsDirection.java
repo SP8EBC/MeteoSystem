@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -212,6 +213,7 @@ public class StationDetailsPlotsDirection extends AppCompatActivity implements S
         if (this.textViewSpeed != null && this.textViewTimestamp != null) {
             this.textViewTimestamp.setText(date);
             this.textViewSpeed.setText(getString(R.string.wind_direction_short) + String.format(": %d - ", (int)direction) + StationSummaryActElements.convertDegreesToDir((int) direction));
+            this.textViewSpeed.setVisibility(View.VISIBLE);
         }
         else {
             return;

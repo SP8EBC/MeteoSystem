@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -128,6 +129,7 @@ public class StationDetailsPlotsTemperature extends AppCompatActivity implements
         if (this.textViewSpeed != null && this.textViewTimestamp != null) {
             this.textViewTimestamp.setText(date);
             this.textViewSpeed.setText(getString(R.string.temperature) + String.format(": %.1f°C", temperature).replace(',', '.'));
+            this.textViewSpeed.setVisibility(View.VISIBLE);
         }
         else {
             return;

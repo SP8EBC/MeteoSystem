@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -119,6 +120,7 @@ public class StationDetailsPlotsHumidity extends AppCompatActivity implements Se
         if (this.textViewHumidity != null && this.textViewTimestamp != null) {
             this.textViewTimestamp.setText(date);
             this.textViewHumidity.setText(getText(R.string.humidity) + String.format(": %d%%", humidity));
+            this.textViewHumidity.setVisibility(View.VISIBLE);
         }
         else {
             return;

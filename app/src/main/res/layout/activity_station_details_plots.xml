@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <!-- plot with its text overlays, takes all space above the seek bar -->
+    <!-- plot with the box showing values of the selected point, takes all space above the seek bar.
+         Single-series plots use only the timestamp and the first value line -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -16,47 +18,72 @@
             android:layout_height="match_parent"
             android:layout_gravity="top|left" />
 
-        <TextView
-            android:id="@+id/textViewPlotsWindTimestamp"
+        <!-- the box takes 2/3 of the width, with equal margins on both sides -->
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_gravity="top|left"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="15dp"
-            android:gravity="right"
-            android:text="@string/click_on_plot"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="24sp" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="top"
+            android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:weightSum="3">
 
-        <TextView
-            android:id="@+id/textViewPlotsWindMean"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="left"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="15dp"
-            android:gravity="right"
-            android:textAlignment="textStart"
-            android:textAllCaps="false"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="30sp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:background="@drawable/plot_label_box"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textViewPlotsWindGusts"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="left"
-            android:layout_marginTop="40dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="15dp"
-            android:gravity="right"
-            android:textAlignment="textEnd"
-            android:textAllCaps="false"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="30sp" />
+                <TextView
+                    android:id="@+id/textViewPlotsWindTimestamp"
+                    android:layout_width="match_parent"
+                    android:layout_height="28dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/alegreya_sans_sc_medium"
+                    android:maxLines="1"
+                    android:text="@string/click_on_plot"
+                    android:textAllCaps="true"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/black"
+                    app:autoSizeMaxTextSize="18sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeTextType="uniform" />
+
+                <TextView
+                    android:id="@+id/textViewPlotsWindMean"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/alegreya_sans_sc_medium"
+                    android:maxLines="1"
+                    android:textAllCaps="false"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/black"
+                    android:visibility="gone"
+                    app:autoSizeMaxTextSize="24sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeTextType="uniform" />
+
+                <TextView
+                    android:id="@+id/textViewPlotsWindGusts"
+                    android:layout_width="match_parent"
+                    android:layout_height="35dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/alegreya_sans_sc_medium"
+                    android:maxLines="1"
+                    android:textAllCaps="false"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@android:color/black"
+                    android:visibility="gone"
+                    app:autoSizeMaxTextSize="24sp"
+                    app:autoSizeMinTextSize="9sp"
+                    app:autoSizeTextType="uniform" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
     </FrameLayout>
 

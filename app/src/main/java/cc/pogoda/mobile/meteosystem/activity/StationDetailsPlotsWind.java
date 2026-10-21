@@ -8,7 +8,11 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -27,6 +31,7 @@ import org.threeten.bp.ZoneId;
 import org.threeten.bp.ZoneOffset;
 import org.threeten.bp.ZonedDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.format.FormatStyle;
 import org.tinylog.Logger;
 
 import java.util.ArrayList;
@@ -61,6 +66,10 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
 
     private ArrayList<Entry> valuesWindSpeed;
     private ArrayList<Entry> valuesWindGusts;
+
+    // exact epoch timestamps (in seconds) of the measurements, one per entry in 'valuesWindSpeed'.
+    // X values of the entries are floats and in milliseconds, so they are only accurate to about two minutes
+    private ArrayList<Long> valuesEpoch;
 
     // moving average of 'valuesWindSpeed' and 'valuesWindGusts', one entry per each measurement
     private ArrayList<Entry> trendWindSpeed;
@@ -231,6 +240,7 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
 
         valuesWindSpeed = new ArrayList<>();
         valuesWindGusts = new ArrayList<>();
+        valuesEpoch = new ArrayList<>();
 
         if (data instanceof  ListOfStationData) {
 
@@ -239,6 +249,7 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
             for (StationData d : data.list_of_station_data) {
                 valuesWindSpeed.add(new Entry(d.epoch * 1000, d.windspeed));
                 valuesWindGusts.add(new Entry(d.epoch * 1000, d.windgusts));
+                valuesEpoch.add(d.epoch);
             }
         }
 
@@ -278,13 +289,39 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
     }
 
     /**
-     * Updates labels placed at the top of the chart with values at the point selected by an user.
+     * Finds an index of the measurement corresponding to the entry selected by an user. The entry may come
+     * from any of the data sets displayed on the plot, including trend lines.
+     * @param entry selected entry
+     * @return index in 'valuesWindSpeed', 'valuesWindGusts' and 'valuesEpoch', or -1 if there is no data
+     */
+    private int findMeasurementIndex(Entry entry) {
+        int closest = -1;
+        float closestDistance = Float.MAX_VALUE;
+
+        for (int i = 0; i < valuesWindSpeed.size(); i++) {
+            // all data sets share the same order, so the exact entry identifies the measurement
+            if (valuesWindSpeed.get(i) == entry || valuesWindGusts.get(i) == entry ||
+                    trendWindSpeed.get(i) == entry || trendWindGusts.get(i) == entry) {
+                return i;
+            }
+
+            float distance = Math.abs(valuesWindSpeed.get(i).getX() - entry.getX());
+
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closest = i;
+            }
+        }
+
+        return closest;
+    }
+
+    /**
+     * Updates the box placed at the top of the chart with values at the point selected by an user. Values
+     * are always taken from the measurements, never from the trend lines.
      * @param date  Date & time string in local timezone
      */
     public void updateLabels(String date, Entry entry) {
-        float mean = 0.0f;
-        float gusts = 0.0f;
-
         String unit;
 
         if (AppConfiguration.replaceMsWithKnots) {
@@ -294,32 +331,38 @@ public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBa
             unit = getString(R.string.meters_per_second);
         }
 
-        // get a timestamp from the entry
-        long timestamp = (long) entry.getX();
+        int index = findMeasurementIndex(entry);
 
-        // look for the windspeed coresponding to that timestamp
-        for (Entry e : valuesWindSpeed) {
-            // if this is what we are looking for
-            if (e.getX() == entry.getX()) {
-                mean = e.getY();
-            }
-        }
-
-        for (Entry e : valuesWindGusts) {
-
-            if (e.getX() == entry.getX()) {
-                gusts = e.getY();
-            }
-        }
-
-        if (this.textViewGusts != null && this.textViewSpeed != null && this.textViewTimestamp != null) {
-            this.textViewTimestamp.setText(date);
-            this.textViewSpeed.setText(getString(R.string.mean_value_short) + String.format(": %.1f%s", mean, unit).replace(',', '.'));
-            this.textViewGusts.setText(getString(R.string.wind_gust_short) + String.format(": %.1f%s", gusts, unit).replace(',', '.'));
-        }
-        else {
+        if (index < 0 || this.textViewGusts == null || this.textViewSpeed == null || this.textViewTimestamp == null) {
             return;
         }
+
+        float mean = valuesWindSpeed.get(index).getY();
+        float gusts = valuesWindGusts.get(index).getY();
+
+        // format the exact timestamp of the measurement in the user timezone, the same way as 'PlotClickEvent' does
+        ZonedDateTime localDateTime = LocalDateTime.ofEpochSecond(valuesEpoch.get(index), 0, ZoneOffset.UTC)
+                .atZone(ZoneOffset.UTC).withZoneSameInstant(ZoneId.systemDefault());
+        date = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.SHORT).format(localDateTime);
+
+        this.textViewTimestamp.setText(date);
+        this.textViewSpeed.setText(withColorDot(ColorTemplate.getHoloBlue(),
+                getString(R.string.mean_value_short) + String.format(": %.1f%s", mean, unit).replace(',', '.')));
+        this.textViewGusts.setText(withColorDot(ColorTemplate.rgb("#C70039"),
+                getString(R.string.wind_gust_short) + String.format(": %.1f%s", gusts, unit).replace(',', '.')));
+        this.textViewSpeed.setVisibility(View.VISIBLE);
+        this.textViewGusts.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * Prepends a dot in the colour of the data set on the plot, so it works as a legend
+     */
+    private static CharSequence withColorDot(int color, String text) {
+        SpannableStringBuilder out = new SpannableStringBuilder("\u25CF ");
+        out.setSpan(new ForegroundColorSpan(color), 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        out.append(text);
+
+        return out;
     }
 
     /**
