@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavArgument;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDirections;
@@ -24,7 +23,7 @@ import cc.pogoda.mobile.meteosystem.activity.trend.temperature.TemperatureTrendF
 import cc.pogoda.mobile.meteosystem.activity.trend.wind.WindTrendFragmentDirections;
 import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 
-public class TrendActivity extends AppCompatActivity {
+public class TrendActivity extends ToolbarActivity {
 
     public static String getStation() {
         return station;

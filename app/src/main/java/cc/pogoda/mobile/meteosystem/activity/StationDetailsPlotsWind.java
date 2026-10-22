@@ -1,6 +1,5 @@
 package cc.pogoda.mobile.meteosystem.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -50,7 +49,7 @@ import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 import cc.pogoda.mobile.meteosystem.type.web.ListOfStationData;
 import cc.pogoda.mobile.meteosystem.type.web.StationData;
 
-public class StationDetailsPlotsWind extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, StationDetailsPlot {
+public class StationDetailsPlotsWind extends ToolbarActivity implements SeekBar.OnSeekBarChangeListener, StationDetailsPlot {
 
     private LineChart chart = null;
     private SeekBar seekBarX = null;

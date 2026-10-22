@@ -40,7 +40,7 @@ import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 import cc.pogoda.mobile.meteosystem.type.WeatherStationListEvent;
 import cc.pogoda.mobile.meteosystem.web.StationBackgroundDownloader;
 
-public class StationDetailsActivity extends AppCompatActivity {
+public class StationDetailsActivity extends ToolbarActivity {
 
     WeatherStation station;
 

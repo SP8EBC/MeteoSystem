@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -43,7 +42,7 @@ import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 import cc.pogoda.mobile.meteosystem.type.web.ListOfStationData;
 import cc.pogoda.mobile.meteosystem.type.web.StationData;
 
-public class StationDetailsPlotsDirection extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener, StationDetailsPlot {
+public class StationDetailsPlotsDirection extends ToolbarActivity implements SeekBar.OnSeekBarChangeListener, StationDetailsPlot {
 
     private LineChart chart = null;
     private SeekBar seekBarX = null;

@@ -1,6 +1,5 @@
 package cc.pogoda.mobile.meteosystem.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -18,7 +17,7 @@ import cc.pogoda.mobile.meteosystem.type.StationWindRoseActElements;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 import cc.pogoda.mobile.meteosystem.type.web.Summary;
 
-public class StationDetailsWindRoseActivity extends AppCompatActivity {
+public class StationDetailsWindRoseActivity extends ToolbarActivity {
 
     WeatherStation station;
 

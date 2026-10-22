@@ -1,7 +1,6 @@
 package cc.pogoda.mobile.meteosystem.activity;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -34,7 +33,7 @@ import cc.pogoda.mobile.meteosystem.type.ParceableStationsList;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 import cc.pogoda.mobile.meteosystem.type.web.ListOfStationData;
 
-public class ExportDataActivity extends AppCompatActivity {
+public class ExportDataActivity extends ToolbarActivity {
 
     private Spinner formatSpinner;
 

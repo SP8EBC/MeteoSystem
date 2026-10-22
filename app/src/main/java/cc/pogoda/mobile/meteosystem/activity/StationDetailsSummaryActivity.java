@@ -1,6 +1,5 @@
 package cc.pogoda.mobile.meteosystem.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.res.Configuration;
@@ -25,7 +24,7 @@ import cc.pogoda.mobile.meteosystem.type.StationSummaryActElements;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 import cc.pogoda.mobile.meteosystem.type.web.Summary;
 
-public class StationDetailsSummaryActivity extends AppCompatActivity {
+public class StationDetailsSummaryActivity extends ToolbarActivity {
 
     StationSummaryActElements elems = null;
 

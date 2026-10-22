@@ -18,7 +18,6 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.color.MaterialColors;
 
@@ -40,7 +39,7 @@ import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.file.CopyLog;
 import cc.pogoda.mobile.meteosystem.type.ThemeColours;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends ToolbarActivity {
 
     private Main main;
 

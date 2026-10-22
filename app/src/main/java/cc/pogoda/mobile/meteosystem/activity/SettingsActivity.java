@@ -22,7 +22,7 @@ import cc.pogoda.mobile.meteosystem.R;
 import cc.pogoda.mobile.meteosystem.config.AppConfiguration;
 import cc.pogoda.mobile.meteosystem.file.ConfigurationFile;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends ToolbarActivity {
 
     Switch windspdUnitSwitch;
 

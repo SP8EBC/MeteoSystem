@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -36,7 +35,7 @@ import cc.pogoda.mobile.meteosystem.type.ParceableFavsCallReason;
 import cc.pogoda.mobile.meteosystem.type.StartStationsRefreshEvent;
 import cc.pogoda.mobile.meteosystem.type.WeatherStation;
 
-public class FavouritesActivity extends AppCompatActivity {
+public class FavouritesActivity extends ToolbarActivity {
 
     RecyclerView recyclerViewFavourites;
 
