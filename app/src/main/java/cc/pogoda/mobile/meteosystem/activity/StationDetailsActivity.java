@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ import org.tinylog.Logger;
 import java.util.Locale;
 
 import cc.pogoda.mobile.meteosystem.R;
+import cc.pogoda.mobile.meteosystem.activity.handler.StationDetailsActHistogramButtonClickEvent;
 import cc.pogoda.mobile.meteosystem.activity.handler.StationDetailsActHumidityPlotButtonClickEvent;
 import cc.pogoda.mobile.meteosystem.activity.handler.StationDetailsActTemperaturePlotButtonClickEvent;
 import cc.pogoda.mobile.meteosystem.activity.handler.StationDetailsActTrendButtonClickEvent;
@@ -57,6 +59,7 @@ public class StationDetailsActivity extends ToolbarActivity {
     ImageButton humidityButton = null;
     ImageButton windRoseButton = null;
     ImageButton trendButton = null;
+    Button histogramButton = null;
 
     ImageView topBackground = null;
 
@@ -79,6 +82,8 @@ public class StationDetailsActivity extends ToolbarActivity {
     StationDetailsActHumidityPlotButtonClickEvent humidityPlotButtonClickEvent = null;
 
     StationDetailsActTrendButtonClickEvent trendButtonClickEvent = null;
+
+    StationDetailsActHistogramButtonClickEvent histogramButtonClickEvent = null;
 
     /**
      *
@@ -216,6 +221,7 @@ public class StationDetailsActivity extends ToolbarActivity {
             humidityPlotButtonClickEvent = new StationDetailsActHumidityPlotButtonClickEvent(station, this);
             windRoseClickEvent = new StationDetailsActWindRoseButtonClickEvent(station, this);
             trendButtonClickEvent = new StationDetailsActTrendButtonClickEvent(station, this);
+            histogramButtonClickEvent = new StationDetailsActHistogramButtonClickEvent(station, this);
 
             summaryButton = findViewById(R.id.imageButtonFavourites);
             summaryButton.setOnClickListener(summaryClickEvent);
@@ -286,6 +292,9 @@ public class StationDetailsActivity extends ToolbarActivity {
 
             trendButton = findViewById(R.id.imageButtonTrend);
             trendButton.setOnClickListener(trendButtonClickEvent);
+
+            histogramButton = findViewById(R.id.buttonHistogram);
+            histogramButton.setOnClickListener(histogramButtonClickEvent);
 
             topBackground = findViewById(R.id.imageViewStationPng);
             switch (station.getImageAlign()) {

@@ -75,6 +75,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="cc.pogoda.mobile.meteosystem.activity.StationDetailsHistogramActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -109,7 +109,7 @@
                 <TextView
                     android:id="@+id/textViewMoreInfo"
                     android:layout_width="0dp"
-                    android:layout_height="202dp"
+                    android:layout_height="101dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:layout_marginEnd="16dp"
@@ -179,6 +179,21 @@
                     app:layout_constraintVertical_bias="0.007"
                     app:srcCompat="@drawable/ic_baseline_timer_24" />
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/buttonHistogram"
+                    android:layout_width="0dp"
+                    android:layout_height="91dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button_border"
+                    android:gravity="center"
+                    android:text="@string/histogram"
+                    android:textAllCaps="true"
+                    android:textColor="@color/dark_blue"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="@+id/imageButtonWindRose"
+                    app:layout_constraintStart_toStartOf="@+id/imageButtonFavourites"
+                    app:layout_constraintTop_toBottomOf="@+id/imageButtonFavourites" />
+
                 <TextView
                     android:id="@+id/textViewCurrent"
                     android:layout_width="wrap_content"
@@ -214,7 +229,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/imageButtonPlotsTemperature"
                     app:layout_constraintHorizontal_bias="0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageButtonFavourites"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonHistogram"
                     app:layout_constraintVertical_bias="0.003"
                     app:srcCompat="@drawable/ic_baseline_trending_up_24" />
 
@@ -253,7 +268,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.931"
                     app:layout_constraintStart_toEndOf="@+id/imageButtonTrend"
-                    app:layout_constraintTop_toBottomOf="@+id/imageButtonWindRose"
+                    app:layout_constraintTop_toBottomOf="@+id/buttonHistogram"
                     app:layout_constraintVertical_bias="0.004"
                     app:srcCompat="@drawable/ic_baseline_equalizer_24" />
 
@@ -319,9 +334,7 @@
                     android:id="@+id/imageButtonPlotsWindSpeed"
                     android:layout_width="0dp"
                     android:layout_height="180dp"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
-                    android:layout_marginEnd="16dp"
                     android:background="@drawable/button_border"
                     android:paddingLeft="100px"
                     android:paddingTop="100px"
@@ -330,9 +343,9 @@
                     android:scaleType="fitCenter"
                     android:tint="@color/dark_blue"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/imageButtonPlotsHumidity"
                     app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/imageButtonPlotsWindDirection"
                     app:layout_constraintTop_toBottomOf="@+id/imageButtonPlotsWindDirection"
                     app:layout_constraintVertical_bias="0.003"
                     app:srcCompat="@drawable/ic_baseline_equalizer_24" />

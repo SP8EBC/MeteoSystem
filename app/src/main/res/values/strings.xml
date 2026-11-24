@@ -36,6 +36,7 @@
     <string name="apply">Apply</string>
     <string name="cancel">Cancel</string>
     <string name="wind_rose">Wind Rose</string>
+    <string name="histogram">Histogram</string>
     <string name="mean_value_short">Avg:</string>
     <string name="max_value_short">Max:</string>
     <string name="add_fav">Add to favourites</string>
