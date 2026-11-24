@@ -1,9 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/summary_screen_background"
+    android:fillViewport="true"
     tools:context=".activity.StationDetailsHistogramActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- station name -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/summary_box"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewStationHistogramSummaryTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alegreya_sans_sc_medium"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="@color/summary_text"
+                android:textSize="36sp" />
+
+        </LinearLayout>
+
+        <!-- wind direction -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/summary_box"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewWinddirHistogramCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alegreya_sans_sc_medium"
+                android:text="@string/wind_direction"
+                android:textColor="@color/summary_text"
+                android:textSize="18sp" />
+
+            <cc.pogoda.mobile.meteosystem.activity.plot.DirectionHistogramView
+                android:id="@+id/directionHistogramView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+
+        <!-- wind speed -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/summary_box"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewWindspeedHistogramCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alegreya_sans_sc_medium"
+                android:text="@string/wind_speed"
+                android:textColor="@color/summary_text"
+                android:textSize="18sp" />
+
+            <cc.pogoda.mobile.meteosystem.activity.plot.SpeedHistogramView
+                android:id="@+id/speedHistogramView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+
+        <!-- wind gusts -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/summary_box"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewWindgustsHistogramCaption"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/alegreya_sans_sc_medium"
+                android:text="@string/wind_gusts"
+                android:textColor="@color/summary_text"
+                android:textSize="18sp" />
+
+            <cc.pogoda.mobile.meteosystem.activity.plot.SpeedHistogramView
+                android:id="@+id/gustsHistogramView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
